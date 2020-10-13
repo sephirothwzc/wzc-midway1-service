@@ -130,7 +130,7 @@ module.exports = {
         },
         app_user_type: {
           type: ENUM,
-          defaultValue: '',
+          defaultValue: 'ordinary',
           values: ['ordinary', 'recovery', 'lawEnforcement'],
           allowNull: false,
           comment:
