@@ -1,0 +1,6 @@
+input QueryListParam {
+  where: JSONObject
+  order: [[String]]
+  limit: Int
+  offset: Int
+}

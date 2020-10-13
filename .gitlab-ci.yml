@@ -1,0 +1,39 @@
+stages:
+  - git_clone_di
+  - ansible_deploy
+
+# 克隆后端代码(这一块涉及内部链接, 用xxxxxxxxxxxxxxxxxxx代替)
+git_clone_di:
+  only:
+    - develop
+  tags:
+    - node-tag
+  stage: git_clone_di
+  script:
+    - echo "git_clone_di"
+    - cd /workspace/project/midway-integral-recycling/dixDi
+    - echo "rm -rf *"
+    - rm -rf *
+    - echo "git clone -b develop"
+    - git clone -b develop 'http://zhanchao.wu:12345678@192.168.1.68:9091/node/midway-integral-recycling.git'
+
+# ansible自动部署(触发ansible的自动部署模块, 这一块后续会详细阐述)
+ansible_deploy:
+  only:
+    - develop
+  tags:
+    - node-tag
+  stage: ansible_deploy
+  script:
+    - echo "cd /workspace/project/midway-integral-recycling/dixDi/midway-integral-recycling"
+    - cd /workspace/project/midway-integral-recycling/dixDi/midway-integral-recycling
+    - echo "yarn install"
+    - yarn install
+    - echo "yarn ci"
+    - yarn ci
+    - echo "yarn build"
+    - yarn build
+    - echo "yarn stop"
+    - yarn stop
+    - echo "yarn develop"
+    - yarn develop
