@@ -121,21 +121,6 @@ module.exports = {
             'wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid',
           defaultValue: '',
         },
-        user_type: {
-          type: ENUM,
-          defaultValue: 'appUser',
-          values: ['appUser', 'system'],
-          allowNull: false,
-          comment: '用户类型appUser普通用户system管理人员',
-        },
-        app_user_type: {
-          type: ENUM,
-          defaultValue: 'ordinary',
-          values: ['ordinary', 'recovery', 'lawEnforcement'],
-          allowNull: false,
-          comment:
-            'app用户类型ordinary普通用户recovery回收人员lawEnforcement执法者',
-        },
       },
       {
         comment: '用户表',

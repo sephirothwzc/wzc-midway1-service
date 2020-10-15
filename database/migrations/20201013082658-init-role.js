@@ -24,6 +24,17 @@ module.exports = {
       'role',
       {
         ...parentColumn,
+        role_name: {
+          type: STRING(50),
+          allowNull: false,
+          comment: '角色名称',
+        },
+        role_code: {
+          type: STRING(50),
+          allowNull: false,
+          defaultValue: '',
+          comment: '角色编码',
+        },
       },
       {
         comment: '角色',
