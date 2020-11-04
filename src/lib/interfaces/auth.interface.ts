@@ -1,11 +1,11 @@
-import { EOptionsType } from '../models/order-log.model';
+import { EAppUserAppUserType } from '../models/app-user.model';
 
 /**
  * 登陆用户
  */
 export interface IAuth {
   id: string;
-  type: EOptionsType;
+  type: EAppUserAppUserType;
   /**
    * 用户名
    */

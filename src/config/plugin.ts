@@ -22,4 +22,8 @@ export default {
     enable: true,
     package: 'egg-redis',
   },
+  cache9: {
+    enable: true,
+    package: 'egg-cache-9',
+  },
 } as EggPlugin;

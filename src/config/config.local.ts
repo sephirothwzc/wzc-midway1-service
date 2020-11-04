@@ -1,8 +1,7 @@
 import { Context } from 'midway';
 import { IAuth } from '../lib/interfaces/auth.interface';
-import { EOptionsType } from '../lib/models/order-log.model';
-import { UserModel } from '../lib/models/user.model';
-import { IUserService } from '../service/user.service';
+import { AppUserModel } from '../lib/models/app-user.model';
+import { IAppUserService } from '../service/app-user.service';
 
 export const development = {
   watchDirs: [
@@ -50,13 +49,13 @@ export const graphql = {
       auth.exp = ctx.query.exp;
       auth.type = ctx.query.type;
     }
-    const userService: IUserService = await ctx.requestContext.getAsync(
-      'userService'
+    const appUserService: IAppUserService = await ctx.requestContext.getAsync(
+      'appUserService'
     );
-    const user = (await userService.findAll({ limit: 1 })) as [UserModel];
+    const user = (await appUserService.findAll({ limit: 1 })) as [AppUserModel];
     auth.id = user[0].id;
     auth.userName = user[0].userName;
-    auth.type = EOptionsType.user;
+    auth.type = user[0].appUserType;
     auth.exp = -1;
   },
   // // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)
@@ -74,21 +73,21 @@ export const graphql = {
 export const sequelize = {
   host: 'rm-8vbmop542231l4wx7co.mysql.zhangbei.rds.aliyuncs.com',
   port: 43306,
-  database: 'integral_recycling_dev',
+  database: 'auth_center',
   username: 'root_wzc',
   password: 'Admin@123',
   timezone: '+08:00',
   modelFile: 'ts',
-  dialectOptions: {
-    dateStrings: true,
-    typeCast: (field: any, next: () => void) => {
-      // for reading from database
-      if (field.type === 'DATETIME') {
-        return field.string();
-      }
-      return next();
-    },
-  },
+  // dialectOptions: {
+  //   dateStrings: true,
+  //   typeCast: (field: any, next: () => void) => {
+  //     // for reading from database
+  //     if (field.type === 'DATETIME') {
+  //       return field.string();
+  //     }
+  //     return next();
+  //   },
+  // },
 };
 
 export const alioss = {

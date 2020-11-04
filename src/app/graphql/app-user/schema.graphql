@@ -1,0 +1,145 @@
+# 终端用户
+type AppUser {
+  id: ID
+  # 凭证
+  accessToken: String
+  # 用户状态N停用Y启用
+  appUserStatus: String
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
+  appUserType: EAppUserAppUserType
+  # wx头像
+  avatarUrl: String
+  # 业务编码权限用
+  businessCode: String
+  # wxmini-用户所属企业的corpid
+  corpid: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 系统默认头像
+  defaultAvatar: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 身份证头像
+  idHead: String
+  # 身份证国徽
+  idNational: String
+  # 登陆code（最后一次）
+  jsCode: String
+  # 用户最后心跳时间
+  lastHeartbeatTime: DateTime
+  # 最后登陆时间
+  lastLoginTime: DateTime
+  # 用户昵称
+  nickName: String
+  # wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
+  openid: String
+  # 密码（小程序不需要）
+  password: String
+  # 注册手机号
+  phone: String
+  # 注册时间
+  registerTime: DateTime
+  # 备注
+  remark: String
+  # 用户最后颁发token
+  token: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 用户性别[男 m 男，女 w 女]
+  userGender: EAppUserUserGender
+  # 用户真实姓名
+  userName: String
+}
+
+enum EAppUserAppUserType{ordinary,recovery,system}
+enum EAppUserUserGender{m,w}
+
+# 终端用户 分页查询返回
+type AppUserList {
+  count: Int!
+  list: [AppUser]
+}
+
+extend type Query {
+  # 终端用户 总行数
+  appUserCount(param: QueryListParam): Int
+  # 终端用户 分页查询
+  appUserList(param: QueryListParam): AppUserList
+  # 终端用户  id 获取
+  appUser(id: ID!): AppUser
+  # 终端用户 有条件返回
+  appUserAll(param: QueryListParam): [AppUser]
+}
+
+extend type Mutation {
+  # 终端用户 新增 or 修改
+  appUser(param: AppUserSaveIn!, must: Boolean = false): String
+  # 终端用户 批量 新增 or 修改
+  appUserBulk(param: [AppUserSaveIn]!): [JSONObject]
+  # 终端用户 删除
+  appUserDestroy(where: JSONObject!, limit: Int): String
+}
+
+input AppUserSaveIn {
+  id: ID
+  # 凭证
+  accessToken: String
+  # 用户状态N停用Y启用
+  appUserStatus: String
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
+  appUserType: EAppUserAppUserType
+  # wx头像
+  avatarUrl: String
+  # 业务编码权限用
+  businessCode: String
+  # wxmini-用户所属企业的corpid
+  corpid: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 系统默认头像
+  defaultAvatar: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 身份证头像
+  idHead: String
+  # 身份证国徽
+  idNational: String
+  # 登陆code（最后一次）
+  jsCode: String
+  # 用户最后心跳时间
+  lastHeartbeatTime: DateTime
+  # 最后登陆时间
+  lastLoginTime: DateTime
+  # 用户昵称
+  nickName: String
+  # wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
+  openid: String
+  # 密码（小程序不需要）
+  password: String
+  # 注册手机号
+  phone: String
+  # 注册时间
+  registerTime: DateTime
+  # 备注
+  remark: String
+  # 用户最后颁发token
+  token: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 用户性别[男 m 男，女 w 女]
+  userGender: EAppUserUserGender
+  # 用户真实姓名
+  userName: String
+}

@@ -6,6 +6,6 @@ module.exports = (tableName, keyName = 'id') => {
     model: {
       tableName,
     },
-    key,
+    keyName,
   };
 };

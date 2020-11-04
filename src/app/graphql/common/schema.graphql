@@ -1,6 +1,118 @@
+# 查询参数
 input QueryListParam {
   where: JSONObject
   order: [[String]]
   limit: Int
   offset: Int
+}
+
+# type AggregateInt {
+#   value: Int
+# }
+
+# type AggregateString {
+#   value: String
+# }
+
+# type AggregateDateTime {
+#   value: DateTime
+# }
+
+# type AggregateFloat {
+#   value: Float
+# }
+
+# type AggregateJson {
+#   value: JSONObject
+# }
+
+# type AggregateJsonArray {
+#   value: [JSONObject]
+# }
+
+# union AggregateOut =
+#     AggregateJsonArray
+#   | AggregateJson
+#   | AggregateFloat
+#   | AggregateDateTime
+#   | AggregateString
+#   | AggregateInt
+
+# 聚合函数列表
+enum aggregateFunctionEnum {
+  # sum(col_name)
+  SUM
+  # max(col_name)
+  MAX
+  # min(col_name)
+  MIN
+  # count(col_name)
+  COUNT
+  # croup_concat([DISTINCT] expr [,expr ...][ORDER BY {unsigned_integer | col_name | formula} [ASC | DESC] [,col ...]][SEPARATOR str_val])
+  GROUP_CONCAT
+  # concat(col_name,col_name,...)
+  CONCAT
+  # concat_ws(separator,col_name,col_name,…)
+  CONCAT_WS
+  # avg(col_name)
+  AVG
+  # JSON_ARRAYAGG(col or expr)
+  JSON_ARRAYAGG
+  # JSON_OBJECTAGG(key,value)
+  JSON_OBJECTAGG
+}
+
+# 查询选项
+input AggregateOptions {
+  # 查询属性
+  where: JSONObject
+  # 结果类型。如field是模型中的字段，默认为字段的类型，其它情况为默认为 float
+  dataType: String
+  # 为字段使用DISTINCT聚合查询
+  distinct: Boolean
+  # 当为true时，第一个aggregateFunction的返回值为dataType指定和返回，如果添加了额外的属性，则由group分句决定。设置plain 为 false 时会返回所有返回行中的所有值 。默认为 true
+  plain: Boolean
+}
+
+input Include {
+  model: String
+  as: String
+  where: JSONObject
+  attributes: [String]
+  required: Boolean
+  right: Boolean
+  limit: Int
+  include: Include
+}
+
+input FindAllOptions {
+  where: JSONObject
+  attributes: [String]
+  include: [Include]
+  order: [[String]]
+  limit: Int
+  offset: Int
+  raw: Boolean
+  having: JSONObject
+  group: [String]
+}
+
+extend type Query {
+  # 单表聚合查询
+  aggregate(
+    # model[appUser]
+    modelName: String!
+    # 要运行聚合的字段。可以是字段名或*
+    field: String!
+    # 聚合函数，如sum, maxetc.
+    aggregateFunction: aggregateFunctionEnum!
+    # 查询选项，可通过sequelize.query查看所有选项
+    options: AggregateOptions
+  ): JSONObject
+  # findAll聚合
+  findAll(
+    # model[appUser]
+    modelName: String!
+    options: FindAllOptions
+  ): [JSONObject]
 }
