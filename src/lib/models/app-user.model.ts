@@ -16,6 +16,7 @@ export enum EAppUserAppUserType {
    * 系统用户
    */
   system = 'system',
+
 }
 
 export enum EAppUserUserGender {
@@ -27,7 +28,9 @@ export enum EAppUserUserGender {
    * 女
    */
   女 = 'w',
+
 }
+
 
 // #endregion
 
@@ -58,10 +61,7 @@ export class AppUserModel extends BaseModel {
   /**
    * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
    */
-  @Column({
-    comment: '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]',
-    type: DataType.ENUM('ordinary', 'recovery', 'system'),
-  })
+  @Column({ comment: '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]', type: DataType.ENUM('ordinary','recovery','system') })
   appUserType: EAppUserAppUserType;
   /**
    * wx头像
@@ -76,10 +76,7 @@ export class AppUserModel extends BaseModel {
   /**
    * wxmini-用户所属企业的corpid
    */
-  @Column({
-    comment: 'wxmini-用户所属企业的corpid',
-    type: DataType.STRING(100),
-  })
+  @Column({ comment: 'wxmini-用户所属企业的corpid', type: DataType.STRING(100) })
   corpid?: string;
   /**
    * 系统默认头像
@@ -119,11 +116,7 @@ export class AppUserModel extends BaseModel {
   /**
    * wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
    */
-  @Column({
-    comment:
-      'wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid',
-    type: DataType.STRING(100),
-  })
+  @Column({ comment: 'wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid', type: DataType.STRING(100) })
   openid?: string;
   /**
    * 密码（小程序不需要）
@@ -135,6 +128,11 @@ export class AppUserModel extends BaseModel {
    */
   @Column({ comment: '注册手机号', type: DataType.STRING(15) })
   phone: string;
+  /**
+   * 用户真实姓名
+   */
+  @Column({ comment: '用户真实姓名', type: DataType.STRING(15) })
+  realName: string;
   /**
    * 注册时间
    */
@@ -153,20 +151,19 @@ export class AppUserModel extends BaseModel {
   /**
    * 用户性别[男 m 男，女 w 女]
    */
-  @Column({
-    comment: '用户性别[男 m 男，女 w 女]',
-    type: DataType.ENUM('m', 'w'),
-  })
+  @Column({ comment: '用户性别[男 m 男，女 w 女]', type: DataType.ENUM('m','w') })
   userGender: EAppUserUserGender;
   /**
-   * 用户真实姓名
+   * 用户名登陆用
    */
-  @Column({ comment: '用户真实姓名', type: DataType.STRING(15) })
+  @Column({ comment: '用户名登陆用', type: DataType.STRING(15) })
   userName: string;
+
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class APP_USER {
+
   /**
    * 凭证
    */
@@ -248,6 +245,11 @@ export class APP_USER {
   static readonly PHONE: string = 'phone';
 
   /**
+   * 用户真实姓名
+   */
+  static readonly REAL_NAME: string = 'realName';
+
+  /**
    * 注册时间
    */
   static readonly REGISTER_TIME: string = 'registerTime';
@@ -268,9 +270,10 @@ export class APP_USER {
   static readonly USER_GENDER: string = 'userGender';
 
   /**
-   * 用户真实姓名
+   * 用户名登陆用
    */
   static readonly USER_NAME: string = 'userName';
+
 }
 
 // @provide 用 工厂模式static model
@@ -281,3 +284,4 @@ providerWrapper([
     provider: factory,
   },
 ]);
+

@@ -71,9 +71,9 @@ export default (appInfo: EggAppInfo) => {
    */
   const authMatch = {
     // 完全匹配
-    matchAll: ['/graphql', '/api/hello'],
+    matchAll: [],
     // 开头匹配
-    matchStart: ['/api/user', '/api/app-user/'],
+    matchStart: ['/'],
     // matchAll、matchStart 是否反向匹配
     reverseMatch: false,
   };
@@ -105,7 +105,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.cluster = {
     listen: {
-      port: 8031,
+      port: 8025,
       hostname: '0.0.0.0',
     },
   };

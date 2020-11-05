@@ -1,12 +1,13 @@
 import { Application, Context } from 'midway';
 import { ROUTER_SCHEMA } from '../../lib/utils/const-string';
 import _ = require('lodash');
+import { AnySchema } from 'joi';
 
 /*
  * @Author: zhanchao.wu
  * @Date: 2020-09-08 13:43:57
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-09-23 16:07:00
+ * @Last Modified time: 2020-10-27 19:55:48
  */
 module.exports = (options: any, app: Application) => {
   return async function validator(ctx: Context, next: any) {
@@ -25,7 +26,7 @@ module.exports = (options: any, app: Application) => {
     routerName += _.capitalize(ctx.req.method);
     routerName += 'In';
     // #endregion
-    const schemaObj = _.get(rs, routerName);
+    const schemaObj: AnySchema = _.get(rs, routerName);
     const obj = _.assign(
       ctx.query,
       ctx.request.body,
@@ -36,7 +37,7 @@ module.exports = (options: any, app: Application) => {
       return await next();
     }
     try {
-      await schemaObj.validateAsync(obj);
+      await schemaObj.validateAsync(obj, { allowUnknown: true });
       return await next();
     } catch (error) {
       ctx.throw(400, error);

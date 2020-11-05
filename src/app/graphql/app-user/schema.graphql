@@ -41,6 +41,8 @@ type AppUser {
   password: String
   # 注册手机号
   phone: String
+  # 用户真实姓名
+  realName: String
   # 注册时间
   registerTime: DateTime
   # 备注
@@ -53,7 +55,7 @@ type AppUser {
   updatedId: String
   # 用户性别[男 m 男，女 w 女]
   userGender: EAppUserUserGender
-  # 用户真实姓名
+  # 用户名登陆用
   userName: String
 }
 
@@ -128,6 +130,8 @@ input AppUserSaveIn {
   password: String
   # 注册手机号
   phone: String
+  # 用户真实姓名
+  realName: String
   # 注册时间
   registerTime: DateTime
   # 备注
@@ -140,6 +144,6 @@ input AppUserSaveIn {
   updatedId: String
   # 用户性别[男 m 男，女 w 女]
   userGender: EAppUserUserGender
-  # 用户真实姓名
+  # 用户名登陆用
   userName: String
 }

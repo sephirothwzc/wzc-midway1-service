@@ -24,6 +24,11 @@ module.exports = {
         user_name: {
           type: STRING(15),
           allowNull: false,
+          comment: '用户名登陆用',
+        },
+        real_name: {
+          type: STRING(15),
+          allowNull: false,
           comment: '用户真实姓名',
         },
         nick_name: { type: STRING(15), allowNull: false, comment: '用户昵称' },
