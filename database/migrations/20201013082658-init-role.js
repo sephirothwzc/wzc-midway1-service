@@ -1,6 +1,6 @@
 'use strict';
 const parentColumn = require('../utils/parent-column');
-const references = require('../utils/references');
+const { references, allowNull } = require('../utils/references');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -26,12 +26,12 @@ module.exports = {
         ...parentColumn,
         role_name: {
           type: STRING(50),
-          allowNull: false,
+          allowNull,
           comment: '角色名称',
         },
         role_code: {
           type: STRING(50),
-          allowNull: false,
+          allowNull,
           defaultValue: '',
           comment: '角色编码',
         },

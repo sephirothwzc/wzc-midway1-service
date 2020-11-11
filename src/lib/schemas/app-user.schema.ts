@@ -2,7 +2,8 @@ import * as Joi from 'joi';
 
 // #region restful
 export const appUserLoginIn = Joi.object().keys({
-  userName: Joi.string().required().min(3).description('用户名'),
+  userName: Joi.string().required().min(3).max(50).description('用户名'),
+  password: Joi.string().required().min(5).max(50).description('密码'),
 });
 // #endregion
 // #region Graphql
