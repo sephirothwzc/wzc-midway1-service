@@ -27,23 +27,23 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: 'rm-8vb5a7c204kxc3g9343530.mysql.zhangbei.rds.aliyuncs.com',
+  host: 'rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com',
   port: 3306,
   database: 'integral_recycling_prd',
   username: 'root_prod',
   password: 'xegDed-govcu1-mitpun',
   timezone: '+08:00',
   modelFile: 'js',
-  dialectOptions: {
-    dateStrings: true,
-    typeCast: (field: any, next: () => void) => {
-      // for reading from database
-      if (field.type === 'DATETIME') {
-        return field.string();
-      }
-      return next();
-    },
-  },
+  // dialectOptions: {
+  //   dateStrings: true,
+  //   typeCast: (field: any, next: () => void) => {
+  //     // for reading from database
+  //     if (field.type === 'DATETIME') {
+  //       return field.string();
+  //     }
+  //     return next();
+  //   },
+  // },
 };
 
 export const alioss = {

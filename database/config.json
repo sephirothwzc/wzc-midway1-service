@@ -19,7 +19,7 @@
     "password": "Admin@123",
     "database": "auth_center_prd",
     "port": "3306",
-    "host": "rm-8vb5a7c204kxc3g9343530.mysql.zhangbei.rds.aliyuncs.com",
+    "host": "rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com",
     "dialect": "mysql"
   }
 }

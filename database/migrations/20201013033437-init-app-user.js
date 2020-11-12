@@ -1,6 +1,7 @@
 'use strict';
 
 const parentColumn = require('../utils/parent-column');
+const { references, allowNull } = require('../utils/references');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -117,15 +118,23 @@ module.exports = {
         },
         last_heartbeat_time: {
           type: DATE,
-          // defaultValue: undefined,
-          // allowNull,
           comment: '用户最后心跳时间',
         },
         last_login_time: {
           type: DATE,
-          // defaultValue: undefined,
-          // allowNull,
           comment: '最后登陆时间',
+        },
+        register_app: {
+          type: STRING(100),
+          comment: '注册app',
+        },
+        unionid: {
+          type: STRING(100),
+          allowNull,
+          comment:
+            'wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回',
+
+          defaultValue: '',
         },
       },
       {

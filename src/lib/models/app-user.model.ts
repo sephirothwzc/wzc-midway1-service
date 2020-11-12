@@ -134,6 +134,11 @@ export class AppUserModel extends BaseModel {
   @Column({ comment: '用户真实姓名', type: DataType.STRING(15) })
   realName: string;
   /**
+   * 注册app
+   */
+  @Column({ comment: '注册app', type: DataType.STRING(100) })
+  registerApp?: string;
+  /**
    * 注册时间
    */
   @Column({ comment: '注册时间', type: DataType.DATE })
@@ -148,6 +153,11 @@ export class AppUserModel extends BaseModel {
    */
   @Column({ comment: '用户最后颁发token', type: DataType.STRING(200) })
   token?: string;
+  /**
+   * wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
+   */
+  @Column({ comment: 'wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回', type: DataType.STRING(100) })
+  unionid: string;
   /**
    * 用户性别[男 m 男，女 w 女]
    */
@@ -250,6 +260,11 @@ export class APP_USER {
   static readonly REAL_NAME: string = 'realName';
 
   /**
+   * 注册app
+   */
+  static readonly REGISTER_APP: string = 'registerApp';
+
+  /**
    * 注册时间
    */
   static readonly REGISTER_TIME: string = 'registerTime';
@@ -263,6 +278,11 @@ export class APP_USER {
    * 用户最后颁发token
    */
   static readonly TOKEN: string = 'token';
+
+  /**
+   * wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
+   */
+  static readonly UNIONID: string = 'unionid';
 
   /**
    * 用户性别[男 m 男，女 w 女]

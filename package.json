@@ -36,7 +36,7 @@
     "@types/node": "^10.5.5",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "code-generator-wzc": "^1.0.50",
+    "code-generator-wzc": "^1.0.51",
     "commitizen": "^4.1.2",
     "conventional-changelog-cli": "^2.1.0",
     "cross-env": "^6.0.0",
@@ -70,7 +70,13 @@
     "ci": "EGG_SERVER_ENV=develop npm run cov",
     "build": "midway-bin build -c && cp -rv src/config/keys dist/config/ && cp -rv src/app/graphql dist/app/graphql/",
     "autod": "midway-bin autod",
-    "code": "node ./node_modules/code-generator-wzc/index.js"
+    "code": "node ./node_modules/code-generator-wzc/index.js",
+    "db-migrate": "npx sequelize db:migrate",
+    "db-migrate-undo": "npx sequelize db:migrate:undo",
+    "db-migrate-undo-all": "npx sequelize db:migrate:undo:all",
+    "db-seed": "npx sequelize db:seed:all",
+    "db-seed-undo": "npx sequelize db:seed:undo",
+    "db-seed-undo-all": "npx sequelize db:seed:undo:all"
   },
   "ci": {
     "version": "10"
