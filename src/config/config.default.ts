@@ -64,7 +64,12 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1597295642493_934';
 
   // add your config here
-  config.middleware = ['restfulAuth', 'graphql', 'validator'];
+  config.middleware = [
+    'gqlErrorHandler',
+    'restfulAuth',
+    'graphql',
+    'validator',
+  ];
 
   /**
    * 不走权限验证
