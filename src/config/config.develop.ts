@@ -49,23 +49,23 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: '121.89.227.125',
+  host: 'rm-8vbmop542231l4wx7co.mysql.zhangbei.rds.aliyuncs.com',
   port: 43306,
-  database: 'integral_recycling_dev',
+  database: 'auth_center',
   username: 'root_wzc',
   password: 'Admin@123',
   timezone: '+08:00',
   modelFile: 'js',
-  dialectOptions: {
-    dateStrings: true,
-    typeCast: (field: any, next: () => void) => {
-      // for reading from database
-      if (field.type === 'DATETIME') {
-        return field.string();
-      }
-      return next();
-    },
-  },
+  // dialectOptions: {
+  //   dateStrings: true,
+  //   typeCast: (field: any, next: () => void) => {
+  //     // for reading from database
+  //     if (field.type === 'DATETIME') {
+  //       return field.string();
+  //     }
+  //     return next();
+  //   },
+  // },
 };
 
 export const alioss = {
