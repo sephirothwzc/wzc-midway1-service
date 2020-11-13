@@ -52,19 +52,19 @@ export class AppUserController {
     );
   }
 
-  @get('/find-one')
+  @post('/find-one')
   async findOne() {
-    this.ctx.body = await this.appUserService.findOne(this.ctx.query);
+    this.ctx.body = await this.appUserService.findOne(this.ctx.request.body);
   }
 
-  @get('/find-all')
+  @post('/find-all')
   async findAll() {
-    this.ctx.body = await this.appUserService.findAll(this.ctx.query);
+    this.ctx.body = await this.appUserService.findAll(this.ctx.request.body);
   }
 
-  @get('/find-count')
+  @post('/find-count')
   async findCount() {
-    this.ctx.body = await this.appUserService.findCount(this.ctx.query);
+    this.ctx.body = await this.appUserService.findCount(this.ctx.request.body);
   }
 
   @post('/save')

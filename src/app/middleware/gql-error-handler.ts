@@ -8,7 +8,7 @@ module.exports = (options: any, app: Application) => {
     // console.log('中间件经过');
     await next();
     // console.log('中间件notFoundHandler错误拦截', ctx.status, ctx.request.url);
-    if (ctx.url !== '/graphql?' || !ctx.body) {
+    if (ctx.method !== 'POST' || !ctx.url.includes('/graphql') || !ctx.body) {
       return;
     }
     const data = JSON.parse(ctx.body);
@@ -16,8 +16,8 @@ module.exports = (options: any, app: Application) => {
     if (!errors) {
       return;
     }
-    ctx.logger.info(ctx.body);
-    // 输出日志
+    ctx.logger.error(ctx.request.body);
+    // 返回结果数据
     ctx.logger.error(ctx.body);
   };
 };

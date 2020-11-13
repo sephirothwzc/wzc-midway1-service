@@ -31,6 +31,7 @@ export default (appInfo: EggAppInfo) => {
         // 区分不通业务端搭配 server端 appName 使用
         appName: appInfo.name,
       },
+      contentType: 'json',
     },
 
     httpAgent: {

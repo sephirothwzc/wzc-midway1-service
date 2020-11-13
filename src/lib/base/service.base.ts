@@ -2,7 +2,7 @@
  * @Author: zhanchao.wu
  * @Date: 2020-08-15 21:16:00
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-11-04 19:25:42
+ * @Last Modified time: 2020-11-13 15:42:11
  */
 import { provide, inject, init, Context, IApplicationContext } from 'midway';
 import { BASEMODEL, BaseModel, IBaseModel } from './model.base';
