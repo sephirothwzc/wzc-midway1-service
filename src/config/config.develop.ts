@@ -49,11 +49,11 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: 'rm-8vbmop542231l4wx7co.mysql.zhangbei.rds.aliyuncs.com',
-  port: 43306,
-  database: 'auth_center',
-  username: 'root_wzc',
-  password: 'Admin@123',
+  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
+  port: 53306,
+  database: 'auth_center_stage',
+  username: 'root_stage',
+  password: 'jidcab-narfuj-9Xossy',
   timezone: '+08:00',
   modelFile: 'js',
   // dialectOptions: {
