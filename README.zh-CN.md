@@ -13,6 +13,10 @@ $ npx sequelize db:migrate
 $ npx sequelize db:migrate:undo
 # 可以通过 `db:migrate:undo:all` 回退到初始状态
 $ npx sequelize db:migrate:undo:all
+$ export NODE_ENV='production' && npx sequelize db:migrate
+# 撤销某一个
+$ npx sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+# cli 设置 echo production 之后 一定要改回 local
 
 # 种子
 $ npx sequelize db:seed:all
