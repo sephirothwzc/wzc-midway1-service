@@ -32,13 +32,6 @@ export class AppUserController {
     );
   }
 
-  @get('/token')
-  async token() {
-    this.ctx.body = await this.appUserService.tokenDevelop(
-      this.ctx.query.phone
-    );
-  }
-
   /**
    * 根据手机号返回token
    */
