@@ -64,6 +64,7 @@
     "clean": "midway-bin clean",
     "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
     "develop": "EGG_SERVER_ENV=develop yarn start",
+    "stage": "EGG_SERVER_ENV=stage yarn start",
     "debug": "cross-env NODE_ENV=local midway-bin debug --ts",
     "test": "npm run lint && midway-bin test --ts",
     "cov": "midway-bin cov --ts",
