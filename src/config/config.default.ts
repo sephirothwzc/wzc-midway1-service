@@ -140,5 +140,13 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  config.logger = {
+    // dir: '/path/to/your/custom/log/dir',
+    appLogName: `${appInfo.name}-web.log`,
+    coreLogName: `${appInfo.name}-core.log`,
+    agentLogName: `${appInfo.name}-agent.log`,
+    errorLogName: `${appInfo.name}-error.log`,
+  };
+
   return config;
 };
