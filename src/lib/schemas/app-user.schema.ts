@@ -1,7 +1,8 @@
 import * as Joi from 'joi';
 // #region restful
 export const code2sessionGetIn = Joi.object().keys({
-  jsCode: Joi.string().allow('').required().description('登录时获取的 code'),
+  openid: Joi.string().allow('').description('登录时获取的 openid'),
+  unionid: Joi.string().allow('').description('登录时获取的 unionid'),
 });
 
 export const code2sessionGetOut = Joi.object().keys({

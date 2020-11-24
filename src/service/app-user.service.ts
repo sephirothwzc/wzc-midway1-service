@@ -110,21 +110,16 @@ export class AppUserService extends ServiceBase {
    * 登录凭证校验。通过 wx.login 接口获得临时登录凭证 code 后传到开发者服务器调用此接口完成登录流程
    * @param param
    */
-  async code2session(param: { jsCode: string }) {
-    const url = `${this.wxapi.url}/api/mini/code2session?jsCode=${param.jsCode}`;
-    const result: { data: ICode2sessionOut } = await this.httpClient.curl(url, {
-      method: 'GET',
-      dataType: 'json',
-    });
+  async code2session(param: ICode2sessionOut) {
     // 处理用户绑定以及用户登陆
     const where = {};
-    this._.get(result.data, 'unionid') &&
-      this._.set(where, 'unionid', this._.get(result.data, 'unionid'));
-    this._.get(result.data, 'openid') &&
-      this._.set(where, 'openid', this._.get(result.data, 'openid'));
+    this._.get(param, 'unionid') &&
+      this._.set(where, 'unionid', this._.get(param, 'unionid'));
+    this._.get(param, 'openid') &&
+      this._.set(where, 'openid', this._.get(param, 'openid'));
     const appUser: AppUserModel = await this.appUserModel.findOne({ where });
     if (!appUser) {
-      return result.data;
+      return param;
     }
     if (appUser.get('appUserStatus') !== 'Y') {
       return this.throw('用户已经停用', 400);
@@ -135,11 +130,11 @@ export class AppUserService extends ServiceBase {
         id: appUser.get(`id`),
         phone: appUser.get(`phone`),
         appUserType: appUser.get('appUserType'),
-        ...result.data,
+        ...param,
       };
     }
     // 用户存在返回token
-    return await this.token(appUser, result.data);
+    return await this.token(appUser, param);
   }
 
   /**
