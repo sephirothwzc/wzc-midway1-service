@@ -127,7 +127,7 @@ export class AppUserService extends ServiceBase {
       return result.data;
     }
     if (appUser.get('appUserStatus') !== 'Y') {
-      return this.throw('用户已经停用', 512);
+      return this.throw('用户已经停用', 400);
     }
     if (!appUser.get('openid') || !appUser.get('phone')) {
       // 导入用户 openid 不存在
