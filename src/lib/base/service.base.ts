@@ -2,7 +2,7 @@
  * @Author: zhanchao.wu
  * @Date: 2020-08-15 21:16:00
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-11-13 15:42:11
+ * @Last Modified time: 2020-11-25 10:21:26
  */
 import { provide, inject, init, Context, IApplicationContext } from 'midway';
 import { BASEMODEL, BaseModel, IBaseModel } from './model.base';
@@ -224,7 +224,7 @@ export abstract class ServiceBase {
     } else {
       result = await this.ormUpdate(param);
     }
-    return result.id;
+    return { id: result.id };
   }
 
   async findCreateOptions(
@@ -258,7 +258,7 @@ export abstract class ServiceBase {
    * 保存
    * @param param model
    */
-  async save(param: BaseModel): Promise<string> {
+  async save(param: BaseModel): Promise<any> {
     this.hookSave(param);
     // 修改
     if (param.id) {
@@ -277,10 +277,10 @@ export abstract class ServiceBase {
           transaction: t,
         });
       });
-      return result.id;
+      return { id: result.id };
     }
     const result = await this.Model.create(param, options);
-    return result.id;
+    return { id: result.id };
   }
 
   async bulkCreate(param: any[]): Promise<any> {
