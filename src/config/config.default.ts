@@ -31,6 +31,7 @@ export default (appInfo: EggAppInfo) => {
         // 区分不通业务端搭配 server端 appName 使用
         appName: appInfo.name,
       },
+      contentType: 'json',
     },
 
     httpAgent: {
@@ -64,16 +65,21 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1597295642493_934';
 
   // add your config here
-  config.middleware = ['restfulAuth', 'graphql', 'validator'];
+  config.middleware = [
+    'gqlErrorHandler',
+    'restfulAuth',
+    'graphql',
+    'validator',
+  ];
 
   /**
    * 不走权限验证
    */
   const authMatch = {
     // 完全匹配
-    matchAll: ['/graphql', '/api/hello'],
+    matchAll: [],
     // 开头匹配
-    matchStart: ['/api/user', '/api/app-user/'],
+    matchStart: ['/'],
     // matchAll、matchStart 是否反向匹配
     reverseMatch: false,
   };
@@ -105,7 +111,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.cluster = {
     listen: {
-      port: 8011,
+      port: 8025,
       hostname: '0.0.0.0',
     },
   };
@@ -131,6 +137,32 @@ export default (appInfo: EggAppInfo) => {
       // run tmpdir clean job on every day 04:30 am
       // cron style see https://github.com/eggjs/egg-schedule#cron-style-scheduling
       cron: '0 30 4 * * *',
+    },
+  };
+
+  config.logger = {
+    // dir: '/path/to/your/custom/log/dir',
+    appLogName: `${appInfo.name}-web.log`,
+    coreLogName: `${appInfo.name}-core.log`,
+    agentLogName: `${appInfo.name}-agent.log`,
+    errorLogName: `${appInfo.name}-error.log`,
+  };
+
+  config.exports = {
+    onerror: {
+      // all(err, ctx) {
+      //   // 在此处定义针对所有响应类型的错误处理方法
+      //   // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
+      //   ctx.body = { message: err };
+      // },
+      html(err, ctx) {
+        // html hander
+        ctx.body = { message: err };
+      },
+      json(err, ctx) {
+        // json hander
+        ctx.body = { message: err };
+      },
     },
   };
 

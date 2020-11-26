@@ -3103,10 +3103,10 @@ co@^4.0.0, co@^4.6.0:
   resolved "https://registry.npmjs.org/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
 
-code-generator-wzc@^1.0.25:
-  version "1.0.25"
-  resolved "https://registry.npmjs.org/code-generator-wzc/-/code-generator-wzc-1.0.25.tgz#bba4868c3e423879746618132fad69802547d740"
-  integrity sha512-NsBpIDJad92oMDHjFPzx6mSV7nis/DcMJJh6KFNZEuD9J6x17vogu75H94grtIw2BIzAQqutaUeF+S0+EaO04Q==
+code-generator-wzc@^1.0.51:
+  version "1.0.51"
+  resolved "https://registry.npmjs.org/code-generator-wzc/-/code-generator-wzc-1.0.51.tgz#07403f05d2fc5fe95e0c24cd4279e11770ab5dd7"
+  integrity sha512-biXercW3BXTkRdNLRPnEbAEEkl/voT0pcsbAAh2trxybt77glBldNP+id1XlLZUYfUv9g8LdQnehHmVFQfWjFA==
   dependencies:
     chalk "^4.0.0"
     figlet "^1.3.0"
@@ -4057,6 +4057,15 @@ egg-bin@^4.11.1:
     test-exclude "^5.1.0"
     ts-node "^7"
     ypkgfiles "^1.6.0"
+
+egg-cache-9@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/egg-cache-9/download/egg-cache-9-1.1.2.tgz#07b9917ff06e13a8bb07cb481d8fa51cd422abc5"
+  integrity sha1-B7mRf/BuE6i7B8tIHY+lHNQiq8U=
+  dependencies:
+    node-cache-9 "^1.1.7"
+  optionalDependencies:
+    redis "^3.0.2"
 
 egg-ci@^1.8.0:
   version "1.18.0"
@@ -8027,6 +8036,14 @@ no-case@^2.2.0, no-case@^2.3.2:
   dependencies:
     lower-case "^1.1.1"
 
+node-cache-9@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.npm.taobao.org/node-cache-9/download/node-cache-9-1.1.7.tgz#b86b5475a2127167a97fa2ca7ecf666fa704baa8"
+  integrity sha1-uGtUdaIScWepf6LKfs9mb6cEuqg=
+  dependencies:
+    lodash "^4.17.19"
+    redis "^3.0.2"
+
 node-environment-flags@1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/node-environment-flags/-/node-environment-flags-1.0.5.tgz#fa930275f5bf5dae188d6192b24b4c8bbac3d76a"
@@ -9113,6 +9130,11 @@ redis-commands@1.5.0:
   resolved "https://registry.npmjs.org/redis-commands/-/redis-commands-1.5.0.tgz#80d2e20698fe688f227127ff9e5164a7dd17e785"
   integrity sha512-6KxamqpZ468MeQC3bkWmCB1fp56XL64D4Kf0zJSwDZbVLLm7KFkoIcHrgRvQ+sk8dnhySs7+yBg94yIkAK7aJg==
 
+redis-commands@^1.5.0:
+  version "1.6.0"
+  resolved "https://registry.npm.taobao.org/redis-commands/download/redis-commands-1.6.0.tgz?cache=0&sync_timestamp=1595989902769&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fredis-commands%2Fdownload%2Fredis-commands-1.6.0.tgz#36d4ca42ae9ed29815cdb30ad9f97982eba1ce23"
+  integrity sha1-NtTKQq6e0pgVzbMK2fl5guuhziM=
+
 redis-errors@^1.0.0, redis-errors@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/redis-errors/-/redis-errors-1.2.0.tgz#eb62d2adb15e4eaf4610c04afe1529384250abad"
@@ -9124,6 +9146,16 @@ redis-parser@^3.0.0:
   integrity sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=
   dependencies:
     redis-errors "^1.0.0"
+
+redis@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/redis/download/redis-3.0.2.tgz#bd47067b8a4a3e6a2e556e57f71cc82c7360150a"
+  integrity sha1-vUcGe4pKPmouVW5X9xzILHNgFQo=
+  dependencies:
+    denque "^1.4.1"
+    redis-commands "^1.5.0"
+    redis-errors "^1.2.0"
+    redis-parser "^3.0.0"
 
 reflect-metadata@^0.1.13:
   version "0.1.13"

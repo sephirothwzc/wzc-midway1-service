@@ -2,9 +2,10 @@
  * @Author: zhanchao.wu
  * @Date: 2020-08-15 21:38:25
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-09-28 14:08:54
+ * @Last Modified time: 2020-10-29 14:25:21
  */
 const { ROUTER_SCHEMA } = require('../../../lib/utils/const-string');
+const Bb = require('bluebird');
 
 module.exports = (serviceName) => {
   const getService = async (ctx, otherName = serviceName) => {
@@ -21,7 +22,9 @@ module.exports = (serviceName) => {
       if (!schemaItem) {
         return;
       }
-      const { error, value } = schemaItem.validate(param);
+      const { error, value } = schemaItem.validate(param, {
+        allowUnknown: true,
+      });
       if (error) {
         throw new Error(error.message);
       }
@@ -39,12 +42,20 @@ module.exports = (serviceName) => {
       // userList
       [`${serviceName}List`]: async (_root, _args, ctx, _info) => {
         const service = await getService(ctx);
-        return service.findList(_args.param);
+        return await Bb.props({
+          count: service.findCount(_args.param),
+          list: service.findList(_args.param),
+        });
+      },
+      // xxxCount
+      [`${serviceName}Count`]: async (_root, _args, ctx, _info) => {
+        const service = await getService(ctx);
+        return service.findCount(_args.param);
       },
       // userAll
       [`${serviceName}All`]: async (_root, _args, ctx, _info) => {
         const service = await getService(ctx);
-        return service.findAll(_args.param);
+        return service.findList(_args.param);
       },
     },
     Mutation: {
@@ -55,7 +66,7 @@ module.exports = (serviceName) => {
           _args.param
         );
         const service = await getService(ctx);
-        return service.save(_args.param, _args.must);
+        return service.save(_args.param);
       },
       // userBulk
       [`${serviceName}Bulk`]: async (_root, _args, ctx, _info) => {

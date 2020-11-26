@@ -2,12 +2,11 @@
  * @Author: zhanchao.wu
  * @Date: 2020-09-01 15:31:00
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-10-10 15:02:18
+ * @Last Modified time: 2020-11-04 19:10:45
  */
 import { Model, Sequelize } from 'sequelize-typescript';
 import { provide, scope, ScopeEnum, config, Application } from 'midway';
 import * as _ from 'lodash';
-import { BaseModel } from '../base/model.base';
 
 interface ISequelizeConfig {
   host: string;
@@ -62,16 +61,17 @@ export class DB {
           charset: 'utf8',
           underscored: true,
           hooks: {
-            beforeCreate: (instance: BaseModel) => {
-              // Do other stuff
-            },
-            beforeUpdate: (instance: BaseModel) => {
-              // Do other stuff
-            },
+            // beforeCreate: (instance: BaseModel) => {
+            //   // Do other stuff
+            // },
+            // beforeUpdate: (instance: BaseModel) => {
+            //   // Do other stuff
+            // },
           },
         },
         dialectOptions: this.config.dialectOptions,
       });
+      _.set(this.sequelize, 'app', app);
       await this.hooks(app);
       // load hooks
       return this.sequelize
