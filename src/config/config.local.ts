@@ -1,6 +1,7 @@
 import { Context } from 'midway';
 import { IAuth } from '../lib/interfaces/auth.interface';
 import { AppUserModel } from '../lib/models/app-user.model';
+import { AuthToken } from '../lib/utils/auth-token';
 import { IAppUserService } from '../service/app-user.service';
 
 export const development = {
@@ -41,6 +42,7 @@ export const graphql = {
   defaultEmptySchema: true,
   // graphQL 路由前的拦截器
   async onPreGraphQL(ctx: Context) {
+    const authToken: AuthToken = await ctx.requestContext.getAsync(`authToken`);
     const auth: IAuth = await ctx.requestContext.getAsync('Auth');
 
     if (ctx.query.userId) {
@@ -48,6 +50,13 @@ export const graphql = {
       auth.userName = ctx.query.userName;
       auth.exp = ctx.query.exp;
       auth.type = ctx.query.type;
+    }
+
+    if (ctx?.request?.query?.token) {
+      return await authToken.signByToken(ctx?.request?.query?.token);
+    }
+    if (ctx?.header['token']) {
+      return await authToken.signByToken(ctx?.header['token']);
     }
     const appUserService: IAppUserService = await ctx.requestContext.getAsync(
       'appUserService'

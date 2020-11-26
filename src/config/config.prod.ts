@@ -17,7 +17,7 @@ export const graphql = {
   // graphQL 路由前的拦截器
   async onPreGraphQL(ctx: Context) {
     const authToken = await ctx.requestContext.getAsync(`authToken`);
-    await authToken.signToken(ctx);
+    await authToken.signToken();
   },
   // // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)
   async onPreGraphiQL(ctx: Context) {},

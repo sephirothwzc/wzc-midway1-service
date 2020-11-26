@@ -11,9 +11,17 @@ export interface IAuth {
    */
   userName: string;
   /**
+   * 用户昵称
+   */
+  nickName: string;
+  /**
    * 过期时间
    */
   exp: number; // 60 s
+  /**
+   * token
+   */
+  token?: string;
 }
 
 export interface ICode2sessionOut {

@@ -81,7 +81,7 @@ export class AppUserService extends ServiceBase {
    * 验证token
    */
   async signToken(ctx: Context): Promise<any> {
-    await this.authToken.signToken(ctx);
+    await this.authToken.signToken();
     return this.auth;
   }
 
