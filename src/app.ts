@@ -2,12 +2,12 @@
  * @Author: 吴占超
  * @Date: 2019-05-25 09:56:11
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-10-12 21:19:07
+ * @Last Modified time: 2020-11-04 19:26:15
  */
 import { Application } from 'midway-web';
 import * as _ from 'lodash';
 import { IDBContext } from './lib/models/db';
-import loadJoi from './lib/use-plugin/load-joi';
+import loadJoi from './lib/use-plugins/load-joi';
 // import { DB } from './lib/models/db';
 
 class AppBootHook {

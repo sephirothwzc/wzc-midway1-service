@@ -2,16 +2,27 @@
 
 ## db shell
 
-```node
+```shell
 #创建文件
 $ npx sequelize migration:generate --name=init-users
+$ npx sequelize seed:generate --name app-user
 
 # 升级数据库
-npx sequelize db:migrate
+$ npx sequelize db:migrate
 # 如果有问题需要回滚，可以通过 `db:migrate:undo` 回退一个变更
-# npx sequelize db:migrate:undo
+$ npx sequelize db:migrate:undo
 # 可以通过 `db:migrate:undo:all` 回退到初始状态
-# npx sequelize db:migrate:undo:all
+$ npx sequelize db:migrate:undo:all
+$ export NODE_ENV='production' && npx sequelize db:migrate
+# 撤销某一个
+$ npx sequelize db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+# cli 设置 echo production 之后 一定要改回 local
+
+# 种子
+$ npx sequelize db:seed:all
+$ npx sequelize-cli db:seed:undo
+$ npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+$ npx sequelize-cli db:seed:undo:all
 ```
 
 ## 编码规范
@@ -24,7 +35,7 @@ model
 
 - 单数命名不使用复数
 
-```node
+```shell
 # 正例
 user
 # 反例
@@ -85,7 +96,7 @@ export class AppUserHook {
 - 文件、文件夹 小写中横线分词
 - 文件后缀
 
-```node
+```typescript
 controller; // 无后缀
 mongoose doc I+帕斯卡 doc后缀 [IUserDoc] 文件名 user.doc.ts
 mongoose model // 无后缀
@@ -115,7 +126,7 @@ test // *.test.ts
 - 类作为名词存在，则 action 尽量采用动词，单一职责动词不需要追加名词。
 - 建议命名如下
 
-```node
+```typescript
 # router controller
 @get('/')
 async find(ctx:Context) {}
@@ -217,7 +228,7 @@ async create(param:ICreateIn):Promise<ICreateOut> {}
 
 ### openssl
 
-```node
+```shell
 # 生成RSA私钥(无加密)
 $ openssl genrsa -out ./src/config/keys/rsa_private.key 2048
 

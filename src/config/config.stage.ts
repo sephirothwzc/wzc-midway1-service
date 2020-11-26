@@ -1,7 +1,29 @@
 import { Context } from 'midway';
 
+export const development = {
+  watchDirs: [
+    'app',
+    'lib',
+    'service',
+    'config',
+    'app.ts',
+    'agent.ts',
+    'interface.ts',
+  ],
+  overrideDefault: true,
+};
+
 export const jwt = {
-  secret: 'lakifsihdfcpohii',
+  secret: '123456',
+};
+
+export const mongoose = {
+  client: {
+    url: 'mongodb://127.0.0.1:27017/midwaybase',
+    options: {},
+    // mongoose global plugins, expected a function or an array of function and options :createdPlugin, [updatedPlugin, pluginOptions]
+    plugins: [],
+  },
 };
 
 export const graphql = {
@@ -27,11 +49,11 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: 'rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com',
-  port: 3306,
-  database: 'auth_center_prd',
-  username: 'root_prod',
-  password: 'xegDed-govcu1-mitpun',
+  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
+  port: 53306,
+  database: 'auth_center_stage',
+  username: 'root_stage',
+  password: 'jidcab-narfuj-9Xossy',
   timezone: '+08:00',
   modelFile: 'js',
   // dialectOptions: {

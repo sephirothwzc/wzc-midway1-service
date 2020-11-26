@@ -1,25 +1,32 @@
 {
   "development": {
-    "username": "root_wzc",
-    "password": "Admin@123",
-    "database": "integral_recycling_dev",
-    "host": "rm-8vbmop542231l4wx7co.mysql.zhangbei.rds.aliyuncs.com",
-    "port": "43306",
-    "dialect": "mysql"
+    "username": "root_develop",
+    "password": "eegDed-gbdacu3-ntuplw",
+    "database": "auth_center_dev",
+    "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
+    "port": "53306",
+    "dialect": "mysql",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelizedata"
   },
-  "test": {
-    "username": "root_wzc",
-    "password": "Admin@123",
-    "database": "integral_recycling_test",
-    "host": "rm-8vbmop542231l4wx7co.mysql.zhangbei.rds.aliyuncs.com",
-    "dialect": "mysql"
+  "stage": {
+    "username": "root_develop",
+    "password": "eegDed-gbdacu3-ntuplw",
+    "database": "auth_center_stage",
+    "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
+    "port": "53306",
+    "dialect": "mysql",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelizedata"
   },
   "production": {
     "username": "root_develop",
-    "password": "Admin@123",
-    "database": "integral_recycling_pro",
+    "password": "eegDed-gbdacu3-ntuplw",
+    "database": "auth_center_prd",
     "port": "3306",
-    "host": "rm-8vb5a7c204kxc3g9343530.mysql.zhangbei.rds.aliyuncs.com",
-    "dialect": "mysql"
+    "host": "rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com",
+    "dialect": "mysql",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelizedata"
   }
 }

@@ -39,7 +39,7 @@ export const graphql = {
   // graphQL 路由前的拦截器
   async onPreGraphQL(ctx: Context) {
     const authToken = await ctx.requestContext.getAsync(`authToken`);
-    await authToken.signToken(ctx);
+    await authToken.signToken();
   },
   // // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)
   async onPreGraphiQL(ctx: Context) {},
@@ -49,23 +49,23 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: '121.89.227.125',
-  port: 43306,
-  database: 'integral_recycling_dev',
-  username: 'root_wzc',
-  password: 'Admin@123',
+  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
+  port: 53306,
+  database: 'auth_center_dev',
+  username: 'root_develop',
+  password: 'eegDed-gbdacu3-ntuplw',
   timezone: '+08:00',
   modelFile: 'js',
-  dialectOptions: {
-    dateStrings: true,
-    typeCast: (field: any, next: () => void) => {
-      // for reading from database
-      if (field.type === 'DATETIME') {
-        return field.string();
-      }
-      return next();
-    },
-  },
+  // dialectOptions: {
+  //   dateStrings: true,
+  //   typeCast: (field: any, next: () => void) => {
+  //     // for reading from database
+  //     if (field.type === 'DATETIME') {
+  //       return field.string();
+  //     }
+  //     return next();
+  //   },
+  // },
 };
 
 export const alioss = {

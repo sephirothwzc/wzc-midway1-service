@@ -1,4 +1,4 @@
-module.exports = (tableName, keyName = 'id') => {
+const references = (tableName, keyName = 'id') => {
   if (process.env.NODE_ENV === 'production') {
     return undefined;
   }
@@ -6,6 +6,9 @@ module.exports = (tableName, keyName = 'id') => {
     model: {
       tableName,
     },
-    key,
+    keyName,
   };
 };
+
+const allowNull = process.env.NODE_ENV === 'production';
+module.exports = { references, allowNull };
