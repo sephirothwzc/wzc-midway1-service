@@ -62,3 +62,19 @@ export const redis = {
     db: 0,
   },
 };
+
+export const onerror = {
+  // all(err, ctx) {
+  //   // 在此处定义针对所有响应类型的错误处理方法
+  //   // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
+  //   ctx.body = { message: err };
+  // },
+  html(err: Error, ctx: Context) {
+    // html hander
+    ctx.body = err.message;
+  },
+  json(err: Error, ctx: Context) {
+    // json hander
+    ctx.body = err.message;
+  },
+};
