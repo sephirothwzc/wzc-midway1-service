@@ -3,22 +3,6 @@ import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 
 // #region enum
-export enum EAppUserAppUserType {
-  /**
-   * 普通用户
-   */
-  ordinary = 'ordinary',
-  /**
-   * 回收人员
-   */
-  recovery = 'recovery',
-  /**
-   * 系统用户
-   */
-  system = 'system',
-
-}
-
 export enum EAppUserUserGender {
   /**
    * 男
@@ -28,9 +12,7 @@ export enum EAppUserUserGender {
    * 女
    */
   女 = 'w',
-
 }
-
 
 // #endregion
 
@@ -59,10 +41,14 @@ export class AppUserModel extends BaseModel {
   @Column({ comment: '用户状态N停用Y启用', type: DataType.STRING(255) })
   appUserStatus: string;
   /**
-   * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
+   * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
-  @Column({ comment: '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]', type: DataType.ENUM('ordinary','recovery','system') })
-  appUserType: EAppUserAppUserType;
+  @Column({
+    comment:
+      '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]',
+    type: DataType.STRING(50),
+  })
+  appUserType?: string;
   /**
    * wx头像
    */
@@ -76,7 +62,10 @@ export class AppUserModel extends BaseModel {
   /**
    * wxmini-用户所属企业的corpid
    */
-  @Column({ comment: 'wxmini-用户所属企业的corpid', type: DataType.STRING(100) })
+  @Column({
+    comment: 'wxmini-用户所属企业的corpid',
+    type: DataType.STRING(100),
+  })
   corpid?: string;
   /**
    * 系统默认头像
@@ -116,7 +105,11 @@ export class AppUserModel extends BaseModel {
   /**
    * wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
    */
-  @Column({ comment: 'wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid', type: DataType.STRING(100) })
+  @Column({
+    comment:
+      'wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid',
+    type: DataType.STRING(100),
+  })
   openid?: string;
   /**
    * 密码（小程序不需要）
@@ -156,24 +149,29 @@ export class AppUserModel extends BaseModel {
   /**
    * wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
    */
-  @Column({ comment: 'wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回', type: DataType.STRING(100) })
+  @Column({
+    comment:
+      'wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回',
+    type: DataType.STRING(100),
+  })
   unionid: string;
   /**
    * 用户性别[男 m 男，女 w 女]
    */
-  @Column({ comment: '用户性别[男 m 男，女 w 女]', type: DataType.ENUM('m','w') })
+  @Column({
+    comment: '用户性别[男 m 男，女 w 女]',
+    type: DataType.ENUM('m', 'w'),
+  })
   userGender: EAppUserUserGender;
   /**
    * 用户名登陆用
    */
   @Column({ comment: '用户名登陆用', type: DataType.STRING(15) })
   userName: string;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class APP_USER {
-
   /**
    * 凭证
    */
@@ -185,7 +183,7 @@ export class APP_USER {
   static readonly APP_USER_STATUS: string = 'appUserStatus';
 
   /**
-   * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
+   * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
   static readonly APP_USER_TYPE: string = 'appUserType';
 
@@ -293,7 +291,6 @@ export class APP_USER {
    * 用户名登陆用
    */
   static readonly USER_NAME: string = 'userName';
-
 }
 
 // @provide 用 工厂模式static model
@@ -304,4 +301,3 @@ providerWrapper([
     provider: factory,
   },
 ]);
-

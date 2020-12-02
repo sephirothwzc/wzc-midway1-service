@@ -1,10 +1,6 @@
 import { provide, inject, Context, config } from 'midway';
 import { ServiceBase } from '../lib/base/service.base';
-import {
-  AppUserModel,
-  EAppUserAppUserType,
-  IAppUserModel,
-} from '../lib/models/app-user.model';
+import { AppUserModel, IAppUserModel } from '../lib/models/app-user.model';
 import * as crypto from 'crypto';
 import { IAuthToken } from '../lib/utils/auth-token';
 import { ICode2sessionOut } from '../lib/interfaces/auth.interface';
@@ -173,18 +169,14 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: result.id,
       userName: param.nickName,
-      type: this._.get(param, 'appUserType', EAppUserAppUserType.ordinary),
+      type: this._.get(param, 'appUserType'),
     });
     return {
       id: result.id,
       phone: this._.get(param, 'phone'),
       unionid: this._.get(param, 'unionid'),
       openid: this._.get(param, 'openid'),
-      appUserType: this._.get(
-        param,
-        'appUserType',
-        EAppUserAppUserType.ordinary
-      ),
+      appUserType: this._.get(param, 'appUserType'),
       token,
       userName: param.nickName,
     };
