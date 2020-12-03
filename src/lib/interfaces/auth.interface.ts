@@ -1,11 +1,9 @@
-import { EAppUserAppUserType } from '../models/app-user.model';
-
 /**
  * 登陆用户
  */
 export interface IAuth {
   id: string;
-  type: EAppUserAppUserType;
+  type: string;
   /**
    * 用户名
    */
