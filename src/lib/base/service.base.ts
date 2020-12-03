@@ -2,7 +2,7 @@
  * @Author: zhanchao.wu
  * @Date: 2020-08-15 21:16:00
  * @Last Modified by: zhanchao.wu
- * @Last Modified time: 2020-11-25 10:21:26
+ * @Last Modified time: 2020-12-02 19:12:49
  */
 import { provide, inject, init, Context, IApplicationContext } from 'midway';
 import { BASEMODEL, BaseModel, IBaseModel } from './model.base';
@@ -171,10 +171,8 @@ export abstract class ServiceBase {
    */
   hookSave(param: BaseModel) {
     const id = this._.get(this.auth, 'id');
-    const type = this._.get(this.auth, 'type');
-    const userId = `${id}:${type}`;
-    param.id && this._.set(param, BASEMODEL.UPDATEDID, userId);
-    param.id || this._.set(param, BASEMODEL.CREATEDID, userId);
+    this._.set(param, BASEMODEL.UPDATEDID, id);
+    this._.set(param, BASEMODEL.CREATEDID, id);
   }
 
   /**

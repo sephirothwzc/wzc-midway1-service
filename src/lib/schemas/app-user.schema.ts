@@ -125,7 +125,6 @@ export const appUserMutationCreate = Joi.object().keys({
   appUserStatus: Joi.string().allow('').description('用户状态N停用Y启用'),
   appUserType: Joi.string()
     .allow('')
-    .valid('ordinary', 'recovery', 'system')
     .description(
       '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
     ),
@@ -175,7 +174,6 @@ export const appUserMutationUpdate = Joi.object().keys({
   appUserStatus: Joi.string().allow('').description('用户状态N停用Y启用'),
   appUserType: Joi.string()
     .allow('')
-    .valid('ordinary', 'recovery', 'system')
     .description(
       '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
     ),

@@ -5,8 +5,8 @@ type AppUser {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
-  appUserType: EAppUserAppUserType
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
+  appUserType: String
   # wx头像
   avatarUrl: String
   # 业务编码权限用
@@ -63,7 +63,6 @@ type AppUser {
   userName: String
 }
 
-enum EAppUserAppUserType{ordinary,recovery,system}
 enum EAppUserUserGender{m,w}
 
 # 终端用户 分页查询返回
@@ -98,8 +97,8 @@ input AppUserSaveIn {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]
-  appUserType: EAppUserAppUserType
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
+  appUserType: String
   # wx头像
   avatarUrl: String
   # 业务编码权限用
