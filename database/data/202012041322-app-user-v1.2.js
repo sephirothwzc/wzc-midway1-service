@@ -20,7 +20,7 @@ module.exports = [
     user_name: 'yangning',
     real_name: '杨宁',
     nick_name: '杨宁',
-    phone: '15063437789',
+    phone: '15110262037',
     app_user_type: 'system',
   },
   {
