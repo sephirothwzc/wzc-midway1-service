@@ -2,6 +2,7 @@
 const { query, nextId } = require('../utils/sql-helper');
 const dataJson = require('../data/202012041322-app-user-v1.2');
 const crypto = require('crypto');
+const Bb = require('bluebird');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -18,24 +19,40 @@ module.exports = {
       `select id,phone from app_user where phone in (${phoneList})`,
       queryInterface
     );
-    const insertData = dataJson
-      .filter((p) => !data.find((d) => d.phone === p.phone))
-      .map((p) => {
+    const insertData = [],
+      updateData = [];
+    dataJson.forEach((p) => {
+      // 密码
+      const hash = crypto.createHash('md5');
+      hash.update(p.user_name + '123456');
+      const newpwd = hash.digest('hex');
+      const user = data.find((d) => d.phone === p.phone);
+      if (user) {
+        user.user_name = p.user_name;
+        user.password = newpwd;
+        updateData.push(user);
+      } else {
         p.id = nextId();
-        // 密码
-        const hash = crypto.createHash('md5');
-        hash.update(p.user_name + '123456');
-        const newpwd = hash.digest('hex');
         p.password = newpwd;
-        return p;
-      });
-    if (!insertData || insertData.length <= 0) {
-      return;
-    }
+        insertData.push(p);
+      }
+    });
     return queryInterface.sequelize.transaction(async (t) => {
-      await queryInterface.bulkInsert('app_user', insertData, {
-        transaction: t,
+      await Bb.map(updateData, async (u) => {
+        return query(
+          `update app_user set user_name = '${u.user_name}',password='${u.password}' where id = '${u.id}'`,
+          queryInterface,
+          t,
+          'UPDATE'
+        );
       });
+
+      return (
+        insertData.length > 0 &&
+        (await queryInterface.bulkInsert('app_user', insertData, {
+          transaction: t,
+        }))
+      );
     });
   },
 
