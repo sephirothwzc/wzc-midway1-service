@@ -13,7 +13,7 @@ type registerOut = {
   phone: string;
   unionid: string;
   openid: string;
-  appUserType: string;
+  // appUserType: string;
   token: string;
   userName: string;
 };
@@ -40,7 +40,11 @@ export class AppUserService extends ServiceBase {
    * 用户名密码登陆
    * @param param
    */
-  async login(param: { userName: string; password: string }): Promise<any> {
+  async login(param: {
+    userName: string;
+    password: string;
+    expiresIn?: string;
+  }): Promise<any> {
     const user: AppUserModel = await this.appUserModel.findOne({
       where: { userName: param.userName },
     });
@@ -55,11 +59,15 @@ export class AppUserService extends ServiceBase {
     hash.update(param.password);
     const newpwd = hash.digest('hex');
     const pwdbool = newpwd === user.password;
-    const token = await this.authToken.sign({
-      id: user.id,
-      userName: user.userName,
-      type: user.appUserType,
-    });
+    const expiresIn = param?.expiresIn;
+    const token = await this.authToken.sign(
+      {
+        id: user.id,
+        userName: user.userName,
+        // type: user.appUserType,
+      },
+      { expiresIn }
+    );
     if (pwdbool) {
       return {
         id: user.id,
@@ -91,12 +99,12 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: appUser.get(`id`),
       userName: appUser.get('nickName'),
-      type: appUser.get('appUserType'),
+      // type: appUser.get('appUserType'),
     });
     return {
       id: appUser.get(`id`),
       ...data,
-      appUserType: appUser.get('appUserType'),
+      // appUserType: appUser.get('appUserType'),
       token,
       userName: appUser.get('nickName'),
     };
@@ -125,7 +133,7 @@ export class AppUserService extends ServiceBase {
       return {
         id: appUser.get(`id`),
         phone: appUser.get(`phone`),
-        appUserType: appUser.get('appUserType'),
+        // appUserType: appUser.get('appUserType'),
         ...param,
       };
     }
@@ -169,14 +177,14 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: result.id,
       userName: param.nickName,
-      type: this._.get(param, 'appUserType'),
+      // type: this._.get(param, 'appUserType'),
     });
     return {
       id: result.id,
       phone: this._.get(param, 'phone'),
       unionid: this._.get(param, 'unionid'),
       openid: this._.get(param, 'openid'),
-      appUserType: this._.get(param, 'appUserType'),
+      // appUserType: this._.get(param, 'appUserType'),
       token,
       userName: param.nickName,
     };
@@ -200,11 +208,11 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: appUser.get('id'),
       userName: appUser.get('nickName'),
-      type: appUser.get('appUserType'),
+      // type: appUser.get('appUserType'),
     });
     return {
       id: appUser.get('id'),
-      appUserType: appUser.get('appUserType'),
+      // appUserType: appUser.get('appUserType'),
       token,
       userName: appUser.get('nickName'),
     };

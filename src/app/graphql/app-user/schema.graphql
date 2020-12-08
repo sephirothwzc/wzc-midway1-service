@@ -5,7 +5,7 @@ type AppUser {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
+  # deprecated 用户类型为了兼容依然保留 并不产生数据
   appUserType: String
   # wx头像
   avatarUrl: String
@@ -97,7 +97,7 @@ input AppUserSaveIn {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
+  # deprecated 用户类型为了兼容依然保留 并不产生数据
   appUserType: String
   # wx头像
   avatarUrl: String

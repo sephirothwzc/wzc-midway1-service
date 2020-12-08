@@ -49,7 +49,7 @@ export const graphql = {
       auth.id = ctx.query.userId;
       auth.userName = ctx.query.userName;
       auth.exp = ctx.query.exp;
-      auth.type = ctx.query.type;
+      // auth.type = ctx.query.type;
     }
 
     if (ctx?.request?.query?.token) {
@@ -64,7 +64,7 @@ export const graphql = {
     const user = (await appUserService.findAll({ limit: 1 })) as [AppUserModel];
     auth.id = user[0].id;
     auth.userName = user[0].userName;
-    auth.type = user[0].appUserType;
+    // auth.type = user[0].appUserType;
     auth.exp = -1;
   },
   // // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)

@@ -19,9 +19,18 @@ export class AuthToken {
    * 下发令牌
    * @param param
    */
-  async sign(param: { id: string; userName: string; type: any; exp?: number }) {
-    param.exp || (param.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60); // 60 seconds * 60 minutes = 1 hour
-    return this.jwt.sign(param, this.configJwt.secret);
+  async sign(
+    param: {
+      id: string;
+      userName: string;
+      exp?: number | string;
+    },
+    options?: { expiresIn?: any }
+  ) {
+    options ||
+      param.exp ||
+      (param.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60); // 60 seconds * 60 minutes = 1 hour
+    return this.jwt.sign(param, this.configJwt.secret, options);
   }
 
   /**
@@ -44,7 +53,7 @@ export class AuthToken {
         auth.id = decoded.id;
         auth.userName = decoded.userName;
         auth.exp = decoded.exp;
-        auth.type = decoded.type;
+        // auth.type = decoded.type;
         return;
       })
       .catch(() => {

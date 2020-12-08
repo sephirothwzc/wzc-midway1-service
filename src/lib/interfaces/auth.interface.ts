@@ -3,7 +3,7 @@
  */
 export interface IAuth {
   id: string;
-  type: string;
+  // type: string;
   /**
    * 用户名
    */
