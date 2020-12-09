@@ -59,14 +59,13 @@ export class AppUserService extends ServiceBase {
     hash.update(param.password);
     const newpwd = hash.digest('hex');
     const pwdbool = newpwd === user.password;
-    const expiresIn = param?.expiresIn;
     const token = await this.authToken.sign(
       {
         id: user.id,
         userName: user.userName,
         // type: user.appUserType,
       },
-      { expiresIn }
+      { expiresIn: param?.expiresIn }
     );
     if (pwdbool) {
       return {
