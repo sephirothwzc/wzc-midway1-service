@@ -1,10 +1,15 @@
 import { provide, inject, Context, config } from 'midway';
 import { ServiceBase } from '../lib/base/service.base';
-import { AppUserModel, IAppUserModel } from '../lib/models/app-user.model';
+import {
+  AppUserModel,
+  APP_USER,
+  IAppUserModel,
+} from '../lib/models/app-user.model';
 import * as crypto from 'crypto';
 import { IAuthToken } from '../lib/utils/auth-token';
 import { ICode2sessionOut } from '../lib/interfaces/auth.interface';
 import { IHttpClient } from '../lib/utils/curl';
+import { Op } from 'sequelize';
 
 export interface IAppUserService extends AppUserService {}
 
@@ -46,7 +51,16 @@ export class AppUserService extends ServiceBase {
     expiresIn?: string;
   }): Promise<any> {
     const user: AppUserModel = await this.appUserModel.findOne({
-      where: { userName: param.userName },
+      where: {
+        [Op.or]: [
+          {
+            [APP_USER.USER_NAME]: param.userName,
+          },
+          {
+            [APP_USER.PHONE]: param.userName,
+          },
+        ],
+      },
     });
     if (!user) {
       return this.throw(
