@@ -27,19 +27,21 @@ export class AppUserHook {
         },
         transaction: options.transaction,
       }),
-      haveUserName: AppUserModel.findOne({
-        where: {
-          [Op.or]: [
-            {
-              [APP_USER.USER_NAME]: appUserModel.userName,
-            },
-            {
-              [APP_USER.PHONE]: appUserModel.userName,
-            },
-          ],
-        },
-        transaction: options.transaction,
-      }),
+      haveUserName:
+        appUserModel.userName &&
+        AppUserModel.findOne({
+          where: {
+            [Op.or]: [
+              {
+                [APP_USER.USER_NAME]: appUserModel.userName,
+              },
+              {
+                [APP_USER.PHONE]: appUserModel.userName,
+              },
+            ],
+          },
+          transaction: options.transaction,
+        }),
     });
     if (havePhone) {
       throw new Error('手机号已经存在');
