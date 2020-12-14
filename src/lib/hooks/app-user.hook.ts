@@ -13,7 +13,7 @@ export class AppUserHook {
     if (!appUserModel.phone) {
       throw new Error('请填写手机号');
     }
-    const { havePhone, haveUserName } = await Bb.prop({
+    const { havePhone, haveUserName } = await Bb.props({
       havePhone: AppUserModel.findOne({
         where: {
           [Op.or]: [
