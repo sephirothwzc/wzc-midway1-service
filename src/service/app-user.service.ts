@@ -68,6 +68,9 @@ export class AppUserService extends ServiceBase {
         400
       );
     }
+    if (user.get('appUserStatus') !== 'Y') {
+      return this.throw('用户已经停用', 400);
+    }
     // e10adc3949ba59abbe56e057f20f883e = 123456
     const hash = crypto.createHash('md5');
     hash.update(param.password);
