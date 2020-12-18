@@ -1,10 +1,15 @@
 import { provide, inject, Context, config } from 'midway';
 import { ServiceBase } from '../lib/base/service.base';
-import { AppUserModel, IAppUserModel } from '../lib/models/app-user.model';
+import {
+  AppUserModel,
+  APP_USER,
+  IAppUserModel,
+} from '../lib/models/app-user.model';
 import * as crypto from 'crypto';
 import { IAuthToken } from '../lib/utils/auth-token';
 import { ICode2sessionOut } from '../lib/interfaces/auth.interface';
 import { IHttpClient } from '../lib/utils/curl';
+import { Op } from 'sequelize';
 
 export interface IAppUserService extends AppUserService {}
 
@@ -13,7 +18,7 @@ type registerOut = {
   phone: string;
   unionid: string;
   openid: string;
-  appUserType: string;
+  // appUserType: string;
   token: string;
   userName: string;
 };
@@ -40,9 +45,22 @@ export class AppUserService extends ServiceBase {
    * 用户名密码登陆
    * @param param
    */
-  async login(param: { userName: string; password: string }): Promise<any> {
+  async login(param: {
+    userName: string;
+    password: string;
+    expiresIn?: string;
+  }): Promise<any> {
     const user: AppUserModel = await this.appUserModel.findOne({
-      where: { userName: param.userName },
+      where: {
+        [Op.or]: [
+          {
+            [APP_USER.USER_NAME]: param.userName,
+          },
+          {
+            [APP_USER.PHONE]: param.userName,
+          },
+        ],
+      },
     });
     if (!user) {
       return this.throw(
@@ -50,16 +68,22 @@ export class AppUserService extends ServiceBase {
         400
       );
     }
+    if (user.get('appUserStatus') !== 'Y') {
+      return this.throw('用户已经停用', 400);
+    }
     // e10adc3949ba59abbe56e057f20f883e = 123456
     const hash = crypto.createHash('md5');
     hash.update(param.password);
     const newpwd = hash.digest('hex');
     const pwdbool = newpwd === user.password;
-    const token = await this.authToken.sign({
-      id: user.id,
-      userName: user.userName,
-      type: user.appUserType,
-    });
+    const token = await this.authToken.sign(
+      {
+        id: user.id,
+        userName: user.userName,
+        // type: user.appUserType,
+      },
+      { expiresIn: param?.expiresIn }
+    );
     if (pwdbool) {
       return {
         id: user.id,
@@ -91,12 +115,12 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: appUser.get(`id`),
       userName: appUser.get('nickName'),
-      type: appUser.get('appUserType'),
+      // type: appUser.get('appUserType'),
     });
     return {
       id: appUser.get(`id`),
       ...data,
-      appUserType: appUser.get('appUserType'),
+      // appUserType: appUser.get('appUserType'),
       token,
       userName: appUser.get('nickName'),
     };
@@ -125,7 +149,7 @@ export class AppUserService extends ServiceBase {
       return {
         id: appUser.get(`id`),
         phone: appUser.get(`phone`),
-        appUserType: appUser.get('appUserType'),
+        // appUserType: appUser.get('appUserType'),
         ...param,
       };
     }
@@ -169,14 +193,14 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: result.id,
       userName: param.nickName,
-      type: this._.get(param, 'appUserType'),
+      // type: this._.get(param, 'appUserType'),
     });
     return {
       id: result.id,
       phone: this._.get(param, 'phone'),
       unionid: this._.get(param, 'unionid'),
       openid: this._.get(param, 'openid'),
-      appUserType: this._.get(param, 'appUserType'),
+      // appUserType: this._.get(param, 'appUserType'),
       token,
       userName: param.nickName,
     };
@@ -200,11 +224,11 @@ export class AppUserService extends ServiceBase {
     const token = await this.authToken.sign({
       id: appUser.get('id'),
       userName: appUser.get('nickName'),
-      type: appUser.get('appUserType'),
+      // type: appUser.get('appUserType'),
     });
     return {
       id: appUser.get('id'),
-      appUserType: appUser.get('appUserType'),
+      // appUserType: appUser.get('appUserType'),
       token,
       userName: appUser.get('nickName'),
     };

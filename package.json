@@ -66,7 +66,7 @@
     "develop": "EGG_SERVER_ENV=develop yarn start",
     "stage": "EGG_SERVER_ENV=stage yarn start",
     "debug": "cross-env NODE_ENV=local midway-bin debug --ts",
-    "test": "npm run lint && midway-bin test --ts",
+    "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "ci": "EGG_SERVER_ENV=develop npm run cov",
     "build": "midway-bin build -c && cp -rv src/config/keys dist/config/ && cp -rv src/app/graphql dist/app/graphql/",

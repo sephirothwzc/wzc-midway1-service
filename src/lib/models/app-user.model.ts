@@ -43,12 +43,15 @@ export class AppUserModel extends BaseModel {
   /**
    * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
-  @Column({
-    comment:
-      '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]',
-    type: DataType.STRING(50),
-  })
-  appUserType?: string;
+  /**
+   * @deprecated
+   */
+  // @Column({
+  //   comment:
+  //     '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]弃用',
+  //   type: DataType.STRING(50),
+  // })
+  // appUserType?: string;
   /**
    * wx头像
    */
@@ -185,7 +188,7 @@ export class APP_USER {
   /**
    * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
-  static readonly APP_USER_TYPE: string = 'appUserType';
+  // static readonly APP_USER_TYPE: string = 'appUserType';
 
   /**
    * wx头像

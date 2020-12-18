@@ -10,7 +10,7 @@ export const code2sessionGetOut = Joi.object().keys({
   phone: Joi.string().allow('').description('用户手机号'),
   token: Joi.string().allow('').description('token'),
   // userName: Joi.string().allow('').description('nickName'),
-  appUserType: Joi.string().allow('').description('用户类型'),
+  // appUserType: Joi.string().allow('').description('用户类型'),
   openid: Joi.string().allow('').description('用户唯一标识'),
   session_key: Joi.string().allow('').description('会话密钥'),
   unionid: Joi.string()
@@ -49,7 +49,7 @@ export const registerPostOut = Joi.object().keys({
     .description(
       '用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回'
     ),
-  appUserType: Joi.string().allow('').description('用户类型'),
+  // appUserType: Joi.string().allow('').description('用户类型'),
 });
 
 export const getphonenumberPostIn = Joi.object().keys({
@@ -123,11 +123,11 @@ export const loginPostIn = Joi.object().keys({
 export const appUserMutationCreate = Joi.object().keys({
   accessToken: Joi.string().allow('').description('凭证'),
   appUserStatus: Joi.string().allow('').description('用户状态N停用Y启用'),
-  appUserType: Joi.string()
-    .allow('')
-    .description(
-      '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
-    ),
+  // appUserType: Joi.string()
+  //   .allow('')
+  //   .description(
+  //     '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
+  //   ),
   avatarUrl: Joi.string().allow('').description('wx头像'),
   businessCode: Joi.string().allow('').description('业务编码权限用'),
   corpid: Joi.string().allow('').description('wxmini-用户所属企业的corpid'),
@@ -172,11 +172,11 @@ export const appUserMutationUpdate = Joi.object().keys({
   id: Joi.string().allow(''),
   accessToken: Joi.string().allow('').description('凭证'),
   appUserStatus: Joi.string().allow('').description('用户状态N停用Y启用'),
-  appUserType: Joi.string()
-    .allow('')
-    .description(
-      '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
-    ),
+  // appUserType: Joi.string()
+  //   .allow('')
+  //   .description(
+  //     '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]'
+  //   ),
   avatarUrl: Joi.string().allow('').description('wx头像'),
   businessCode: Joi.string().allow('').description('业务编码权限用'),
   corpid: Joi.string().allow('').description('wxmini-用户所属企业的corpid'),
