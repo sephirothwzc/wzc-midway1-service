@@ -17,8 +17,8 @@ module.exports = (agent: IAgent) => {
   // 也可以通过 messenger 对象发送消息给 App Worker
   // 但需要等待 App Worker 启动成功后才能发送，不然很可能丢失
   agent.messenger.on('egg-ready', () => {
-    // const redis = agent.getConfig('redis');
-    const orderRedis = new Redis();
+    const redis = agent.getConfig('redis');
+    const orderRedis = new Redis(redis.client);
     // const key = `__keyevent@${_.get(redis, 'client.db')}__:expired`;
     const key = '__keyevent@0__:expired';
     orderRedis.subscribe(key, (err, count) => {
