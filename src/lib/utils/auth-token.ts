@@ -27,11 +27,9 @@ export class AuthToken {
     },
     options?: { expiresIn?: any }
   ) {
-    options ||
-      options?.expiresIn ||
-      param.exp ||
-      (param.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60); // 60 seconds * 60 minutes = 1 hour
-    !options.expiresIn && delete options.expiresIn;
+    if (!options?.expiresIn && !param?.exp) {
+      param.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
+    }
     return this.jwt.sign(param, this.configJwt.secret, options);
   }
 
