@@ -12,8 +12,6 @@ import intformat = require('biguint-format');
 import { Include } from '../../service/custom/common.service';
 import { IDBContext } from '../models/db';
 // import { AppUserModel } from '../models/app-user.model';
-const flakeIdgen = new FlakeId({ epoch: 1300000000000 });
-
 export interface ISequelizeQuery extends SequelizeQuery {}
 
 @provide()
@@ -80,6 +78,9 @@ export class SequelizeQuery {
     });
     return result;
   }
+  group(param: string[]): string[] {
+    return param.map((p) => _.snakeCase(p));
+  }
 }
 
 /**
@@ -88,8 +89,11 @@ export class SequelizeQuery {
 export class idNext {
   private static flakeIdgen: any;
   static next() {
+    const a = Number(
+      process.pid.toString().substring(process.pid.toString().length - 3)
+    );
     idNext.flakeIdgen ||
-      (idNext.flakeIdgen = new FlakeId({ epoch: 1300000000000 }));
-    return _.toString(intformat(flakeIdgen.next(), 'dec'));
+      (idNext.flakeIdgen = new FlakeId({ id: 23 + a, epoch: 1300000000000 }));
+    return _.toString(intformat(idNext.flakeIdgen.next(), 'dec'));
   }
 }
