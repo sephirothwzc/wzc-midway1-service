@@ -25,19 +25,21 @@ export class SequelizeQuery {
     }
     let where = {};
     _.keys(param).forEach((key: string) => {
+      let value: WhereOptions;
       if (_.isArray(param[key])) {
-        where[key] = param[key].map((obj: any) => {
+        value = param[key].map((obj: any) => {
           return this.where(obj);
         });
       } else if (_.isObject(param[key])) {
-        where[key] = this.where(param[key]);
-        return where;
+        value = this.where(param[key]);
+      } else {
+        value = param[key];
       }
       if (!_.startsWith(key, '_')) {
-        where[key] = param[key];
+        where[key] = value;
       } else {
         const sqkey = key.substring(1, key.length);
-        where[Op[sqkey]] = param[key];
+        where[Op[sqkey]] = value;
       }
     });
     return where;
