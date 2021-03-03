@@ -94,7 +94,9 @@ export class AppUserService extends ServiceBase {
       };
     }
     return this.throw(
-      `用户名或密码错误${this.devShowError(JSON.stringify(param))}`,
+      `用户名或密码错误, 请检查后重试${this.devShowError(
+        JSON.stringify(param)
+      )}`,
       400
     );
   }
