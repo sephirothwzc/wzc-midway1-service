@@ -1,16 +1,18 @@
 import FlakeId = require('flake-idgen');
-import { init, provide, scope, ScopeEnum } from 'midway';
+import { init, provide } from 'midway';
 import { toString } from 'lodash';
 import intformat = require('biguint-format');
 
-@scope(ScopeEnum.Singleton)
 @provide()
 export class SnowFlake {
   private flakeIdgen: FlakeId;
 
   @init()
   init() {
-    this.flakeIdgen = new FlakeId({ epoch: 1300000000000 });
+    const a = Number(
+      process.pid.toString().substring(process.pid.toString().length - 3)
+    );
+    this.flakeIdgen = new FlakeId({ id: 23 + a, epoch: 1300000000000 });
   }
 
   /**
