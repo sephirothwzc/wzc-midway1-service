@@ -19,7 +19,7 @@ module.exports = {
       BOOLEAN,
       DECIMAL,
     } = Sequelize;
-    await queryInterface.changeColumn('role', 'weight', {
+    await queryInterface.addColumn('role', 'weight', {
       type: INTEGER,
       defaultValue: 0,
       comment: '权重',
