@@ -24,6 +24,10 @@ module.exports = {
       'webapi',
       {
         ...parentColumn,
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
         parent_id: {
           type: STRING(50),
           references: references('webapi'),
