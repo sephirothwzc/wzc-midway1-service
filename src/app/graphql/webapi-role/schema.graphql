@@ -1,0 +1,81 @@
+# 
+type WebapiRole {
+  id: ID
+  # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
+  authState: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色
+  roleId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 对象id
+  webapiId: String
+  roleIdObj: Role
+  webapiIdObj: Webapi
+}
+
+
+#  分页查询返回
+type WebapiRoleList {
+  count: Int!
+  list: [WebapiRole]
+}
+
+extend type Query {
+  #  总行数
+  webapiRoleCount(param: QueryListParam): Int
+  #  分页查询
+  webapiRoleList(param: QueryListParam): WebapiRoleList
+  #   id 获取
+  webapiRole(id: ID!): WebapiRole
+  #  有条件返回
+  webapiRoleAll(param: QueryListParam): [WebapiRole]
+}
+
+extend type Mutation {
+  #  新增 or 修改
+  webapiRole(param: WebapiRoleSaveIn!, must: Boolean = false): String
+  #  批量 新增 or 修改
+  webapiRoleBulk(param: [WebapiRoleSaveIn]!): [JSONObject]
+  #  删除
+  webapiRoleDestroy(where: JSONObject!, limit: Int): String
+}
+
+input WebapiRoleSaveIn {
+  id: ID
+  # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
+  authState: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色
+  roleId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 对象id
+  webapiId: String
+}
