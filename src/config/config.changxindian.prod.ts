@@ -78,3 +78,10 @@ export const onerror = {
     ctx.body = err.message;
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}

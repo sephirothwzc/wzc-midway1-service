@@ -84,3 +84,10 @@ export const redis = {
     db: 0,
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}
