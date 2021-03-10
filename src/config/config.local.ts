@@ -80,27 +80,32 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
   port: 53306,
+  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
   // database: 'auth_center_dev',
   // username: 'root_develop',
   // password: 'eegDed-gbdacu3-ntuplw',
   database: 'auth_center_stage',
   username: 'root_stage',
   password: 'jidcab-narfuj-9Xossy',
+
   timezone: '+08:00',
   modelFile: 'ts',
-  // dialectOptions: {
-  //   dateStrings: true,
-  //   typeCast: (field: any, next: () => void) => {
-  //     // for reading from database
-  //     if (field.type === 'DATETIME') {
-  //       return field.string();
-  //     }
-  //     return next();
-  //   },
-  // },
 };
+
+// /**
+//  * sequelize数据库链接-prod
+//  */
+// export const sequelize = {
+//   port: 53306,
+//   host: 'rm-8vb9k9rdy6ayl0o220o.mysql.zhangbei.rds.aliyuncs.com',
+//   database: 'auth_center_prd',
+//   username: 'root_prod',
+//   password: 'xegDed-govcu1-mitpun',
+//   timezone: '+08:00',
+//   modelFile: 'ts',
+// };
+
 
 export const alioss = {
   url: 'http://localhost:8021/api/oss',
