@@ -47,11 +47,11 @@ export const sequelize = {
 };
 
 export const alioss = {
-  url: 'http://localhost:8021/api/oss',
+  url: 'http://172.16.216.85:8021/api/oss',
 };
 
 export const wxapi = {
-  url: 'http://localhost:8023',
+  url: 'http://172.16.216.85:8023',
 };
 
 export const redis = {
