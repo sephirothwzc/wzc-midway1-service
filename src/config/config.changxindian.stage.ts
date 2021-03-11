@@ -81,7 +81,7 @@ export const redis = {
     port: 6379,
     host: '127.0.0.1',
     password: 'stage1234561qaz',
-    db: 0,
+    db: 1,
   },
 };
 

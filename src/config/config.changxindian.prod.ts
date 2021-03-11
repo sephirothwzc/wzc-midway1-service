@@ -57,9 +57,10 @@ export const wxapi = {
 export const redis = {
   client: {
     port: 6379,
-    host: '127.0.0.1',
+    // 602服务器
+    host: '172.16.216.85',
     password: '',
-    db: 0,
+    db: 1,
   },
 };
 
