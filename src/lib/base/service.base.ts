@@ -289,6 +289,21 @@ export abstract class ServiceBase {
   async destroy(where: any, limit: number, force: boolean = false) {
     return this.Model.destroy({ where, limit, force });
   }
+
+  async destroyById(id: string) {
+    const model: BaseModel = await this.Model.findByPk(id);
+    if (!model) {
+      throw new Error(`[${id}]不存在，请确认！`);
+    }
+    return model
+      .destroy()
+      .then(() => {
+        return id;
+      })
+      .catch((error: Error) => {
+        throw error;
+      });
+  }
 }
 
 enum HooksName {

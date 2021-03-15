@@ -3103,10 +3103,10 @@ co@^4.0.0, co@^4.6.0:
   resolved "https://registry.npmjs.org/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
 
-code-generator-wzc@^1.0.64:
-  version "1.0.64"
-  resolved "https://registry.yarnpkg.com/code-generator-wzc/-/code-generator-wzc-1.0.64.tgz#c7af87b410c56415899be5f99525f66f61d832dd"
-  integrity sha512-T6mATFBGlhdPheqCOBesfreacCk0j4QGd9kgji16iRBqif4lDyMOTBAe0KBjBelLoKag5gY1slDSc8/+rB3vOA==
+code-generator-wzc@^1.0.65:
+  version "1.0.65"
+  resolved "https://registry.yarnpkg.com/code-generator-wzc/-/code-generator-wzc-1.0.65.tgz#b47ac895a56a040ff0a900a8b5e4de3fc7e2673e"
+  integrity sha512-svOFFWf20WqWfVqt8aRdRr5XVsAsHEST3tdwpE0KxgSqf4pv0ca8bEzQAS8fTz5c3fQgCtsSNg3JqBT6rT2m0A==
   dependencies:
     chalk "^4.0.0"
     figlet "^1.3.0"

@@ -74,11 +74,17 @@ module.exports = (serviceName) => {
         const service = await getService(ctx);
         return service.bulkCreate(_args.param);
       },
-      // userD
+      // userDestroy
       [`${serviceName}Destroy`]: async (_root, _args, ctx, _info) => {
         await validationSchema(ctx, `${serviceName}Destroy`, _args.param);
         const service = await getService(ctx);
         return service.destroy(_args.where, _args.limit);
+      },
+      // userDestroyById
+      [`${serviceName}DestroyById`]: async (_root, _args, ctx, _info) => {
+        await validationSchema(ctx, `${serviceName}DestroyById`, _args.param);
+        const service = await getService(ctx);
+        return service.destroyById(_args.id);
       },
     },
   };

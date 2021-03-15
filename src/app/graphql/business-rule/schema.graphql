@@ -1,6 +1,8 @@
 # 业务编码规则
 type BusinessRule {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间
@@ -51,10 +53,14 @@ extend type Mutation {
   businessRuleBulk(param: [BusinessRuleSaveIn]!): [JSONObject]
   # 业务编码规则 删除
   businessRuleDestroy(where: JSONObject!, limit: Int): String
+  # 业务编码规则 根据id删除
+  businessRuleDestroyById(id:String): String
 }
 
 input BusinessRuleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间

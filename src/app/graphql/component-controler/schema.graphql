@@ -1,6 +1,8 @@
 # 组件内控件
 type ComponentControler {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件id
@@ -67,10 +69,14 @@ extend type Mutation {
   componentControlerBulk(param: [ComponentControlerSaveIn]!): [JSONObject]
   # 组件内控件 删除
   componentControlerDestroy(where: JSONObject!, limit: Int): String
+  # 组件内控件 根据id删除
+  componentControlerDestroyById(id:String): String
 }
 
 input ComponentControlerSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件id

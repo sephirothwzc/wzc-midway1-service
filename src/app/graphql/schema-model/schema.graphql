@@ -1,6 +1,8 @@
 # graphql-schema-model
 type SchemaModel {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 编码[unique]
@@ -67,10 +69,14 @@ extend type Mutation {
   schemaModelBulk(param: [SchemaModelSaveIn]!): [JSONObject]
   # graphql-schema-model 删除
   schemaModelDestroy(where: JSONObject!, limit: Int): String
+  # graphql-schema-model 根据id删除
+  schemaModelDestroyById(id:String): String
 }
 
 input SchemaModelSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 编码[unique]

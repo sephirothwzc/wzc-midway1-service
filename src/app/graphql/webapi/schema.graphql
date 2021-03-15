@@ -1,6 +1,8 @@
 # serverapi
 type Webapi {
   id: ID
+  # appName
+  appName: String
   # 请求权限
   authApiState: String
   # 业务编码权限用
@@ -64,10 +66,14 @@ extend type Mutation {
   webapiBulk(param: [WebapiSaveIn]!): [JSONObject]
   # serverapi 删除
   webapiDestroy(where: JSONObject!, limit: Int): String
+  # serverapi 根据id删除
+  webapiDestroyById(id:String): String
 }
 
 input WebapiSaveIn {
   id: ID
+  # appName
+  appName: String
   # 请求权限
   authApiState: String
   # 业务编码权限用

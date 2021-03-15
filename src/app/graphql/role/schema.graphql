@@ -21,6 +21,14 @@ type Role {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  # 权重
+  weight: Float
+  businessSchemaRoleId(param: QueryListParam): [BusinessSchema]
+  componentControlerRoleRoleId(param: QueryListParam): [ComponentControlerRole]
+  roleGroupItemRoleId(param: QueryListParam): [RoleGroupItem]
+  routerRoleRoleId(param: QueryListParam): [RouterRole]
+  schemaModelRoleRoleId(param: QueryListParam): [SchemaModelRole]
+  webapiRoleRoleId(param: QueryListParam): [WebapiRole]
 }
 
 
@@ -48,6 +56,8 @@ extend type Mutation {
   roleBulk(param: [RoleSaveIn]!): [JSONObject]
   # 角色 删除
   roleDestroy(where: JSONObject!, limit: Int): String
+  # 角色 根据id删除
+  roleDestroyById(id:String): String
 }
 
 input RoleSaveIn {
@@ -72,4 +82,12 @@ input RoleSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  # 权重
+  weight: Float
+  businessSchemaRoleId: [BusinessSchemaSaveIn]
+  componentControlerRoleRoleId: [ComponentControlerRoleSaveIn]
+  roleGroupItemRoleId: [RoleGroupItemSaveIn]
+  routerRoleRoleId: [RouterRoleSaveIn]
+  schemaModelRoleRoleId: [SchemaModelRoleSaveIn]
+  webapiRoleRoleId: [WebapiRoleSaveIn]
 }

@@ -1,6 +1,8 @@
 # 前端路由
 type Router {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件id
@@ -59,10 +61,14 @@ extend type Mutation {
   routerBulk(param: [RouterSaveIn]!): [JSONObject]
   # 前端路由 删除
   routerDestroy(where: JSONObject!, limit: Int): String
+  # 前端路由 根据id删除
+  routerDestroyById(id:String): String
 }
 
 input RouterSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件id
