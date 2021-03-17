@@ -210,7 +210,7 @@ export abstract class ServiceBase {
    * update
    * @param param
    */
-  private async update(param: BaseModel) {
+  private async update(param: BaseModel): Promise<string> {
     const tran = this.enableTransaction({
       hookName: HooksName.beforeUpdate,
     });
@@ -222,7 +222,7 @@ export abstract class ServiceBase {
     } else {
       result = await this.ormUpdate(param);
     }
-    return { id: result.id };
+    return result.id;
   }
 
   async findCreateOptions(
@@ -256,7 +256,7 @@ export abstract class ServiceBase {
    * 保存
    * @param param model
    */
-  async save(param: BaseModel): Promise<any> {
+  async save(param: BaseModel): Promise<string> {
     this.hookSave(param);
     // 修改
     if (param.id) {
@@ -275,10 +275,10 @@ export abstract class ServiceBase {
           transaction: t,
         });
       });
-      return { id: result.id };
+      return result.id;
     }
     const result = await this.Model.create(param, options);
-    return { id: result.id };
+    return result.id;
   }
 
   async bulkCreate(param: any[]): Promise<any> {
