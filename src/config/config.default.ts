@@ -156,7 +156,7 @@ export default (appInfo: EggAppInfo) => {
     // },
     html(err: Error, ctx: Context) {
       // html hander
-      ctx.body = err;
+      ctx.body = err.message;
     },
     json(err: Error, ctx: Context) {
       // json hander
