@@ -23,4 +23,20 @@ module.exports = [
     phone: '18811665003',
     app_user_type: 'system',
   },
+  {
+    user_gender: 'm',
+    user_name: 'changfengwei',
+    real_name: '常锋伟',
+    nick_name: '副导',
+    phone: '13488702497',
+    app_user_type: 'system',
+  },
+  {
+    user_gender: 'm',
+    user_name: 'zhangmengjiao',
+    real_name: '张梦娇',
+    nick_name: '梦娇',
+    phone: '18230239775',
+    app_user_type: 'system',
+  },
 ];
