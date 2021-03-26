@@ -82,12 +82,12 @@ export const graphql = {
 export const sequelize = {
   port: 53306,
   host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
-  // database: 'auth_center_dev',
-  // username: 'root_develop',
-  // password: 'eegDed-gbdacu3-ntuplw',
-  database: 'auth_center_stage',
-  username: 'root_stage',
-  password: 'jidcab-narfuj-9Xossy',
+  database: 'auth_center_changxindian_dev',
+  username: 'root_develop',
+  password: 'eegDed-gbdacu3-ntuplw',
+  // database: 'auth_center_changxindian_stage',
+  // username: 'root_stage',
+  // password: 'jidcab-narfuj-9Xossy',
 
   timezone: '+08:00',
   modelFile: 'ts',
@@ -99,7 +99,7 @@ export const sequelize = {
 // export const sequelize = {
 //   port: 53306,
 //   host: 'rm-8vb9k9rdy6ayl0o220o.mysql.zhangbei.rds.aliyuncs.com',
-//   database: 'auth_center_prd',
+//   database: 'auth_center_changxindian_prd',
 //   username: 'root_prod',
 //   password: 'xegDed-govcu1-mitpun',
 //   timezone: '+08:00',
@@ -120,6 +120,13 @@ export const redis = {
     port: 6379,
     host: '39.98.82.82',
     password: 'f761f589-A994-64ac-f93c@7b129c2b16b4',
-    db: 0,
+    db: 1,
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}

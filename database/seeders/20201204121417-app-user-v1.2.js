@@ -14,6 +14,11 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
+    // 当前数据不在长辛店使用
+    if (process.env.NODE_ENV.includes('changxindian')) {
+      return undefined;
+    }
+
     const phoneList = dataJson.map((p) => `'${p.phone}'`).join(',');
     const data = await query(
       `select id,phone from app_user where phone in (${phoneList})`,
