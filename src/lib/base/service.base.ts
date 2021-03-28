@@ -201,6 +201,7 @@ export abstract class ServiceBase {
           throw new Error(`[${param.id}]不存在！`);
         }
         this.setChange(result, param);
+        // 子表更新
         return result.save({ transaction: t });
       }
     );

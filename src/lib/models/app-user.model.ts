@@ -1,8 +1,27 @@
-import { Table, Column, DataType } from 'sequelize-typescript';
+import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
-
+import { AppUserRoleModel } from './app-user-role.model';
 // #region enum
+export enum EAppUserAppUserType {
+  /**
+   * 普通用户
+   */
+  ordinary = 'ordinary',
+  /**
+   * 回收人员
+   */
+  recovery = 'recovery',
+  /**
+   * 系统用户
+   */
+  system = 'system',
+  /**
+   * 检查人员
+   */
+  checkuser = 'checkuser',
+}
+
 export enum EAppUserUserGender {
   /**
    * 男
@@ -43,15 +62,12 @@ export class AppUserModel extends BaseModel {
   /**
    * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
-  /**
-   * @deprecated
-   */
-  // @Column({
-  //   comment:
-  //     '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]弃用',
-  //   type: DataType.STRING(50),
-  // })
-  // appUserType?: string;
+  @Column({
+    comment:
+      '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]',
+    type: DataType.STRING(50),
+  })
+  appUserType?: EAppUserAppUserType;
   /**
    * wx头像
    */
@@ -171,6 +187,9 @@ export class AppUserModel extends BaseModel {
    */
   @Column({ comment: '用户名登陆用', type: DataType.STRING(15) })
   userName: string;
+
+  @HasMany(() => AppUserRoleModel, 'app_user_id')
+  appUserRoleAppUserId: Array<AppUserRoleModel>;
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
@@ -188,7 +207,7 @@ export class APP_USER {
   /**
    * 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
    */
-  // static readonly APP_USER_TYPE: string = 'appUserType';
+  static readonly APP_USER_TYPE: string = 'appUserType';
 
   /**
    * wx头像
@@ -302,5 +321,27 @@ providerWrapper([
   {
     id: 'appUserModel',
     provider: factory,
+  },
+]);
+
+export const createOptions = () => {
+  return (
+    param: AppUserModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (!param.appUserRoleAppUserId) {
+      return {};
+    }
+    const include: any = [];
+    param.appUserRoleAppUserId &&
+      param.appUserRoleAppUserId.length > 0 &&
+      include.push({ model: AppUserRoleModel, as: 'appUserRoleAppUserId' });
+    return { include };
+  };
+};
+
+providerWrapper([
+  {
+    id: 'appUserModel.createOptions',
+    provider: createOptions,
   },
 ]);

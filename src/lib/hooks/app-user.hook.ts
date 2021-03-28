@@ -81,7 +81,7 @@ export class AppUserHook {
     ) {
       return;
     }
-    const { havePhone, haveUserName } = await Bb.prop({
+    const { havePhone, haveUserName } = await Bb.props({
       havePhone:
         changed.includes(APP_USER.PHONE) &&
         AppUserModel.findOne({
