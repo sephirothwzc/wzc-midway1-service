@@ -1,7 +1,12 @@
-import { Table, Column, DataType } from 'sequelize-typescript';
+import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
-
+import { BusinessSchemaModel } from './business-schema.model';
+import { ComponentControlerRoleModel } from './component-controler-role.model';
+import { RoleGroupItemModel } from './role-group-item.model';
+import { RouterRoleModel } from './router-role.model';
+import { SchemaModelRoleModel } from './schema-model-role.model';
+import { WebapiRoleModel } from './webapi-role.model';
 // #region enum
 
 // #endregion
@@ -40,6 +45,29 @@ export class RoleModel extends BaseModel {
    */
   @Column({ comment: '角色名称', type: DataType.STRING(50) })
   roleName: string;
+  /**
+   * 权重
+   */
+  @Column({ comment: '权重', type: DataType.INTEGER })
+  weight?: number;
+
+  @HasMany(() => BusinessSchemaModel, 'role_id')
+  businessSchemaRoleId: Array<BusinessSchemaModel>;
+
+  @HasMany(() => ComponentControlerRoleModel, 'role_id')
+  componentControlerRoleRoleId: Array<ComponentControlerRoleModel>;
+
+  @HasMany(() => RoleGroupItemModel, 'role_id')
+  roleGroupItemRoleId: Array<RoleGroupItemModel>;
+
+  @HasMany(() => RouterRoleModel, 'role_id')
+  routerRoleRoleId: Array<RouterRoleModel>;
+
+  @HasMany(() => SchemaModelRoleModel, 'role_id')
+  schemaModelRoleRoleId: Array<SchemaModelRoleModel>;
+
+  @HasMany(() => WebapiRoleModel, 'role_id')
+  webapiRoleRoleId: Array<WebapiRoleModel>;
 
 }
 
@@ -66,6 +94,11 @@ export class ROLE {
    */
   static readonly ROLE_NAME: string = 'roleName';
 
+  /**
+   * 权重
+   */
+  static readonly WEIGHT: string = 'weight';
+
 }
 
 // @provide 用 工厂模式static model
@@ -74,6 +107,42 @@ providerWrapper([
   {
     id: 'roleModel',
     provider: factory,
+  },
+]);
+
+export const createOptions = () => {
+  return (
+    param: RoleModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (!param.businessSchemaRoleId && !param.componentControlerRoleRoleId && !param.roleGroupItemRoleId && !param.routerRoleRoleId && !param.schemaModelRoleRoleId && !param.webapiRoleRoleId) {
+      return {};
+    }
+    const include: any = [];
+    param.businessSchemaRoleId &&
+      param.businessSchemaRoleId.length > 0 &&
+      include.push({ model: BusinessSchemaModel, as: 'businessSchemaRoleId' });
+    param.componentControlerRoleRoleId &&
+      param.componentControlerRoleRoleId.length > 0 &&
+      include.push({ model: ComponentControlerRoleModel, as: 'componentControlerRoleRoleId' });
+    param.roleGroupItemRoleId &&
+      param.roleGroupItemRoleId.length > 0 &&
+      include.push({ model: RoleGroupItemModel, as: 'roleGroupItemRoleId' });
+    param.routerRoleRoleId &&
+      param.routerRoleRoleId.length > 0 &&
+      include.push({ model: RouterRoleModel, as: 'routerRoleRoleId' });
+    param.schemaModelRoleRoleId &&
+      param.schemaModelRoleRoleId.length > 0 &&
+      include.push({ model: SchemaModelRoleModel, as: 'schemaModelRoleRoleId' });
+    param.webapiRoleRoleId &&
+      param.webapiRoleRoleId.length > 0 &&
+      include.push({ model: WebapiRoleModel, as: 'webapiRoleRoleId' });
+    return { include };
+  };
+};
+providerWrapper([
+  {
+    id: 'roleModel.createOptions',
+    provider: createOptions,
   },
 ]);
 
