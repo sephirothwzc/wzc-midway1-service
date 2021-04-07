@@ -2,6 +2,7 @@ import * as Joi from 'joi';
 
 // #region Graphql
 export const roleMutationCreate = Joi.object().keys({
+  appName: Joi.string().allow('').allow(null).description('appName'),
   businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
@@ -17,6 +18,7 @@ export const roleMutationCreate = Joi.object().keys({
 
 export const roleMutationUpdate = Joi.object().keys({
 id: Joi.string().allow(''),
+  appName: Joi.string().allow('').allow(null).description('appName'),
   businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),

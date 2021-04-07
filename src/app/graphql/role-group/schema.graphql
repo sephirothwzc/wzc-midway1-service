@@ -1,6 +1,8 @@
 # 角色组
 type RoleGroup {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间
@@ -55,6 +57,8 @@ extend type Mutation {
 
 input RoleGroupSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间

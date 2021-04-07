@@ -35,6 +35,10 @@ module.exports = {
           defaultValue: '',
           comment: '角色编码',
         },
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
       },
       {
         comment: '角色',

@@ -26,6 +26,11 @@ export type IRoleModel = typeof RoleModel;
 })
 export class RoleModel extends BaseModel {
   /**
+   * appName
+   */
+  @Column({ comment: 'appName', type: DataType.STRING(50) })
+  appName?: string;
+  /**
    * 业务编码权限用
    */
   @Column({ comment: '业务编码权限用', type: DataType.STRING(500) })
@@ -73,6 +78,11 @@ export class RoleModel extends BaseModel {
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class ROLE {
+
+  /**
+   * appName
+   */
+  static readonly APP_NAME: string = 'appName';
 
   /**
    * 业务编码权限用
