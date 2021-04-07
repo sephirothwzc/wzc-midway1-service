@@ -36,7 +36,6 @@ type Router {
   routerRoleRouterId(param: QueryListParam): [RouterRole]
 }
 
-
 # 前端路由 分页查询返回
 type RouterList {
   count: Int!
@@ -62,7 +61,7 @@ extend type Mutation {
   # 前端路由 删除
   routerDestroy(where: JSONObject!, limit: Int): String
   # 前端路由 根据id删除
-  routerDestroyById(id:String): String
+  routerDestroyById(id: String): String
 }
 
 input RouterSaveIn {
