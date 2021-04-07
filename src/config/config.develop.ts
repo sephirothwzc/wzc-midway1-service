@@ -51,7 +51,7 @@ export const graphql = {
 export const sequelize = {
   host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
   port: 53306,
-  database: 'auth_center_dev',
+  database: 'financial_system_dev',
   username: 'root_develop',
   password: 'eegDed-gbdacu3-ntuplw',
   timezone: '+08:00',

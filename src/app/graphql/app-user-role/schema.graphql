@@ -1,0 +1,89 @@
+# 用户角色关系
+type AppUserRole {
+  id: ID
+  # appName
+  appName: String
+  # 用户
+  appUserId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # role、roleGroup
+  roleType: String
+  # 角色id、角色组id
+  typeId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  appUserIdObj: AppUser
+  # role roleGroup
+  typeIdModel: TypeIdModel
+}
+
+union TypeIdModel = Role | RoleGroup
+
+# 用户角色关系 分页查询返回
+type AppUserRoleList {
+  count: Int!
+  list: [AppUserRole]
+}
+
+extend type Query {
+  # 用户角色关系 总行数
+  appUserRoleCount(param: QueryListParam): Int
+  # 用户角色关系 分页查询
+  appUserRoleList(param: QueryListParam): AppUserRoleList
+  # 用户角色关系  id 获取
+  appUserRole(id: ID!): AppUserRole
+  # 用户角色关系 有条件返回
+  appUserRoleAll(param: QueryListParam): [AppUserRole]
+}
+
+extend type Mutation {
+  # 用户角色关系 新增 or 修改
+  appUserRole(param: AppUserRoleSaveIn!, must: Boolean = false): String
+  # 用户角色关系 批量 新增 or 修改
+  appUserRoleBulk(param: [AppUserRoleSaveIn]!): [JSONObject]
+  # 用户角色关系 删除
+  appUserRoleDestroy(where: JSONObject!, limit: Int): String
+  # 用户角色关系 根据id删除
+  appUserRoleDestroyById(id: String): String
+}
+
+input AppUserRoleSaveIn {
+  id: ID
+  # appName
+  appName: String
+  # 用户
+  appUserId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # role、roleGroup
+  roleType: String
+  # 角色id、角色组id
+  typeId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+}

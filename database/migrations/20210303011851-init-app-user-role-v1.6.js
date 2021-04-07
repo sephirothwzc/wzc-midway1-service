@@ -24,6 +24,10 @@ module.exports = {
       'app_user_role',
       {
         ...parentColumn,
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
         app_user_id: {
           type: STRING(50),
           references: references('app_user'),

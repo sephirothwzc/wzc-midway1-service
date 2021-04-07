@@ -1,0 +1,83 @@
+# 角色组明细
+type RoleGroupItem {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色组id
+  roleGroupId: String
+  # 角色id
+  roleId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 权重
+  weight: Float
+  roleIdObj: Role
+  roleGroupIdObj: RoleGroup
+}
+
+
+# 角色组明细 分页查询返回
+type RoleGroupItemList {
+  count: Int!
+  list: [RoleGroupItem]
+}
+
+extend type Query {
+  # 角色组明细 总行数
+  roleGroupItemCount(param: QueryListParam): Int
+  # 角色组明细 分页查询
+  roleGroupItemList(param: QueryListParam): RoleGroupItemList
+  # 角色组明细  id 获取
+  roleGroupItem(id: ID!): RoleGroupItem
+  # 角色组明细 有条件返回
+  roleGroupItemAll(param: QueryListParam): [RoleGroupItem]
+}
+
+extend type Mutation {
+  # 角色组明细 新增 or 修改
+  roleGroupItem(param: RoleGroupItemSaveIn!, must: Boolean = false): String
+  # 角色组明细 批量 新增 or 修改
+  roleGroupItemBulk(param: [RoleGroupItemSaveIn]!): [JSONObject]
+  # 角色组明细 删除
+  roleGroupItemDestroy(where: JSONObject!, limit: Int): String
+  # 角色组明细 根据id删除
+  roleGroupItemDestroyById(id:String): String
+}
+
+input RoleGroupItemSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色组id
+  roleGroupId: String
+  # 角色id
+  roleId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 权重
+  weight: Float
+}

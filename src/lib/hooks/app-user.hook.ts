@@ -3,9 +3,26 @@ import { provide } from 'midway';
 import { Op, Transaction } from 'sequelize';
 import { AppUserModel, APP_USER } from '../models/app-user.model';
 import * as Bb from 'bluebird';
+import { AppUserRoleModel, APP_USER_ROLE } from '../models/app-user-role.model';
 
 @provide('AppUserHook')
 export class AppUserHook {
+  async beforeBulkDestroy(model: {
+    where: { id: string };
+    transaction: Transaction;
+  }) {
+    const { appUserRoleIbfk1 } = await Bb.props({
+      appUserRoleIbfk1: AppUserRoleModel.findOne({
+        where: {
+          [APP_USER_ROLE.APP_USER_ID]: _.get(model, 'where.id'),
+        },
+      }),
+    });
+    if (appUserRoleIbfk1) {
+      throw new Error('已使用数据禁止删除');
+    }
+  }
+
   async beforeCreate(
     appUserModel: AppUserModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
@@ -64,7 +81,7 @@ export class AppUserHook {
     ) {
       return;
     }
-    const { havePhone, haveUserName } = await Bb.prop({
+    const { havePhone, haveUserName } = await Bb.props({
       havePhone:
         changed.includes(APP_USER.PHONE) &&
         AppUserModel.findOne({

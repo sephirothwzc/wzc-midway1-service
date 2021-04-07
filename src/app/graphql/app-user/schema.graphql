@@ -5,7 +5,7 @@ type AppUser {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # deprecated 用户类型为了兼容依然保留 并不产生数据
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
   appUserType: String
   # wx头像
   avatarUrl: String
@@ -61,6 +61,7 @@ type AppUser {
   userGender: EAppUserUserGender
   # 用户名登陆用
   userName: String
+  appUserRoleAppUserId(param: QueryListParam): [AppUserRole]
 }
 
 enum EAppUserUserGender{m,w}
@@ -89,6 +90,8 @@ extend type Mutation {
   appUserBulk(param: [AppUserSaveIn]!): [JSONObject]
   # 终端用户 删除
   appUserDestroy(where: JSONObject!, limit: Int): String
+  # 终端用户 根据id删除
+  appUserDestroyById(id:String): String
 }
 
 input AppUserSaveIn {
@@ -97,7 +100,7 @@ input AppUserSaveIn {
   accessToken: String
   # 用户状态N停用Y启用
   appUserStatus: String
-  # deprecated 用户类型为了兼容依然保留 并不产生数据
+  # 用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户,checkuser 检查人员]
   appUserType: String
   # wx头像
   avatarUrl: String
@@ -153,4 +156,5 @@ input AppUserSaveIn {
   userGender: EAppUserUserGender
   # 用户名登陆用
   userName: String
+  appUserRoleAppUserId: [AppUserRoleSaveIn]
 }
