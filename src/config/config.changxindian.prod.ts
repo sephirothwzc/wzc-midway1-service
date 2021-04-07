@@ -29,7 +29,7 @@ export const graphql = {
 export const sequelize = {
   host: 'rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com',
   port: 3306,
-  database: 'financial_system_prd',
+  database: 'auth_center_changxindian_prd',
   username: 'root_prod',
   password: 'xegDed-govcu1-mitpun',
   timezone: '+08:00',
@@ -47,19 +47,20 @@ export const sequelize = {
 };
 
 export const alioss = {
-  url: 'http://localhost:8021/api/oss',
+  url: 'http://172.16.216.85:8021/api/oss',
 };
 
 export const wxapi = {
-  url: 'http://localhost:8023',
+  url: 'http://172.16.216.85:8023',
 };
 
 export const redis = {
   client: {
     port: 6379,
+    // 602服务器
     host: '172.16.216.85',
     password: '',
-    db: 0,
+    db: 1,
   },
 };
 
@@ -78,3 +79,10 @@ export const onerror = {
     ctx.body = err.message;
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}
