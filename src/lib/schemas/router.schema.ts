@@ -3,10 +3,7 @@ import * as Joi from 'joi';
 // #region Graphql
 export const routerMutationCreate = Joi.object().keys({
   appName: Joi.string().allow('').allow(null).description('appName'),
-  businessCode: Joi.string()
-    .allow('')
-    .allow(null)
-    .description('业务编码权限用'),
+  businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   componentId: Joi.string().allow('').allow(null).description('组件id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
@@ -23,12 +20,9 @@ export const routerMutationCreate = Joi.object().keys({
 });
 
 export const routerMutationUpdate = Joi.object().keys({
-  id: Joi.string().allow(''),
+id: Joi.string().allow(''),
   appName: Joi.string().allow('').allow(null).description('appName'),
-  businessCode: Joi.string()
-    .allow('')
-    .allow(null)
-    .description('业务编码权限用'),
+  businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   componentId: Joi.string().allow('').allow(null).description('组件id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),

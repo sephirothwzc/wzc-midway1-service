@@ -1,4 +1,11 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ComponentModel } from './component.model';
@@ -21,6 +28,11 @@ export type IRouterModel = typeof RouterModel;
   comment: '前端路由',
 })
 export class RouterModel extends BaseModel {
+  /**
+   * appName
+   */
+  @Column({ comment: 'appName', type: DataType.STRING(50) })
+  appName?: string;
   /**
    * 业务编码权限用
    */
@@ -75,11 +87,14 @@ export class RouterModel extends BaseModel {
 
   @HasMany(() => RouterRoleModel, 'router_id')
   routerRoleRouterId: Array<RouterRoleModel>;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class ROUTER {
+  /**
+   * appName
+   */
+  static readonly APP_NAME: string = 'appName';
 
   /**
    * 业务编码权限用
@@ -120,7 +135,6 @@ export class ROUTER {
    * 路由名称
    */
   static readonly ROUTER_NAME: string = 'routerName';
-
 }
 
 // @provide 用 工厂模式static model
@@ -155,4 +169,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-
