@@ -1,6 +1,8 @@
 # 业务角色关系
 type BusinessSchema {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 角色
@@ -61,10 +63,14 @@ extend type Mutation {
   businessSchemaBulk(param: [BusinessSchemaSaveIn]!): [JSONObject]
   # 业务角色关系 删除
   businessSchemaDestroy(where: JSONObject!, limit: Int): String
+  # 业务角色关系 根据id删除
+  businessSchemaDestroyById(id:String): String
 }
 
 input BusinessSchemaSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 角色

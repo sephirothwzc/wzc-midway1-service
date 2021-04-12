@@ -1,6 +1,8 @@
 # model角色关系表
 type SchemaModelRole {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用
@@ -56,10 +58,14 @@ extend type Mutation {
   schemaModelRoleBulk(param: [SchemaModelRoleSaveIn]!): [JSONObject]
   # model角色关系表 删除
   schemaModelRoleDestroy(where: JSONObject!, limit: Int): String
+  # model角色关系表 根据id删除
+  schemaModelRoleDestroyById(id:String): String
 }
 
 input SchemaModelRoleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用

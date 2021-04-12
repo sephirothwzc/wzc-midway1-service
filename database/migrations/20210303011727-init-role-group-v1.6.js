@@ -24,6 +24,14 @@ module.exports = {
       'role_group',
       {
         ...parentColumn,
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
         group_name: {
           type: STRING(50),
           comment: '组名[unique]',

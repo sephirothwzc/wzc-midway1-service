@@ -1,6 +1,8 @@
 # 
 type WebapiRole {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用
@@ -52,10 +54,14 @@ extend type Mutation {
   webapiRoleBulk(param: [WebapiRoleSaveIn]!): [JSONObject]
   #  删除
   webapiRoleDestroy(where: JSONObject!, limit: Int): String
+  #  根据id删除
+  webapiRoleDestroyById(id:String): String
 }
 
 input WebapiRoleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用

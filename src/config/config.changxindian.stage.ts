@@ -51,7 +51,7 @@ export const graphql = {
 export const sequelize = {
   host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
   port: 53306,
-  database: 'financial_system_stage',
+  database: 'auth_center_changxindian_stage',
   username: 'root_stage',
   password: 'jidcab-narfuj-9Xossy',
   timezone: '+08:00',
@@ -81,6 +81,13 @@ export const redis = {
     port: 6379,
     host: '127.0.0.1',
     password: 'f761f589-A994-64ac-f93c@7b129c2b16b4',
-    db: 0,
+    db: 1,
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}

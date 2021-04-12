@@ -111,7 +111,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.cluster = {
     listen: {
-      port: 8025,
+      port: 8027,
       hostname: '0.0.0.0',
     },
   };
@@ -156,7 +156,7 @@ export default (appInfo: EggAppInfo) => {
     // },
     html(err: Error, ctx: Context) {
       // html hander
-      ctx.body = err;
+      ctx.body = err.message;
     },
     json(err: Error, ctx: Context) {
       // json hander

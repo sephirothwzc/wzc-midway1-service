@@ -1,6 +1,8 @@
 # 用户角色关系
 type AppUserRole {
   id: ID
+  # appName
+  appName: String
   # 用户
   appUserId: String
   # 业务编码权限用
@@ -24,8 +26,11 @@ type AppUserRole {
   # 修改人id
   updatedId: String
   appUserIdObj: AppUser
+  # role roleGroup
+  typeIdModel: TypeIdModel
 }
 
+union TypeIdModel = Role | RoleGroup
 
 # 用户角色关系 分页查询返回
 type AppUserRoleList {
@@ -51,10 +56,14 @@ extend type Mutation {
   appUserRoleBulk(param: [AppUserRoleSaveIn]!): [JSONObject]
   # 用户角色关系 删除
   appUserRoleDestroy(where: JSONObject!, limit: Int): String
+  # 用户角色关系 根据id删除
+  appUserRoleDestroyById(id: String): String
 }
 
 input AppUserRoleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 用户
   appUserId: String
   # 业务编码权限用

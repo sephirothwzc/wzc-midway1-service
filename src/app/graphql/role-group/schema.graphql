@@ -1,6 +1,8 @@
 # 角色组
 type RoleGroup {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间
@@ -49,10 +51,14 @@ extend type Mutation {
   roleGroupBulk(param: [RoleGroupSaveIn]!): [JSONObject]
   # 角色组 删除
   roleGroupDestroy(where: JSONObject!, limit: Int): String
+  # 角色组 根据id删除
+  roleGroupDestroyById(id:String): String
 }
 
 input RoleGroupSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间

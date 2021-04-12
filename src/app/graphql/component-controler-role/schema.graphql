@@ -1,6 +1,8 @@
 # 控件角色
 type ComponentControlerRole {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用
@@ -52,10 +54,14 @@ extend type Mutation {
   componentControlerRoleBulk(param: [ComponentControlerRoleSaveIn]!): [JSONObject]
   # 控件角色 删除
   componentControlerRoleDestroy(where: JSONObject!, limit: Int): String
+  # 控件角色 根据id删除
+  componentControlerRoleDestroyById(id:String): String
 }
 
 input ComponentControlerRoleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用

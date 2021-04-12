@@ -1,6 +1,8 @@
 # 路由角色关系
 type RouterRole {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用
@@ -27,7 +29,6 @@ type RouterRole {
   routerIdObj: Router
 }
 
-
 # 路由角色关系 分页查询返回
 type RouterRoleList {
   count: Int!
@@ -52,10 +53,14 @@ extend type Mutation {
   routerRoleBulk(param: [RouterRoleSaveIn]!): [JSONObject]
   # 路由角色关系 删除
   routerRoleDestroy(where: JSONObject!, limit: Int): String
+  # 路由角色关系 根据id删除
+  routerRoleDestroyById(id: String): String
 }
 
 input RouterRoleSaveIn {
   id: ID
+  # appName
+  appName: String
   # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
   authState: String
   # 业务编码权限用

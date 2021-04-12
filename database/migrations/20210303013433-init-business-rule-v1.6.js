@@ -24,6 +24,10 @@ module.exports = {
       'business_rule',
       {
         ...parentColumn,
+        app_name: {
+          type: STRING(50),
+          comment: 'appName',
+        },
         rule_code: {
           type: STRING(50),
           comment: '规则编码[unique]',

@@ -1,29 +1,7 @@
 import { Context } from 'midway';
 
-export const development = {
-  watchDirs: [
-    'app',
-    'lib',
-    'service',
-    'config',
-    'app.ts',
-    'agent.ts',
-    'interface.ts',
-  ],
-  overrideDefault: true,
-};
-
 export const jwt = {
-  secret: '123456',
-};
-
-export const mongoose = {
-  client: {
-    url: 'mongodb://127.0.0.1:27017/midwaybase',
-    options: {},
-    // mongoose global plugins, expected a function or an array of function and options :createdPlugin, [updatedPlugin, pluginOptions]
-    plugins: [],
-  },
+  secret: 'lakifsihdfcpohii',
 };
 
 export const graphql = {
@@ -49,11 +27,11 @@ export const graphql = {
  * sequelize数据库链接
  */
 export const sequelize = {
-  host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
-  port: 53306,
-  database: 'financial_system_stage',
-  username: 'root_stage',
-  password: 'jidcab-narfuj-9Xossy',
+  host: 'rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com',
+  port: 3306,
+  database: 'auth_center_changxindian_prd',
+  username: 'root_prod',
+  password: 'xegDed-govcu1-mitpun',
   timezone: '+08:00',
   modelFile: 'js',
   // dialectOptions: {
@@ -69,18 +47,42 @@ export const sequelize = {
 };
 
 export const alioss = {
-  url: 'http://localhost:8021/api/oss',
+  url: 'http://172.16.216.85:8021/api/oss',
 };
 
 export const wxapi = {
-  url: 'http://localhost:8023',
+  url: 'http://172.16.216.85:8023',
 };
 
 export const redis = {
   client: {
     port: 6379,
-    host: '127.0.0.1',
-    password: 'f761f589-A994-64ac-f93c@7b129c2b16b4',
-    db: 0,
+    // 602服务器
+    host: '172.16.216.85',
+    password: '',
+    db: 1,
   },
 };
+
+export const onerror = {
+  // all(err, ctx) {
+  //   // 在此处定义针对所有响应类型的错误处理方法
+  //   // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
+  //   ctx.body = { message: err };
+  // },
+  html(err: Error, ctx: Context) {
+    // html hander
+    ctx.body = err.message;
+  },
+  json(err: Error, ctx: Context) {
+    // json hander
+    ctx.body = err.message;
+  },
+};
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}

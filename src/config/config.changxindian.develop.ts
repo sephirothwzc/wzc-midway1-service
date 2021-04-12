@@ -42,7 +42,7 @@ export const graphql = {
     await authToken.signToken();
   },
   // // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)
-  async onPreGraphiQL(ctx: Context) {},
+  async onPreGraphiQL(ctx: Context) { },
 };
 
 /**
@@ -51,9 +51,9 @@ export const graphql = {
 export const sequelize = {
   host: 'rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com',
   port: 53306,
-  database: 'financial_system_stage',
-  username: 'root_stage',
-  password: 'jidcab-narfuj-9Xossy',
+  database: 'auth_center_changxindian_dev',
+  username: 'root_develop',
+  password: 'eegDed-gbdacu3-ntuplw',
   timezone: '+08:00',
   modelFile: 'js',
   // dialectOptions: {
@@ -80,7 +80,14 @@ export const redis = {
   client: {
     port: 6379,
     host: '127.0.0.1',
-    password: 'f761f589-A994-64ac-f93c@7b129c2b16b4',
-    db: 0,
+    password: '',
+    db: 1,
   },
 };
+
+export const cluster = {
+  listen: {
+    port: 8225,
+    hostname: '0.0.0.0',
+  },
+}

@@ -197,12 +197,12 @@ export class AppUserService extends ServiceBase {
     // 有id 直接更新
     const result = await this.save(param);
     const token = await this.authToken.sign({
-      id: result.id,
+      id: result,
       userName: param.nickName,
       // type: this._.get(param, 'appUserType'),
     });
     return {
-      id: result.id,
+      id: result,
       phone: this._.get(param, 'phone'),
       unionid: this._.get(param, 'unionid'),
       openid: this._.get(param, 'openid'),

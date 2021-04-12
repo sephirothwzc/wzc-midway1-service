@@ -52,6 +52,8 @@ extend type Mutation {
   roleGroupItemBulk(param: [RoleGroupItemSaveIn]!): [JSONObject]
   # 角色组明细 删除
   roleGroupItemDestroy(where: JSONObject!, limit: Int): String
+  # 角色组明细 根据id删除
+  roleGroupItemDestroyById(id:String): String
 }
 
 input RoleGroupItemSaveIn {
