@@ -26,4 +26,8 @@ export default {
     enable: true,
     package: 'egg-cache-9',
   },
+  nunjucks: {
+    enable: true,
+    package: 'egg-view-nunjucks',
+  },
 } as EggPlugin;

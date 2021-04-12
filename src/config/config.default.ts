@@ -168,5 +168,23 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  config.view = {
+    root: [path.join(appInfo.baseDir, 'app/public')].join(','),
+    // baseDir: 'app/public',
+    defaultExtension: '.nj',
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.nj': 'nunjucks',
+    },
+  };
+
+  // static
+  config.static = {
+    prefix: '/web/',
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    gzip: true,
+    buffer: true,
+  };
+
   return config;
 };
