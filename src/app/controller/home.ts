@@ -9,11 +9,6 @@ import { provide, Context, get, controller } from 'midway';
 @provide()
 @controller('/')
 export class HomeController {
-  @get('/*')
-  async view(ctx: Context) {
-    await ctx.render('index');
-  }
-
   @get('/web/*')
   async webView(ctx: Context) {
     await ctx.render('index');
