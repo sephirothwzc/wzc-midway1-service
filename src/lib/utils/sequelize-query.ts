@@ -19,36 +19,23 @@ export class SequelizeQuery {
   @inject('DB')
   db: IDBContext;
 
+  private setOp(param: any) {
+    let res = _.isArray(param) ? [] : {};
+    for (const [k, v] of Object.entries(param)) {
+      res[_.startsWith(k, '_') ? Op[k.substring(1, k.length)] : k] = _.isObject(
+        v
+      )
+        ? this.setOp(v)
+        : v;
+    }
+    return res;
+  }
+
   where(param: any): WhereOptions {
     if (!param || !_.isObject(param)) {
       return param;
     }
-    let where = {};
-    _.keys(param).forEach((key: string) => {
-      if (!_.startsWith(key, '_')) {
-        if (_.isArray(param[key])) {
-          where[key] = param[key].map((obj: any) => {
-            return this.where(obj);
-          });
-        } else if (_.isObject(param[key])) {
-          where[key] = this.where(param[key]);
-          return where;
-        }
-        where[key] = param[key];
-      } else {
-        const sqkey = key.substring(1, key.length);
-        if (_.isArray(param[key])) {
-          where[Op[sqkey]] = param[key].map((obj: any) => {
-            return this.where(obj);
-          });
-        } else if (_.isObject(param[key])) {
-          where[Op[sqkey]] = this.where(param[key]);
-          return where;
-        }
-        where[Op[sqkey]] = param[key];
-      }
-    });
-    return where;
+    return this.setOp(param);
   }
   attributes(param: string[]): FindAttributeOptions {
     return param.map((p) => {
