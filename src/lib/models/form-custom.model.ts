@@ -1,7 +1,7 @@
-import { Table, Column, DataType } from 'sequelize-typescript';
+import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
-
+import { FormCustomSchemaModel } from './form-custom-schema.model';
 // #region enum
 
 // #endregion
@@ -16,7 +16,7 @@ export type IFormCustomModel = typeof FormCustomModel;
  * 自定义表单
  */
 @Table({
-  tableName: 'form-custom',
+  tableName: 'form_custom',
   comment: '自定义表单',
 })
 export class FormCustomModel extends BaseModel {
@@ -80,10 +80,15 @@ export class FormCustomModel extends BaseModel {
    */
   @Column({ comment: '步骤值', type: DataType.INTEGER })
   step?: number;
+
+  @HasMany(() => FormCustomSchemaModel, 'form_custom_id')
+  formCustomSchemaFormCustomId: Array<FormCustomSchemaModel>;
+
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class FORM_CUSTOM {
+
   /**
    * appName
    */
@@ -143,6 +148,7 @@ export class FORM_CUSTOM {
    * 步骤值
    */
   static readonly STEP: string = 'step';
+
 }
 
 // @provide 用 工厂模式static model
@@ -153,3 +159,25 @@ providerWrapper([
     provider: factory,
   },
 ]);
+
+export const createOptions = () => {
+  return (
+    param: FormCustomModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (!param.formCustomSchemaFormCustomId) {
+      return {};
+    }
+    const include: any = [];
+    param.formCustomSchemaFormCustomId &&
+      param.formCustomSchemaFormCustomId.length > 0 &&
+      include.push({ model: FormCustomSchemaModel, as: 'formCustomSchemaFormCustomId' });
+    return { include };
+  };
+};
+providerWrapper([
+  {
+    id: 'formCustomModel.createOptions',
+    provider: createOptions,
+  },
+]);
+

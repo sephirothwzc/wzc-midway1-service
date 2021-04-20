@@ -21,54 +21,49 @@ module.exports = {
       DECIMAL,
     } = Sequelize;
     await queryInterface.createTable(
-      'form_custom',
+      'form_custom_schema',
       {
         ...parentColumn,
-        app_name: {
+        form_custom_id: {
           type: STRING(50),
-          comment: 'appName',
+          references: references('form_custom'),
+          comment: '主流程id',
         },
-        form_name: {
-          type: STRING(50),
-          comment: '表单名称',
-        },
-        form_code: {
-          type: STRING(50),
-          comment: '表单编号',
-        },
-        form_url: {
-          type: STRING(200),
-          comment: '表单路由',
-        },
-        form_query: {
+        xrender: {
           type: JSON,
-          comment: '表单路由参数',
+          comment: 'schema',
         },
-        form_param: {
-          type: JSON,
-          comment: '表单参数',
-        },
-        display_txt: {
+        type: {
           type: STRING(50),
-          comment: '显示文本',
+          comment: '类型form、list',
         },
-        order_no: {
-          type: INTEGER,
-          defaultValue: 1,
-          allowNull,
-          comment: '排序码',
+        url_graphql: {
+          type: STRING(50),
+          comment: 'gql地址',
         },
-        status: {
-          type: STRING(20),
-          comment: '状态值',
+        finish_graphql: {
+          type: TEXT('MEDIUMTEXT'),
+          comment: '提交graphql',
         },
-        step: {
-          type: INTEGER,
-          comment: '步骤值',
+        init_graphql: {
+          type: TEXT('MEDIUMTEXT'),
+          comment: '加载graphql',
+        },
+        req_fun: {
+          type: TEXT('MEDIUMTEXT'),
+          comment: '自定义函数对象集合',
+        },
+        finish_fun: {
+          type: TEXT('MEDIUMTEXT'),
+          comment: 'finish自定义函数',
+        },
+        init_fun: {
+          type: TEXT('MEDIUMTEXT'),
+          comment: '加载自定义函数',
         },
       },
       {
-        comment: '自定义表单',
+        comment: '表单xrenderSchema',
       }
     );
   },
@@ -80,6 +75,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('form_custom');
+    await queryInterface.dropTable('form_custom_schema');
   },
 };

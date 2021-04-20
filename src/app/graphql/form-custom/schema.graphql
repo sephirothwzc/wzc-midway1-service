@@ -37,6 +37,7 @@ type FormCustom {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  formCustomSchemaFormCustomId(param: QueryListParam): [FormCustomSchema]
 }
 
 
@@ -106,4 +107,5 @@ input FormCustomSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  formCustomSchemaFormCustomId: [FormCustomSchemaSaveIn]
 }
