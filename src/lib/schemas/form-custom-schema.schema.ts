@@ -18,6 +18,7 @@ export const formCustomSchemaMutationCreate = Joi.object().keys({
   updatedAt: Joi.date().allow(null).description('修改时间'),
   updatedId: Joi.string().allow('').allow(null).description('修改人id'),
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
+  version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
 });
 
@@ -39,6 +40,7 @@ id: Joi.string().allow(''),
   updatedAt: Joi.date().allow(null).description('修改时间'),
   updatedId: Joi.string().allow('').allow(null).description('修改人id'),
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
+  version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
 });
 

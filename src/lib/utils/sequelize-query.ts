@@ -22,11 +22,8 @@ export class SequelizeQuery {
   private setOp(param: any) {
     let res = _.isArray(param) ? [] : {};
     for (const [k, v] of Object.entries(param)) {
-      res[_.startsWith(k, '_') ? Op[k.substring(1, k.length)] : k] = _.isObject(
-        v
-      )
-        ? this.setOp(v)
-        : v;
+      res[_.startsWith(k, '_') ? Op[k.substring(1, k.length)] : k] =
+        _.isObject(v) && !(v instanceof Date) ? this.setOp(v) : v;
     }
     return res;
   }

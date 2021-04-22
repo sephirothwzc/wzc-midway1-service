@@ -61,6 +61,10 @@ module.exports = {
           type: TEXT('MEDIUMTEXT'),
           comment: '加载自定义函数',
         },
+        version: {
+          type: INTEGER,
+          comment: '版本',
+        },
       },
       {
         comment: '表单xrenderSchema',

@@ -33,6 +33,8 @@ type FormCustomSchema {
   updatedId: String
   # gql地址
   urlGraphql: String
+  # 版本
+  version: Float
   # schema
   xrender: JSONObject
   formCustomIdObj: FormCustom
@@ -101,6 +103,8 @@ input FormCustomSchemaSaveIn {
   updatedId: String
   # gql地址
   urlGraphql: String
+  # 版本
+  version: Float
   # schema
   xrender: JSONObject
 }

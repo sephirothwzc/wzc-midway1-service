@@ -72,6 +72,11 @@ export class FormCustomSchemaModel extends BaseModel {
   @Column({ comment: 'gql地址', type: DataType.STRING(50) })
   urlGraphql?: string;
   /**
+   * 版本
+   */
+  @Column({ comment: '版本', type: DataType.INTEGER })
+  version?: number;
+  /**
    * schema
    */
   @Column({ comment: 'schema', type: DataType.JSON })
@@ -134,6 +139,11 @@ export class FORM_CUSTOM_SCHEMA {
    * gql地址
    */
   static readonly URL_GRAPHQL: string = 'urlGraphql';
+
+  /**
+   * 版本
+   */
+  static readonly VERSION: string = 'version';
 
   /**
    * schema
