@@ -36,6 +36,10 @@ module.exports = {
           type: STRING(50),
           comment: '编码',
         },
+        version: {
+          type: INTEGER,
+          comment: '版本',
+        },
         graph: {
           type: JSON,
           comment: '图形数据',

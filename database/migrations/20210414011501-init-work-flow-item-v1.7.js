@@ -33,10 +33,6 @@ module.exports = {
           type: STRING(50),
           comment: '节点id',
         },
-        nodeid: {
-          type: STRING(50),
-          comment: '节点id',
-        },
         text: {
           type: STRING(50),
           comment: '节点文本',

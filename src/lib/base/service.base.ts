@@ -211,7 +211,7 @@ export abstract class ServiceBase {
    * update
    * @param param
    */
-  private async update(param: BaseModel): Promise<string> {
+  private async update(param: BaseModel): Promise<BaseModel> {
     const tran = this.enableTransaction({
       hookName: HooksName.beforeUpdate,
     });
@@ -223,7 +223,7 @@ export abstract class ServiceBase {
     } else {
       result = await this.ormUpdate(param);
     }
-    return result.id;
+    return result;
   }
 
   async findCreateOptions(
@@ -258,6 +258,16 @@ export abstract class ServiceBase {
    * @param param model
    */
   async save(param: BaseModel): Promise<string> {
+    const model = await this.saveReturnObj(param);
+    return model.id;
+  }
+
+  /**
+   * 保存返回对象
+   * @param param
+   * @returns
+   */
+  async saveReturnObj(param: BaseModel): Promise<BaseModel> {
     this.hookSave(param);
     // 修改
     if (param.id) {
@@ -270,16 +280,14 @@ export abstract class ServiceBase {
     });
     // 默认事务
     if ((options.include && !options.transaction) || tran) {
-      const result = await this.db.sequelize.transaction((t: Transaction) => {
+      return await this.db.sequelize.transaction((t: Transaction) => {
         return this.Model.create(param, {
           ...options,
           transaction: t,
         });
       });
-      return result.id;
     }
-    const result = await this.Model.create(param, options);
-    return result.id;
+    return await this.Model.create(param, options);
   }
 
   async bulkCreate(param: any[]): Promise<any> {
