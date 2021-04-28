@@ -12,7 +12,7 @@
   "stage": {
     "username": "root_develop",
     "password": "eegDed-gbdacu3-ntuplw",
-    "database": "financial_systemstage",
+    "database": "financial_system_stage",
     "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
     "port": "53306",
     "dialect": "mysql",
