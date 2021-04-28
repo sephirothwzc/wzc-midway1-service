@@ -85,9 +85,9 @@ export const sequelize = {
   // database: 'auth_center_dev',
   // username: 'root_develop',
   // password: 'eegDed-gbdacu3-ntuplw',
-  database: 'financial_system_stage',
-  username: 'root_stage',
-  password: 'jidcab-narfuj-9Xossy',
+  database: 'financial_system_dev',
+  username: 'root_develop',
+  password: 'eegDed-gbdacu3-ntuplw',
 
   timezone: '+08:00',
   modelFile: 'ts',

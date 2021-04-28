@@ -1,0 +1,101 @@
+# 项目组
+type ProjectGroup {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 项目终止时间
+  endDate: DateTime
+  # 投资金额
+  investmentAmount: Float
+  # 投资年度
+  investmentYear: Float
+  # 项目组名称
+  name: String
+  # 项目组编号[unique]
+  projectGroupCode: String
+  # 备注
+  remark: String
+  # 项目起始时间
+  startDate: DateTime
+  # 项目组简介
+  synopsis: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  projectHisProjectGroupId(param: QueryListParam): [ProjectHis]
+  projectProjectGroupId(param: QueryListParam): [Project]
+}
+
+
+# 项目组 分页查询返回
+type ProjectGroupList {
+  count: Int!
+  list: [ProjectGroup]
+}
+
+extend type Query {
+  # 项目组 总行数
+  projectGroupCount(param: QueryListParam): Int
+  # 项目组 分页查询
+  projectGroupList(param: QueryListParam): ProjectGroupList
+  # 项目组  id 获取
+  projectGroup(id: ID!): ProjectGroup
+  # 项目组 有条件返回
+  projectGroupAll(param: QueryListParam): [ProjectGroup]
+}
+
+extend type Mutation {
+  # 项目组 新增 or 修改
+  projectGroup(param: ProjectGroupSaveIn!, must: Boolean = false): String
+  # 项目组 批量 新增 or 修改
+  projectGroupBulk(param: [ProjectGroupSaveIn]!): [JSONObject]
+  # 项目组 删除
+  projectGroupDestroy(where: JSONObject!, limit: Int): String
+  # 项目组 根据id删除
+  projectGroupDestroyById(id:String): String
+}
+
+input ProjectGroupSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 项目终止时间
+  endDate: DateTime
+  # 投资金额
+  investmentAmount: Float
+  # 投资年度
+  investmentYear: Float
+  # 项目组名称
+  name: String
+  # 项目组编号[unique]
+  projectGroupCode: String
+  # 备注
+  remark: String
+  # 项目起始时间
+  startDate: DateTime
+  # 项目组简介
+  synopsis: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  projectHisProjectGroupId: [ProjectHisSaveIn]
+  projectProjectGroupId: [ProjectSaveIn]
+}

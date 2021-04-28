@@ -1,0 +1,146 @@
+# 合同
+type Contract {
+  id: ID
+  # 录入人
+  addUserId: String
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 合同编号[unique]
+  contractCode: String
+  # 合同名称[unique]
+  contractName: String
+  # 合同性质
+  contractNatureId: String
+  # 签订期限止
+  contractPeriodEnd: DateTime
+  # 签订期限起
+  contractPeriodStart: DateTime
+  # 合同备注
+  contractRemark: String
+  # 合同状态
+  contractStatusId: String
+  # 合同类型
+  contractTypeId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 合同归属部门
+  organizationId: String
+  # 项目编号
+  projectCode: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 签订金额
+  signingAmount: Float
+  # 签订日期
+  signingDate: DateTime
+  # 合同状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentContractId(param: QueryListParam): [ContractCollectionPayment]
+  contractCollectionPaymentPlanContractId(param: QueryListParam): [ContractCollectionPaymentPlan]
+  projectIdObj: Project
+  budgetIdObj: Budget
+  contractTypeIdObj: DataDictionary
+  contractStatusIdObj: DataDictionary
+  contractNatureIdObj: DataDictionary
+  addUserIdObj: AppUser
+  organizationIdObj: Organization
+  contractSignContractId(param: QueryListParam): [ContractSign]
+}
+
+
+# 合同 分页查询返回
+type ContractList {
+  count: Int!
+  list: [Contract]
+}
+
+extend type Query {
+  # 合同 总行数
+  contractCount(param: QueryListParam): Int
+  # 合同 分页查询
+  contractList(param: QueryListParam): ContractList
+  # 合同  id 获取
+  contract(id: ID!): Contract
+  # 合同 有条件返回
+  contractAll(param: QueryListParam): [Contract]
+}
+
+extend type Mutation {
+  # 合同 新增 or 修改
+  contract(param: ContractSaveIn!, must: Boolean = false): String
+  # 合同 批量 新增 or 修改
+  contractBulk(param: [ContractSaveIn]!): [JSONObject]
+  # 合同 删除
+  contractDestroy(where: JSONObject!, limit: Int): String
+  # 合同 根据id删除
+  contractDestroyById(id:String): String
+}
+
+input ContractSaveIn {
+  id: ID
+  # 录入人
+  addUserId: String
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 合同编号[unique]
+  contractCode: String
+  # 合同名称[unique]
+  contractName: String
+  # 合同性质
+  contractNatureId: String
+  # 签订期限止
+  contractPeriodEnd: DateTime
+  # 签订期限起
+  contractPeriodStart: DateTime
+  # 合同备注
+  contractRemark: String
+  # 合同状态
+  contractStatusId: String
+  # 合同类型
+  contractTypeId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 合同归属部门
+  organizationId: String
+  # 项目编号
+  projectCode: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 签订金额
+  signingAmount: Float
+  # 签订日期
+  signingDate: DateTime
+  # 合同状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentContractId: [ContractCollectionPaymentSaveIn]
+  contractCollectionPaymentPlanContractId: [ContractCollectionPaymentPlanSaveIn]
+  contractSignContractId: [ContractSignSaveIn]
+}

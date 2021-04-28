@@ -1,0 +1,98 @@
+# 企业信息
+type Enterprise {
+  id: ID
+  # 企业注册地址
+  address: String
+  # 业务编码权限用
+  businessCode: String
+  # 联系人
+  contacts: String
+  # 联系人电话
+  contactsPhone: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 状态
+  enterpriseStatus: String
+  # 企业类型
+  enterpriseTypeId: String
+  # 企业名称
+  name: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  capitalAccountEnterpriseId(param: QueryListParam): [CapitalAccount]
+  contractSignEnterpriseId(param: QueryListParam): [ContractSign]
+  enterpriseTypeIdObj: DataDictionary
+}
+
+
+# 企业信息 分页查询返回
+type EnterpriseList {
+  count: Int!
+  list: [Enterprise]
+}
+
+extend type Query {
+  # 企业信息 总行数
+  enterpriseCount(param: QueryListParam): Int
+  # 企业信息 分页查询
+  enterpriseList(param: QueryListParam): EnterpriseList
+  # 企业信息  id 获取
+  enterprise(id: ID!): Enterprise
+  # 企业信息 有条件返回
+  enterpriseAll(param: QueryListParam): [Enterprise]
+}
+
+extend type Mutation {
+  # 企业信息 新增 or 修改
+  enterprise(param: EnterpriseSaveIn!, must: Boolean = false): String
+  # 企业信息 批量 新增 or 修改
+  enterpriseBulk(param: [EnterpriseSaveIn]!): [JSONObject]
+  # 企业信息 删除
+  enterpriseDestroy(where: JSONObject!, limit: Int): String
+  # 企业信息 根据id删除
+  enterpriseDestroyById(id:String): String
+}
+
+input EnterpriseSaveIn {
+  id: ID
+  # 企业注册地址
+  address: String
+  # 业务编码权限用
+  businessCode: String
+  # 联系人
+  contacts: String
+  # 联系人电话
+  contactsPhone: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 状态
+  enterpriseStatus: String
+  # 企业类型
+  enterpriseTypeId: String
+  # 企业名称
+  name: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  capitalAccountEnterpriseId: [CapitalAccountSaveIn]
+  contractSignEnterpriseId: [ContractSignSaveIn]
+}

@@ -1,0 +1,102 @@
+# 预算
+type Budget {
+  id: ID
+  # 预算编号[unique]
+  budgetCode: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 科室id
+  department: String
+  # 支出金额
+  expenditureMoney: Float
+  # 收入金额
+  incomeMoney: Float
+  # 预算原则
+  principle: String
+  # 备注
+  remark: String
+  # 预算状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  budgetFileBudgetId(param: QueryListParam): [BudgetFile]
+  departmentObj: Organization
+  contractBudgetId(param: QueryListParam): [Contract]
+  projectBudgetHisBudgetId(param: QueryListParam): [ProjectBudgetHis]
+  projectBudgetBudgetId(param: QueryListParam): [ProjectBudget]
+}
+
+
+# 预算 分页查询返回
+type BudgetList {
+  count: Int!
+  list: [Budget]
+}
+
+extend type Query {
+  # 预算 总行数
+  budgetCount(param: QueryListParam): Int
+  # 预算 分页查询
+  budgetList(param: QueryListParam): BudgetList
+  # 预算  id 获取
+  budget(id: ID!): Budget
+  # 预算 有条件返回
+  budgetAll(param: QueryListParam): [Budget]
+}
+
+extend type Mutation {
+  # 预算 新增 or 修改
+  budget(param: BudgetSaveIn!, must: Boolean = false): String
+  # 预算 批量 新增 or 修改
+  budgetBulk(param: [BudgetSaveIn]!): [JSONObject]
+  # 预算 删除
+  budgetDestroy(where: JSONObject!, limit: Int): String
+  # 预算 根据id删除
+  budgetDestroyById(id:String): String
+}
+
+input BudgetSaveIn {
+  id: ID
+  # 预算编号[unique]
+  budgetCode: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 科室id
+  department: String
+  # 支出金额
+  expenditureMoney: Float
+  # 收入金额
+  incomeMoney: Float
+  # 预算原则
+  principle: String
+  # 备注
+  remark: String
+  # 预算状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  budgetFileBudgetId: [BudgetFileSaveIn]
+  contractBudgetId: [ContractSaveIn]
+  projectBudgetHisBudgetId: [ProjectBudgetHisSaveIn]
+  projectBudgetBudgetId: [ProjectBudgetSaveIn]
+}

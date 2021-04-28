@@ -1,0 +1,79 @@
+# 项目预算关系表
+type ProjectBudget {
+  id: ID
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  projectIdObj: Project
+  budgetIdObj: Budget
+}
+
+
+# 项目预算关系表 分页查询返回
+type ProjectBudgetList {
+  count: Int!
+  list: [ProjectBudget]
+}
+
+extend type Query {
+  # 项目预算关系表 总行数
+  projectBudgetCount(param: QueryListParam): Int
+  # 项目预算关系表 分页查询
+  projectBudgetList(param: QueryListParam): ProjectBudgetList
+  # 项目预算关系表  id 获取
+  projectBudget(id: ID!): ProjectBudget
+  # 项目预算关系表 有条件返回
+  projectBudgetAll(param: QueryListParam): [ProjectBudget]
+}
+
+extend type Mutation {
+  # 项目预算关系表 新增 or 修改
+  projectBudget(param: ProjectBudgetSaveIn!, must: Boolean = false): String
+  # 项目预算关系表 批量 新增 or 修改
+  projectBudgetBulk(param: [ProjectBudgetSaveIn]!): [JSONObject]
+  # 项目预算关系表 删除
+  projectBudgetDestroy(where: JSONObject!, limit: Int): String
+  # 项目预算关系表 根据id删除
+  projectBudgetDestroyById(id:String): String
+}
+
+input ProjectBudgetSaveIn {
+  id: ID
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+}

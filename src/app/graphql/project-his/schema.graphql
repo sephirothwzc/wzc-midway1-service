@@ -1,0 +1,185 @@
+# 项目
+type ProjectHis {
+  id: ID
+  # 项目录入人
+  addUserId: String
+  # 审定金额
+  approvedAmount: Float
+  # 建设性质
+  buildNatureId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 折子工程内容描述
+  eclecticContentDescribe: String
+  # 是否为折子工程
+  eclecticProject: Float
+  # 是否政府采购
+  governmentPurchase: Float
+  # 是否市级以上投资工程
+  hasMunicipalLevel: Float
+  # 是否经过投资评审
+  hasReview: Float
+  # 是否纳入绩效
+  incorporatePerformance: Float
+  # 投资年度
+  investmentYear: Float
+  # 市级以上投资工程内容描述
+  municipalLevelContentDescribe: String
+  # 项目名称
+  name: String
+  # 是否常年项目
+  perennial: Float
+  # 是否实施项目事前评估
+  preEvaluation: Float
+  # 项目编号
+  projectCode: String
+  # 项目组id
+  projectGroupId: String
+  # 项目组id
+  projectId: String
+  # 项目科目
+  projectStatusId: String
+  # 项目科目
+  projectSubjectId: String
+  # 项目类型
+  projectTypeId: String
+  # 是否公共项目
+  publicProjects: Float
+  # 是否购买服务
+  purchaseService: Float
+  # 备注
+  remark: String
+  # 责任科室
+  responsibleOrganizationId: String
+  # 来源文件号
+  sourceFile: String
+  # 项目组简介
+  synopsis: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 版本
+  version: Float
+  projectBudgetHisProjectHisId(param: QueryListParam): [ProjectBudgetHis]
+  projectFileHisProjectHisId(param: QueryListParam): [ProjectFileHis]
+  projectIdObj: Project
+  projectGroupIdObj: ProjectGroup
+  projectTypeIdObj: DataDictionary
+  projectSubjectIdObj: DataDictionary
+  responsibleOrganizationIdObj: Organization
+  projectStatusIdObj: DataDictionary
+  buildNatureIdObj: DataDictionary
+  addUserIdObj: AppUser
+}
+
+
+# 项目 分页查询返回
+type ProjectHisList {
+  count: Int!
+  list: [ProjectHis]
+}
+
+extend type Query {
+  # 项目 总行数
+  projectHisCount(param: QueryListParam): Int
+  # 项目 分页查询
+  projectHisList(param: QueryListParam): ProjectHisList
+  # 项目  id 获取
+  projectHis(id: ID!): ProjectHis
+  # 项目 有条件返回
+  projectHisAll(param: QueryListParam): [ProjectHis]
+}
+
+extend type Mutation {
+  # 项目 新增 or 修改
+  projectHis(param: ProjectHisSaveIn!, must: Boolean = false): String
+  # 项目 批量 新增 or 修改
+  projectHisBulk(param: [ProjectHisSaveIn]!): [JSONObject]
+  # 项目 删除
+  projectHisDestroy(where: JSONObject!, limit: Int): String
+  # 项目 根据id删除
+  projectHisDestroyById(id:String): String
+}
+
+input ProjectHisSaveIn {
+  id: ID
+  # 项目录入人
+  addUserId: String
+  # 审定金额
+  approvedAmount: Float
+  # 建设性质
+  buildNatureId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 折子工程内容描述
+  eclecticContentDescribe: String
+  # 是否为折子工程
+  eclecticProject: Float
+  # 是否政府采购
+  governmentPurchase: Float
+  # 是否市级以上投资工程
+  hasMunicipalLevel: Float
+  # 是否经过投资评审
+  hasReview: Float
+  # 是否纳入绩效
+  incorporatePerformance: Float
+  # 投资年度
+  investmentYear: Float
+  # 市级以上投资工程内容描述
+  municipalLevelContentDescribe: String
+  # 项目名称
+  name: String
+  # 是否常年项目
+  perennial: Float
+  # 是否实施项目事前评估
+  preEvaluation: Float
+  # 项目编号
+  projectCode: String
+  # 项目组id
+  projectGroupId: String
+  # 项目组id
+  projectId: String
+  # 项目科目
+  projectStatusId: String
+  # 项目科目
+  projectSubjectId: String
+  # 项目类型
+  projectTypeId: String
+  # 是否公共项目
+  publicProjects: Float
+  # 是否购买服务
+  purchaseService: Float
+  # 备注
+  remark: String
+  # 责任科室
+  responsibleOrganizationId: String
+  # 来源文件号
+  sourceFile: String
+  # 项目组简介
+  synopsis: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 版本
+  version: Float
+  projectBudgetHisProjectHisId: [ProjectBudgetHisSaveIn]
+  projectFileHisProjectHisId: [ProjectFileHisSaveIn]
+}
