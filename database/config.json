@@ -2,7 +2,7 @@
   "development": {
     "username": "root_develop",
     "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_dev",
+    "database": "financial_system_dev",
     "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
     "port": "53306",
     "dialect": "mysql",
@@ -12,7 +12,7 @@
   "stage": {
     "username": "root_develop",
     "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_stage",
+    "database": "financial_systemstage",
     "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
     "port": "53306",
     "dialect": "mysql",
@@ -22,37 +22,7 @@
   "production": {
     "username": "root_develop",
     "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_prd",
-    "port": "3306",
-    "host": "rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com",
-    "dialect": "mysql",
-    "seederStorage": "sequelize",
-    "seederStorageTableName": "sequelizedata"
-  },
-  "development-changxindian": {
-    "username": "root_develop",
-    "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_changxindian_dev",
-    "port": "53306",
-    "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
-    "dialect": "mysql",
-    "seederStorage": "sequelize",
-    "seederStorageTableName": "sequelizedata"
-  },
-  "stage-changxindian": {
-    "username": "root_develop",
-    "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_changxindian_stage",
-    "port": "53306",
-    "host": "rm-8vb5a7c204kxc3g93wo.mysql.zhangbei.rds.aliyuncs.com",
-    "dialect": "mysql",
-    "seederStorage": "sequelize",
-    "seederStorageTableName": "sequelizedata"
-  },
-  "production-changxindian": {
-    "username": "root_develop",
-    "password": "eegDed-gbdacu3-ntuplw",
-    "database": "auth_center_changxindian_prd",
+    "database": "financial_system_prd",
     "port": "3306",
     "host": "rm-8vb9k9rdy6ayl0o2237690.mysql.zhangbei.rds.aliyuncs.com",
     "dialect": "mysql",
