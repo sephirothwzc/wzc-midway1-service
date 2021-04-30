@@ -49,11 +49,11 @@ module.exports = {
         project_subject_id: {
           type: STRING(50),
           references: references('data_dictionary'),
-          comment: '项目科目',
+          comment: '功能科目',
         },
         synopsis: {
           type: STRING(200),
-          comment: '项目组简介',
+          comment: '项目简介',
         },
         responsible_organization_id: {
           type: STRING(50),
@@ -74,9 +74,21 @@ module.exports = {
           type: INTEGER,
           comment: '投资年度',
         },
+        start_date: {
+          type: DATE,
+          comment: '项目起始时间',
+        },
+        end_date: {
+          type: DATE,
+          comment: '项目终止时间',
+        },
+        investment_amount: {
+          type: INTEGER,
+          comment: '投资金额',
+        },
         source_file: {
           type: STRING(50),
-          comment: '来源文件号',
+          comment: '来源文号',
         },
         add_user_id: {
           type: STRING(50),

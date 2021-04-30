@@ -70,6 +70,11 @@ export class ProjectModel extends BaseModel {
   @Column({ comment: '是否为折子工程', type: DataType.INTEGER })
   eclecticProject?: number;
   /**
+   * 项目终止时间
+   */
+  @Column({ comment: '项目终止时间', type: DataType.DATE })
+  endDate?: Date;
+  /**
    * 是否政府采购
    */
   @Column({ comment: '是否政府采购', type: DataType.INTEGER })
@@ -89,6 +94,11 @@ export class ProjectModel extends BaseModel {
    */
   @Column({ comment: '是否纳入绩效', type: DataType.INTEGER })
   incorporatePerformance?: number;
+  /**
+   * 投资金额
+   */
+  @Column({ comment: '投资金额', type: DataType.INTEGER })
+  investmentAmount?: number;
   /**
    * 投资年度
    */
@@ -132,10 +142,10 @@ export class ProjectModel extends BaseModel {
   @Column({ comment: '项目状态', type: DataType.STRING(50) })
   projectStatusId?: string;
   /**
-   * 项目科目
+   * 功能科目
    */
   @ForeignKey(() => DataDictionaryModel)
-  @Column({ comment: '项目科目', type: DataType.STRING(50) })
+  @Column({ comment: '功能科目', type: DataType.STRING(50) })
   projectSubjectId?: string;
   /**
    * 项目类型
@@ -165,19 +175,24 @@ export class ProjectModel extends BaseModel {
   @Column({ comment: '责任科室', type: DataType.STRING(50) })
   responsibleOrganizationId?: string;
   /**
-   * 来源文件号
+   * 来源文号
    */
-  @Column({ comment: '来源文件号', type: DataType.STRING(50) })
+  @Column({ comment: '来源文号', type: DataType.STRING(50) })
   sourceFile?: string;
+  /**
+   * 项目起始时间
+   */
+  @Column({ comment: '项目起始时间', type: DataType.DATE })
+  startDate?: Date;
   /**
    * 项目状态
    */
   @Column({ comment: '项目状态', type: DataType.STRING(50) })
   status?: string;
   /**
-   * 项目组简介
+   * 项目简介
    */
-  @Column({ comment: '项目组简介', type: DataType.STRING(200) })
+  @Column({ comment: '项目简介', type: DataType.STRING(200) })
   synopsis?: string;
   /**
    * 版本
@@ -260,6 +275,11 @@ export class PROJECT {
   static readonly ECLECTIC_PROJECT: string = 'eclecticProject';
 
   /**
+   * 项目终止时间
+   */
+  static readonly END_DATE: string = 'endDate';
+
+  /**
    * 是否政府采购
    */
   static readonly GOVERNMENT_PURCHASE: string = 'governmentPurchase';
@@ -278,6 +298,11 @@ export class PROJECT {
    * 是否纳入绩效
    */
   static readonly INCORPORATE_PERFORMANCE: string = 'incorporatePerformance';
+
+  /**
+   * 投资金额
+   */
+  static readonly INVESTMENT_AMOUNT: string = 'investmentAmount';
 
   /**
    * 投资年度
@@ -320,7 +345,7 @@ export class PROJECT {
   static readonly PROJECT_STATUS_ID: string = 'projectStatusId';
 
   /**
-   * 项目科目
+   * 功能科目
    */
   static readonly PROJECT_SUBJECT_ID: string = 'projectSubjectId';
 
@@ -350,9 +375,14 @@ export class PROJECT {
   static readonly RESPONSIBLE_ORGANIZATION_ID: string = 'responsibleOrganizationId';
 
   /**
-   * 来源文件号
+   * 来源文号
    */
   static readonly SOURCE_FILE: string = 'sourceFile';
+
+  /**
+   * 项目起始时间
+   */
+  static readonly START_DATE: string = 'startDate';
 
   /**
    * 项目状态
@@ -360,7 +390,7 @@ export class PROJECT {
   static readonly STATUS: string = 'status';
 
   /**
-   * 项目组简介
+   * 项目简介
    */
   static readonly SYNOPSIS: string = 'synopsis';
 

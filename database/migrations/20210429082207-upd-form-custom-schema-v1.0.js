@@ -23,6 +23,14 @@ module.exports = {
       type: TEXT('MEDIUMTEXT'),
       comment: 'xrender格式化文本',
     });
+    await queryInterface.addColumn(
+      'form_custom_schema',
+      'xrender_submit_graphql',
+      {
+        type: TEXT('MEDIUMTEXT'),
+        comment: 'xrender-onFinish-graphql',
+      }
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -33,5 +41,9 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     await queryInterface.removeColumn('form_custom_schema', 'xrender_string');
+    await queryInterface.removeColumn(
+      'form_custom_schema',
+      'xrender_submit_graphql'
+    );
   },
 };
