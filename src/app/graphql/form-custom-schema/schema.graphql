@@ -37,6 +37,8 @@ type FormCustomSchema {
   version: Float
   # schema
   xrender: JSONObject
+  # xrender格式化文本
+  xrenderString: String
   formCustomIdObj: FormCustom
 }
 
@@ -107,4 +109,6 @@ input FormCustomSchemaSaveIn {
   version: Float
   # schema
   xrender: JSONObject
+  # xrender格式化文本
+  xrenderString: String
 }

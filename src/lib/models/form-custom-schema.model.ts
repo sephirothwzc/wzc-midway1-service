@@ -81,6 +81,11 @@ export class FormCustomSchemaModel extends BaseModel {
    */
   @Column({ comment: 'schema', type: DataType.JSON })
   xrender?: Record<string, any>;
+  /**
+   * xrender格式化文本
+   */
+  @Column({ comment: 'xrender格式化文本', type: DataType.TEXT })
+  xrenderString?: string;
 
   @BelongsTo(() => FormCustomModel, 'form_custom_id')
   formCustomIdObj: FormCustomModel;
@@ -149,6 +154,11 @@ export class FORM_CUSTOM_SCHEMA {
    * schema
    */
   static readonly XRENDER: string = 'xrender';
+
+  /**
+   * xrender格式化文本
+   */
+  static readonly XRENDER_STRING: string = 'xrenderString';
 
 }
 
