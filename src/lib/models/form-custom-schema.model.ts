@@ -82,10 +82,20 @@ export class FormCustomSchemaModel extends BaseModel {
   @Column({ comment: 'schema', type: DataType.JSON })
   xrender?: Record<string, any>;
   /**
+   * 根据router.param.id find graphql
+   */
+  @Column({ comment: '根据router.param.id find graphql', type: DataType.TEXT })
+  xrenderQueryGraphql?: string;
+  /**
    * xrender格式化文本
    */
   @Column({ comment: 'xrender格式化文本', type: DataType.TEXT })
   xrenderString?: string;
+  /**
+   * xrender-onFinish-graphql
+   */
+  @Column({ comment: 'xrender-onFinish-graphql', type: DataType.TEXT })
+  xrenderSubmitGraphql?: string;
 
   @BelongsTo(() => FormCustomModel, 'form_custom_id')
   formCustomIdObj: FormCustomModel;
@@ -156,9 +166,19 @@ export class FORM_CUSTOM_SCHEMA {
   static readonly XRENDER: string = 'xrender';
 
   /**
+   * 根据router.param.id find graphql
+   */
+  static readonly XRENDER_QUERY_GRAPHQL: string = 'xrenderQueryGraphql';
+
+  /**
    * xrender格式化文本
    */
   static readonly XRENDER_STRING: string = 'xrenderString';
+
+  /**
+   * xrender-onFinish-graphql
+   */
+  static readonly XRENDER_SUBMIT_GRAPHQL: string = 'xrenderSubmitGraphql';
 
 }
 

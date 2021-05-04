@@ -31,6 +31,14 @@ module.exports = {
         comment: 'xrender-onFinish-graphql',
       }
     );
+    await queryInterface.addColumn(
+      'form_custom_schema',
+      'xrender_query_graphql',
+      {
+        type: TEXT('MEDIUMTEXT'),
+        comment: '根据router.param.id find graphql',
+      }
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -44,6 +52,10 @@ module.exports = {
     await queryInterface.removeColumn(
       'form_custom_schema',
       'xrender_submit_graphql'
+    );
+    await queryInterface.removeColumn(
+      'form_custom_schema',
+      'xrender_query_graphql'
     );
   },
 };

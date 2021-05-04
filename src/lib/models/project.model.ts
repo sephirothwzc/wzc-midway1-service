@@ -11,6 +11,7 @@ import { ProjectGroupModel } from './project-group.model';
 import { DataDictionaryModel } from './data-dictionary.model';
 import { OrganizationModel } from './organization.model';
 import { AppUserModel } from './app-user.model';
+import { FormCustomSchemaModel } from './form-custom-schema.model';
 // #region enum
 export enum EProjectProjectCode {
   /**
@@ -175,6 +176,12 @@ export class ProjectModel extends BaseModel {
   @Column({ comment: '责任科室', type: DataType.STRING(50) })
   responsibleOrganizationId?: string;
   /**
+   * schema version id
+   */
+  @ForeignKey(() => FormCustomSchemaModel)
+  @Column({ comment: 'schema version id', type: DataType.STRING(50) })
+  schemaId?: string;
+  /**
    * 来源文号
    */
   @Column({ comment: '来源文号', type: DataType.STRING(50) })
@@ -238,6 +245,9 @@ export class ProjectModel extends BaseModel {
 
   @BelongsTo(() => AppUserModel, 'add_user_id')
   addUserIdObj: AppUserModel;
+
+  @BelongsTo(() => FormCustomSchemaModel, 'schema_id')
+  schemaIdObj: FormCustomSchemaModel;
 
 }
 
@@ -373,6 +383,11 @@ export class PROJECT {
    * 责任科室
    */
   static readonly RESPONSIBLE_ORGANIZATION_ID: string = 'responsibleOrganizationId';
+
+  /**
+   * schema version id
+   */
+  static readonly SCHEMA_ID: string = 'schemaId';
 
   /**
    * 来源文号

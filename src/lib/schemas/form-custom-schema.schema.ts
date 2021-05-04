@@ -20,7 +20,9 @@ export const formCustomSchemaMutationCreate = Joi.object().keys({
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
   version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
+  xrenderQueryGraphql: Joi.string().allow('').allow(null).description('根据router.param.id find graphql'),
   xrenderString: Joi.string().allow('').allow(null).description('xrender格式化文本'),
+  xrenderSubmitGraphql: Joi.string().allow('').allow(null).description('xrender-onFinish-graphql'),
 });
 
 export const formCustomSchemaMutationUpdate = Joi.object().keys({
@@ -43,7 +45,9 @@ id: Joi.string().allow(''),
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
   version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
+  xrenderQueryGraphql: Joi.string().allow('').allow(null).description('根据router.param.id find graphql'),
   xrenderString: Joi.string().allow('').allow(null).description('xrender格式化文本'),
+  xrenderSubmitGraphql: Joi.string().allow('').allow(null).description('xrender-onFinish-graphql'),
 });
 
 export const formCustomSchemaBulkMutation = Joi.array().items(formCustomSchemaMutationCreate);

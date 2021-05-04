@@ -37,8 +37,12 @@ type FormCustomSchema {
   version: Float
   # schema
   xrender: JSONObject
+  # 根据router.param.id find graphql
+  xrenderQueryGraphql: String
   # xrender格式化文本
   xrenderString: String
+  # xrender-onFinish-graphql
+  xrenderSubmitGraphql: String
   formCustomIdObj: FormCustom
 }
 
@@ -109,6 +113,10 @@ input FormCustomSchemaSaveIn {
   version: Float
   # schema
   xrender: JSONObject
+  # 根据router.param.id find graphql
+  xrenderQueryGraphql: String
   # xrender格式化文本
   xrenderString: String
+  # xrender-onFinish-graphql
+  xrenderSubmitGraphql: String
 }
