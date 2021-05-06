@@ -268,6 +268,7 @@ export abstract class ServiceBase {
    * @returns
    */
   async saveReturnObj(param: BaseModel): Promise<BaseModel> {
+    debugger;
     this.hookSave(param);
     // 修改
     if (param.id) {

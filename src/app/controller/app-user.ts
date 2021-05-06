@@ -10,6 +10,26 @@ export class AppUserController {
   @inject()
   private appUserService: IAppUserService;
 
+  @post('/test')
+  async test() {
+    this.ctx.body = {
+      statusCode: '200',
+      statusMessage: '成功',
+      seals: [
+        {
+          sealType: '法定代表人大名章',
+          sealNum: '123123123123',
+          sealStatus: '2',
+          operators: [
+            {
+              creditCode: '123123123123123',
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   @post('/login')
   async login() {
     this.ctx.body = await this.appUserService.login(this.ctx.request.body);
