@@ -1,0 +1,97 @@
+# 工作流表单记录关联人员用户
+type WorkFlowOrmUser {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
+  dataStatus: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 发起人id
+  formUserId: String
+  # 经手人id
+  managerUserId: String
+  # 备注
+  remark: String
+  # 节点值true、false
+  statusValue: String
+  # 承办人id
+  undertakeUserId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 发起人id
+  workFlowOrmId: String
+  workFlowOrmIdObj: AppUser
+  formUserIdObj: AppUser
+  managerUserIdObj: AppUser
+  undertakeUserIdObj: AppUser
+}
+
+
+# 工作流表单记录关联人员用户 分页查询返回
+type WorkFlowOrmUserList {
+  count: Int!
+  list: [WorkFlowOrmUser]
+}
+
+extend type Query {
+  # 工作流表单记录关联人员用户 总行数
+  workFlowOrmUserCount(param: QueryListParam): Int
+  # 工作流表单记录关联人员用户 分页查询
+  workFlowOrmUserList(param: QueryListParam): WorkFlowOrmUserList
+  # 工作流表单记录关联人员用户  id 获取
+  workFlowOrmUser(id: ID!): WorkFlowOrmUser
+  # 工作流表单记录关联人员用户 有条件返回
+  workFlowOrmUserAll(param: QueryListParam): [WorkFlowOrmUser]
+}
+
+extend type Mutation {
+  # 工作流表单记录关联人员用户 新增 or 修改
+  workFlowOrmUser(param: WorkFlowOrmUserSaveIn!, must: Boolean = false): String
+  # 工作流表单记录关联人员用户 批量 新增 or 修改
+  workFlowOrmUserBulk(param: [WorkFlowOrmUserSaveIn]!): [JSONObject]
+  # 工作流表单记录关联人员用户 删除
+  workFlowOrmUserDestroy(where: JSONObject!, limit: Int): String
+  # 工作流表单记录关联人员用户 根据id删除
+  workFlowOrmUserDestroyById(id:String): String
+}
+
+input WorkFlowOrmUserSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
+  dataStatus: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 发起人id
+  formUserId: String
+  # 经手人id
+  managerUserId: String
+  # 备注
+  remark: String
+  # 节点值true、false
+  statusValue: String
+  # 承办人id
+  undertakeUserId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 发起人id
+  workFlowOrmId: String
+}
