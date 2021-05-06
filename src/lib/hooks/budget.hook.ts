@@ -49,10 +49,10 @@ export class BudgetHook {
       return;
     }
 
-    if (changed.includes(BUDGET.BUDGET_CODE) && model.get('BudgetCode')) {
+    if (changed.includes(BUDGET.BUDGET_CODE) && model.get('budgetCode')) {
       const item0 = await BudgetModel.findOne({
         where: {
-          [BUDGET.BUDGET_CODE]: model.get('BudgetCode'),
+          [BUDGET.BUDGET_CODE]: model.get('budgetCode'),
         },
         transaction: options?.transaction,
       });
@@ -68,10 +68,10 @@ export class BudgetHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('BudgetCode')) {
+    if (model.get('budgetCode')) {
       const item0 = await BudgetModel.findOne({
         where: {
-          [BUDGET.BUDGET_CODE]: model.get('BudgetCode'),
+          [BUDGET.BUDGET_CODE]: model.get('budgetCode'),
         },
         transaction: options?.transaction,
       });

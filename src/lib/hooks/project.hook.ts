@@ -61,10 +61,10 @@ export class ProjectHook {
       return;
     }
 
-    if (changed.includes(PROJECT.PROJECT_CODE) && model.get('ProjectCode')) {
+    if (changed.includes(PROJECT.PROJECT_CODE) && model.get('projectCode')) {
       const item0 = await ProjectModel.findOne({
         where: {
-          [PROJECT.PROJECT_CODE]: model.get('ProjectCode'),
+          [PROJECT.PROJECT_CODE]: model.get('projectCode'),
         },
         transaction: options?.transaction,
       });
@@ -80,10 +80,10 @@ export class ProjectHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('ProjectCode')) {
+    if (model.get('projectCode')) {
       const item0 = await ProjectModel.findOne({
         where: {
-          [PROJECT.PROJECT_CODE]: model.get('ProjectCode'),
+          [PROJECT.PROJECT_CODE]: model.get('projectCode'),
         },
         transaction: options?.transaction,
       });

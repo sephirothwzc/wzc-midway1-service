@@ -43,10 +43,10 @@ export class ContractHook {
       return;
     }
 
-    if (changed.includes(CONTRACT.CONTRACT_CODE) && model.get('ContractCode')) {
+    if (changed.includes(CONTRACT.CONTRACT_CODE) && model.get('contractCode')) {
       const item0 = await ContractModel.findOne({
         where: {
-          [CONTRACT.CONTRACT_CODE]: model.get('ContractCode'),
+          [CONTRACT.CONTRACT_CODE]: model.get('contractCode'),
         },
         transaction: options?.transaction,
       });
@@ -56,10 +56,10 @@ export class ContractHook {
     }
     
 
-    if (changed.includes(CONTRACT.CONTRACT_NAME) && model.get('ContractName')) {
+    if (changed.includes(CONTRACT.CONTRACT_NAME) && model.get('contractName')) {
       const item1 = await ContractModel.findOne({
         where: {
-          [CONTRACT.CONTRACT_NAME]: model.get('ContractName'),
+          [CONTRACT.CONTRACT_NAME]: model.get('contractName'),
         },
         transaction: options?.transaction,
       });
@@ -75,10 +75,10 @@ export class ContractHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('ContractCode')) {
+    if (model.get('contractCode')) {
       const item0 = await ContractModel.findOne({
         where: {
-          [CONTRACT.CONTRACT_CODE]: model.get('ContractCode'),
+          [CONTRACT.CONTRACT_CODE]: model.get('contractCode'),
         },
         transaction: options?.transaction,
       });
@@ -88,10 +88,10 @@ export class ContractHook {
     }
     
 
-    if (model.get('ContractName')) {
+    if (model.get('contractName')) {
       const item1 = await ContractModel.findOne({
         where: {
-          [CONTRACT.CONTRACT_NAME]: model.get('ContractName'),
+          [CONTRACT.CONTRACT_NAME]: model.get('contractName'),
         },
         transaction: options?.transaction,
       });
