@@ -15,6 +15,8 @@ type WorkFlow {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
+  # 表单id
+  formCustomId: String
   # 图形数据
   graph: JSONObject
   # 名称
@@ -27,6 +29,8 @@ type WorkFlow {
   updatedId: String
   # 版本
   version: Float
+  formCustomIdObj: FormCustom
+  workFlowOrmWorkFlowId(param: QueryListParam): [WorkFlowOrm]
 }
 
 
@@ -74,6 +78,8 @@ input WorkFlowSaveIn {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
+  # 表单id
+  formCustomId: String
   # 图形数据
   graph: JSONObject
   # 名称
@@ -86,4 +92,5 @@ input WorkFlowSaveIn {
   updatedId: String
   # 版本
   version: Float
+  workFlowOrmWorkFlowId: [WorkFlowOrmSaveIn]
 }

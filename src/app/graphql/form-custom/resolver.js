@@ -11,5 +11,15 @@ module.exports = {
       _.set(_args, 'param.where.formCustomId', _root.id);
       return service.findAll(_args.param);
     },
+    schemaOrmFormCustomId: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'schemaOrm');
+      _.set(_args, 'param.where.formCustomId', _root.id);
+      return service.findAll(_args.param);
+    },
+    workFlowFormCustomId: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'workFlow');
+      _.set(_args, 'param.where.formCustomId', _root.id);
+      return service.findAll(_args.param);
+    },
   },
 };

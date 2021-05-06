@@ -1,5 +1,8 @@
 import { Application, Context } from 'midway';
 
+/**
+ * gql error 信息
+ */
 module.exports = (options: any, app: Application) => {
   return async function notFoundHandler(
     ctx: Context,

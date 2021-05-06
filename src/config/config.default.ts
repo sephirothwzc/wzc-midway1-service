@@ -67,6 +67,7 @@ export default (appInfo: EggAppInfo) => {
   // add your config here
   config.middleware = [
     'gqlErrorHandler',
+    'gqlWorkFlow',
     'restfulAuth',
     'graphql',
     'validator',

@@ -2,6 +2,8 @@ import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { FormCustomSchemaModel } from './form-custom-schema.model';
+import { SchemaOrmModel } from './schema-orm.model';
+import { WorkFlowModel } from './work-flow.model';
 // #region enum
 
 // #endregion
@@ -84,6 +86,12 @@ export class FormCustomModel extends BaseModel {
   @HasMany(() => FormCustomSchemaModel, 'form_custom_id')
   formCustomSchemaFormCustomId: Array<FormCustomSchemaModel>;
 
+  @HasMany(() => SchemaOrmModel, 'form_custom_id')
+  schemaOrmFormCustomId: Array<SchemaOrmModel>;
+
+  @HasMany(() => WorkFlowModel, 'form_custom_id')
+  workFlowFormCustomId: Array<WorkFlowModel>;
+
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
@@ -164,13 +172,19 @@ export const createOptions = () => {
   return (
     param: FormCustomModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.formCustomSchemaFormCustomId) {
+    if (!param.formCustomSchemaFormCustomId && !param.schemaOrmFormCustomId && !param.workFlowFormCustomId) {
       return {};
     }
     const include: any = [];
     param.formCustomSchemaFormCustomId &&
       param.formCustomSchemaFormCustomId.length > 0 &&
       include.push({ model: FormCustomSchemaModel, as: 'formCustomSchemaFormCustomId' });
+    param.schemaOrmFormCustomId &&
+      param.schemaOrmFormCustomId.length > 0 &&
+      include.push({ model: SchemaOrmModel, as: 'schemaOrmFormCustomId' });
+    param.workFlowFormCustomId &&
+      param.workFlowFormCustomId.length > 0 &&
+      include.push({ model: WorkFlowModel, as: 'workFlowFormCustomId' });
     return { include };
   };
 };

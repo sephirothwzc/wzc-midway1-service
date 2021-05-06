@@ -38,6 +38,8 @@ type FormCustom {
   # 修改人id
   updatedId: String
   formCustomSchemaFormCustomId(param: QueryListParam): [FormCustomSchema]
+  schemaOrmFormCustomId(param: QueryListParam): [SchemaOrm]
+  workFlowFormCustomId(param: QueryListParam): [WorkFlow]
 }
 
 
@@ -108,4 +110,6 @@ input FormCustomSaveIn {
   # 修改人id
   updatedId: String
   formCustomSchemaFormCustomId: [FormCustomSchemaSaveIn]
+  schemaOrmFormCustomId: [SchemaOrmSaveIn]
+  workFlowFormCustomId: [WorkFlowSaveIn]
 }
