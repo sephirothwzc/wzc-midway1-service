@@ -30,10 +30,12 @@ module.exports = (options: any, app: Application) => {
 
     // 动态表单 表单数据用
     const ormString = ctx.headers['schema-orm'];
-    const orm = JSON.parse(ormString);
-    if (ormString) {
-      await schemaOrmSave(orm, ctx);
+    if (!ormString) {
+      return;
     }
+    const orm = JSON.parse(ormString);
+    await schemaOrmSave(orm, ctx);
+
     // 提交类型 工作流用
     const finishType = ctx.headers['finish-type'];
     if (finishType) {

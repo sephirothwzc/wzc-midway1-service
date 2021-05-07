@@ -21,9 +21,14 @@ export class SequelizeQuery {
 
   private setOp(param: any) {
     let res = _.isArray(param) ? [] : {};
-    for (const [k, v] of Object.entries(param)) {
-      res[_.startsWith(k, '_') ? Op[k.substring(1, k.length)] : k] =
-        _.isObject(v) && !(v instanceof Date) ? this.setOp(v) : v;
+    for (const k of Reflect.ownKeys(param)) {
+      const v = param[k];
+      if (typeof k === 'string') {
+        res[_.startsWith(k, '_') ? Op[k.substring(1, k.length)] : k] =
+          _.isObject(v) && !(v instanceof Date) ? this.setOp(v) : v;
+      } else {
+        res[k] = _.isObject(v) && !(v instanceof Date) ? this.setOp(v) : v;
+      }
     }
     return res;
   }

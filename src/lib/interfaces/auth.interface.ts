@@ -20,6 +20,7 @@ export interface IAuth {
    * token
    */
   token?: string;
+  [key: string]: any;
 }
 
 export interface ICode2sessionOut {

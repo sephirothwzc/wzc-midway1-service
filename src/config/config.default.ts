@@ -69,6 +69,7 @@ export default (appInfo: EggAppInfo) => {
     'gqlErrorHandler',
     'gqlWorkFlow',
     'restfulAuth',
+    'gqlOrganization',
     'graphql',
     'validator',
   ];

@@ -1,3 +1,4 @@
+import { set } from 'lodash';
 import { provide, Context, config, inject, plugin } from 'midway';
 import { promisify } from 'util';
 import { IAuth } from '../interfaces/auth.interface';
@@ -50,10 +51,10 @@ export class AuthToken {
       .then(async (decoded: any) => {
         const auth: IAuth = await this.ctx.requestContext.getAsync('Auth');
         auth.token = token;
-        auth.id = decoded.id;
-        auth.userName = decoded.userName;
-        auth.exp = decoded.exp;
-        // auth.type = decoded.type;
+        // copy赋值 为了适配otherKey
+        for (const [k, v] of Object.entries(decoded)) {
+          set(auth, k, v);
+        }
         return;
       })
       .catch(() => {

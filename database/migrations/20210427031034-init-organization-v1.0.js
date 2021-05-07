@@ -30,11 +30,12 @@ module.exports = {
         },
         code: {
           type: STRING(50),
-          comment: '编码',
+          comment:
+            '编码 staffMember 职员、sectionChief 科长、leaderPersonal 分管领导、leaderCharge 主管领导、keyLeaders 主要领导',
         },
         type: {
           type: STRING(50),
-          comment: '科室、角色',
+          comment: 'department 科室、role角色',
         },
         status: {
           type: STRING(20),

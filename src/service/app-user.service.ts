@@ -10,6 +10,9 @@ import { IAuthToken } from '../lib/utils/auth-token';
 import { ICode2sessionOut } from '../lib/interfaces/auth.interface';
 import { IHttpClient } from '../lib/utils/curl';
 import { Op } from 'sequelize';
+import { IOrganizationService } from './organization.service';
+import { OrganizationModel } from '../lib/models/organization.model';
+import { set } from 'lodash';
 
 export interface IAppUserService extends AppUserService {}
 
@@ -33,6 +36,9 @@ export class AppUserService extends ServiceBase {
   appUserModel: IAppUserModel;
 
   @inject()
+  organizationService: IOrganizationService;
+
+  @inject()
   private authToken: IAuthToken;
 
   @config()
@@ -40,6 +46,25 @@ export class AppUserService extends ServiceBase {
 
   @inject()
   private httpClient: IHttpClient;
+
+  private async otherLoginKey(appUser: AppUserModel): Promise<any> {
+    const otherKey = {};
+    if (appUser.unionid) {
+      // 加载 固定角色 科室
+      const role: OrganizationModel = await this.organizationService.findByPk(
+        appUser.unionid
+      );
+      if (!role) {
+        return otherKey;
+      }
+      set(otherKey, role.type, role.code);
+      if (role.parentId) {
+        const depa = await this.organizationService.findByPk(role.parentId);
+        set(otherKey, depa.type, depa.code);
+      }
+      return otherKey;
+    }
+  }
 
   /**
    * 用户名密码登陆
@@ -80,10 +105,14 @@ export class AppUserService extends ServiceBase {
     const pwdbool = newpwd === user.password;
     const options = {};
     param?.expiresIn && this._.set(options, 'expiresIn', param?.expiresIn);
+    // #region otherKey
+    const otherKey = await this.otherLoginKey(user);
+    // #endregion
     const token = await this.authToken.sign(
       {
         id: user.id,
         userName: user.userName,
+        ...otherKey,
         // type: user.appUserType,
       },
       options
@@ -93,6 +122,7 @@ export class AppUserService extends ServiceBase {
         id: user.id,
         token,
         userName: user.userName,
+        ...otherKey,
       };
     }
     return this.throw(
