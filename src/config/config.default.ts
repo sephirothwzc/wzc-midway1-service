@@ -79,9 +79,9 @@ export default (appInfo: EggAppInfo) => {
    */
   const authMatch = {
     // 完全匹配
-    matchAll: [],
+    matchAll: ['/login'],
     // 开头匹配
-    matchStart: ['/'],
+    matchStart: [],
     // matchAll、matchStart 是否反向匹配
     reverseMatch: false,
   };

@@ -1,3 +1,4 @@
+import _ = require('lodash');
 import { Context } from 'midway';
 import { IAuth } from '../lib/interfaces/auth.interface';
 import { AppUserModel } from '../lib/models/app-user.model';
@@ -27,6 +28,40 @@ export const mongoose = {
     options: {},
     // mongoose global plugins, expected a function or an array of function and options :createdPlugin, [updatedPlugin, pluginOptions]
     plugins: [],
+  },
+};
+
+const authMatch = {
+  // 完全匹配
+  matchAll: ['/login', '/graphql?userId=123'],
+  // 开头匹配
+  matchStart: [],
+  // matchAll、matchStart 是否反向匹配
+  reverseMatch: false,
+};
+
+export const restfulAuth = {
+  // 返回true=匿名访问，false=校验访问
+  ignore(ctx: Context) {
+    // 未设置访问权限对象，全部进行校验
+    if (!authMatch) {
+      return false;
+    }
+    // 已设置访问权限对象，未设置访问规则，按照匹配方式reverseMatch返回(正向返回false，反向返回true)
+    if (!authMatch.matchAll && !authMatch.matchStart) {
+      return authMatch.reverseMatch === true;
+    }
+    // 完全匹配(正向返回true，反向返回false)
+    if (authMatch.matchAll.includes(ctx.path)) {
+      return authMatch.reverseMatch !== true;
+    }
+    // 开头匹配(正向返回true，反向返回false)
+    for (const startStr of authMatch.matchStart) {
+      if (_.startsWith(ctx.path, startStr)) {
+        return authMatch.reverseMatch !== true;
+      }
+    }
+    return authMatch.reverseMatch === true;
   },
 };
 

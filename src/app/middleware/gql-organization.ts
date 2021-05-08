@@ -1,7 +1,15 @@
 import { Application, Context } from 'midway';
 // import { gql } from 'graphql-tag';
 // import { DocumentNode } from 'graphql';
-import { get } from 'lodash';
+import { get, set } from 'lodash';
+import { IAuth } from '../../lib/interfaces/auth.interface';
+
+const tableName = [
+  'project',
+  'budget',
+  'contract',
+  'contract_collection_payment_plan',
+];
 
 interface IGraphqlBody {
   operationName: string;
@@ -10,7 +18,7 @@ interface IGraphqlBody {
 }
 
 /**
- * gql 工作流处理
+ * gql 科室权限 过滤
  */
 module.exports = (options: any, app: Application) => {
   return async function gqlOrganization(
@@ -25,15 +33,31 @@ module.exports = (options: any, app: Application) => {
       return await next();
     }
     const gqlBody: IGraphqlBody = ctx.request.body;
-    console.log(gqlBody);
 
     // 获取当前用户科室
-    const auth = await ctx.requestContext.getAsync('Auth');
-    if (get(auth, 'department')) {
+    // const auth = await ctx.requestContext.getAsync('Auth');
+    const auth: IAuth = await ctx.requestContext.getAsync('Auth');
+    if (
+      tableName.includes(gqlBody.operationName) &&
+      !get(gqlBody.variables, 'param.businessCode')
+    ) {
       // 包含科室 判断数据写入科室
+      departmentDefault(gqlBody, auth, ctx);
     }
-    // console.log('中间件经过');
     await next();
-    // console.log('中间件notFoundHandler错误拦截', ctx.status, ctx.request.url);
   };
+};
+
+/**
+ * 默认科室赋值
+ * @param gqlBody
+ * @param auth
+ */
+const departmentDefault = (
+  gqlBody: IGraphqlBody,
+  auth: IAuth,
+  ctx: Context
+) => {
+  const department = ctx.headers['department'] || get(auth, 'department');
+  set(gqlBody.variables, 'param.businessCode', department);
 };
