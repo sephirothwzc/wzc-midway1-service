@@ -1,9 +1,13 @@
 import { Application, Context } from 'midway';
-// import { gql } from 'graphql-tag';
-// import { DocumentNode } from 'graphql';
-import { get, set, startsWith } from 'lodash';
+import { get, set } from 'lodash';
 import { IAuth } from '../../lib/interfaces/auth.interface';
+import { gql } from 'graphql-tag';
+import { DocumentNode } from 'graphql';
+import { Op } from 'sequelize';
 
+/**
+ * 需要增加 过滤的表名project
+ */
 const tableName = [
   'project',
   'budget',
@@ -45,7 +49,9 @@ module.exports = (options: any, app: Application) => {
       departmentDefault(gqlBody, auth, ctx);
     }
     // 查询gql where 过滤
-    if (startsWith(gqlBody.operationName, 'find')) {
+    const docmuent = gql(gqlBody.query);
+    if (docmuent.definitions.find((p) => 'query' === get(p, 'operation'))) {
+      departmentFind(gqlBody, auth, ctx, docmuent);
     }
     await next();
   };
@@ -63,4 +69,48 @@ const departmentDefault = (
 ) => {
   const department = ctx.headers['department'] || get(auth, 'department');
   set(gqlBody.variables, 'param.businessCode', department);
+};
+
+/**
+ * 科室查询
+ * @param gqlBody
+ * @param auth
+ * @param ctx
+ */
+const departmentFind = (
+  gqlBody: IGraphqlBody,
+  auth: IAuth,
+  ctx: Context,
+  docmuent: DocumentNode
+) => {
+  // 判断用户角色 被限制的角色查询增加条件 businessCode
+  const department = ctx.headers['department'] || get(auth, 'department');
+  const where = get(gqlBody.variables, 'param.where', {});
+  // 审批流不增加 额外判断 单独处理
+
+  // 科长查看当前 科室的数据
+  if ('sectionChief' === auth.role) {
+    const businessCodeWhere = [
+      { businessCode: department },
+      {
+        businessCode: { [Op.is]: null },
+      },
+    ];
+    if (where._or) {
+      // 如果已经存在 or 则 用 and 包裹
+      where[Op.and] = [
+        where._or,
+        {
+          [Op.or]: businessCodeWhere,
+        },
+      ];
+      delete where._or;
+    } else {
+      where[Op.or] = businessCodeWhere;
+    }
+  } else if ('staffMember' == auth.role) {
+    // 职员 只能看自己的数据
+    where['createdId'] = auth.id;
+  }
+  set(gqlBody.variables, 'param.where', where);
 };
