@@ -1,7 +1,7 @@
 import { Application, Context } from 'midway';
 // import { gql } from 'graphql-tag';
 // import { DocumentNode } from 'graphql';
-import { get, set } from 'lodash';
+import { get, set, startsWith } from 'lodash';
 import { IAuth } from '../../lib/interfaces/auth.interface';
 
 const tableName = [
@@ -35,14 +35,17 @@ module.exports = (options: any, app: Application) => {
     const gqlBody: IGraphqlBody = ctx.request.body;
 
     // 获取当前用户科室
-    // const auth = await ctx.requestContext.getAsync('Auth');
     const auth: IAuth = await ctx.requestContext.getAsync('Auth');
+    // 保存gql
     if (
       tableName.includes(gqlBody.operationName) &&
       !get(gqlBody.variables, 'param.businessCode')
     ) {
       // 包含科室 判断数据写入科室
       departmentDefault(gqlBody, auth, ctx);
+    }
+    // 查询gql where 过滤
+    if (startsWith(gqlBody.operationName, 'find')) {
     }
     await next();
   };

@@ -33,7 +33,7 @@ export const mongoose = {
 
 const authMatch = {
   // 完全匹配
-  matchAll: ['/login', '/graphql?userId=123'],
+  matchAll: ['/api/app-user/login'],
   // 开头匹配
   matchStart: [],
   // matchAll、matchStart 是否反向匹配
@@ -47,6 +47,11 @@ export const restfulAuth = {
     if (!authMatch) {
       return false;
     }
+    // local userId = 123 穿透
+    if (ctx.query.userId === '123') {
+      return true;
+    }
+
     // 已设置访问权限对象，未设置访问规则，按照匹配方式reverseMatch返回(正向返回false，反向返回true)
     if (!authMatch.matchAll && !authMatch.matchStart) {
       return authMatch.reverseMatch === true;
