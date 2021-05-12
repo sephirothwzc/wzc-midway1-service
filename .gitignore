@@ -13,3 +13,4 @@ run/
 .tsbuildinfo
 .tsbuildinfo.*
 .github
+src/app/public/upload/
