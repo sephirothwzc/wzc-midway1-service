@@ -5,6 +5,10 @@ import { ISchemaOrmService } from '../../service/schema-orm.service';
 import { SchemaOrmModel } from '../../lib/models/schema-orm.model';
 import { get } from 'lodash';
 import { IWorkFlowService } from '../../service/work-flow.service';
+import { WorkFlowModel } from '../../lib/models/work-flow.model';
+import { IWorkFlowOrmService } from '../../service/work-flow-orm.service';
+import { WorkFlowOrmModel } from '../../lib/models/work-flow-orm.model';
+import { IAuth } from '../../lib/interfaces/auth.interface';
 
 interface IGraphqlBody {
   operationName: string;
@@ -39,7 +43,7 @@ module.exports = (options: any, app: Application) => {
     // 提交类型 工作流用
     const finishType = ctx.headers['finish-type'];
     if (finishType) {
-      await handleWorkFlowOrm(orm, ctx);
+      await handleWorkFlowOrm(orm, ctx, finishType);
     }
   };
 };
@@ -71,13 +75,17 @@ const schemaOrmSave = async (orm: SchemaOrmModel, ctx: Context) => {
  * 工作流事件
  * @param app
  */
-const handleWorkFlowOrm = async (orm: SchemaOrmModel, ctx: Context) => {
+const handleWorkFlowOrm = async (
+  orm: SchemaOrmModel,
+  ctx: Context,
+  finishType: String
+) => {
   const appName = ctx.headers['app-name'];
   // 查找工作流
   const workFlowService: IWorkFlowService = await ctx.requestContext.getAsync(
     'workFlowService'
   );
-  const wf = await workFlowService.findOne({
+  const wf = await workFlowService.findOne<WorkFlowModel>({
     where: {
       appName,
       formCustomId: orm.formCustomId,
@@ -87,6 +95,52 @@ const handleWorkFlowOrm = async (orm: SchemaOrmModel, ctx: Context) => {
   if (!wf) {
     return;
   }
+  // nodeid 节点位置
+  const graphNodeId = ctx.headers['graph-node-id'];
   // 有工作流 插入工作流数据表
   // 节点判断
+  if (!graphNodeId) {
+    // 初始节点
+    await firstFinisth(wf, finishType, ctx, orm);
+  } else {
+    // 历史节点
+  }
 };
+
+/**
+ * 首次提交 保存、提交都走工作流
+ */
+const firstFinisth = async (
+  workFlowModel: WorkFlowModel,
+  finishType: String,
+  ctx: Context,
+  orm: SchemaOrmModel
+) => {
+  const workFlowOrmService: IWorkFlowOrmService = await ctx.requestContext.getAsync(
+    'workFlowOrmService'
+  );
+  // 获取当前用户
+  const auth: IAuth = await ctx.requestContext.getAsync('Auth');
+  // 首次更新 草稿
+  if (finishType === 'save') {
+    const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
+    // 起始节点必须有
+    const startNode = cells.find((p) => 'startNode' === p?.data?.type);
+    workFlowOrmService.save({
+      dataStatus: finishType,
+      formUserId: auth.id,
+      nodeId: startNode.id,
+      ormId: orm.ormId,
+      ormType: orm.ormType,
+    } as WorkFlowOrmModel);
+  }
+};
+
+/**
+ * 首次提交 保存 工作流记录 用于列表查询 （草稿、提交）
+ * 编辑 保存 不更新状态，其他操作 提交、审批通过、审批拒绝 则判断工作流
+ * 最终节点 更新状态 工作流结束
+ * 发起人=》承办人
+ * 区分状态、会签、传阅
+ * 时间有效性提醒
+ */

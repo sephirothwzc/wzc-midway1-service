@@ -1,4 +1,10 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { WorkFlowModel } from './work-flow.model';
@@ -29,7 +35,11 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
-  @Column({ comment: '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认', type: DataType.STRING(50) })
+  @Column({
+    comment:
+      '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认',
+    type: DataType.STRING(50),
+  })
   dataStatus?: string;
   /**
    * 发起人id
@@ -56,7 +66,10 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 类型project、budget、contract
    */
-  @Column({ comment: '类型project、budget、contract', type: DataType.STRING(50) })
+  @Column({
+    comment: '类型project、budget、contract',
+    type: DataType.STRING(50),
+  })
   ormType?: string;
   /**
    * 备注
@@ -83,7 +96,11 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
-  @Column({ comment: '节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办', type: DataType.STRING(50) })
+  @Column({
+    comment:
+      '节点类型draft 草稿、approval 审批、circulated 传阅、jointlySign 会签、agency 代办',
+    type: DataType.STRING(50),
+  })
   workType?: string;
 
   @BelongsTo(() => WorkFlowModel, 'work_flow_id')
@@ -97,12 +114,10 @@ export class WorkFlowOrmModel extends BaseModel {
 
   @BelongsTo(() => AppUserModel, 'undertake_user_id')
   undertakeUserIdObj: AppUserModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class WORK_FLOW_ORM {
-
   /**
    * 业务编码权限用
    */
@@ -162,7 +177,6 @@ export class WORK_FLOW_ORM {
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
   static readonly WORK_TYPE: string = 'workType';
-
 }
 
 // @provide 用 工厂模式static model
@@ -173,4 +187,3 @@ providerWrapper([
     provider: factory,
   },
 ]);
-

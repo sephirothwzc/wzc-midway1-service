@@ -21,7 +21,7 @@ describe('test/app/controller/home.test.ts', () => {
     const hash = crypto.createHash('md5');
     hash.update(pwd);
     const newpwd = hash.digest('hex');
-    console.log(newpwd);
+    // console.log(newpwd);
     assert(newpwd === 'f94057c1f1b4e05b53c15b801b0153a5');
   });
 });

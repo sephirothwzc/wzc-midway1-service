@@ -6,6 +6,7 @@
  */
 const { ROUTER_SCHEMA } = require('../../../lib/utils/const-string');
 const Bb = require('bluebird');
+const _ = require('lodash');
 
 module.exports = (serviceName) => {
   const getService = async (ctx, otherName = serviceName) => {
@@ -31,7 +32,18 @@ module.exports = (serviceName) => {
     });
   };
 
+  /**
+   * union type find
+   * @param {*} obj
+   * @returns
+   */
+  const findUnionTypeString = (obj) => {
+    const unionType = _.get(obj, '_modelOptions.name.plural', '');
+    return unionType.replace('Models', '');
+  };
+
   return {
+    findUnionTypeString,
     getService,
     Query: {
       // user

@@ -41,8 +41,10 @@ type WorkFlowOrm {
   formUserIdObj: AppUser
   managerUserIdObj: AppUser
   undertakeUserIdObj: AppUser
+  ormIdModel: OrmIdModel
 }
 
+union OrmIdModel = Project | Contract | Budget
 
 # 工作流表单记录 分页查询返回
 type WorkFlowOrmList {
@@ -69,7 +71,7 @@ extend type Mutation {
   # 工作流表单记录 删除
   workFlowOrmDestroy(where: JSONObject!, limit: Int): String
   # 工作流表单记录 根据id删除
-  workFlowOrmDestroyById(id:String): String
+  workFlowOrmDestroyById(id: String): String
 }
 
 input WorkFlowOrmSaveIn {

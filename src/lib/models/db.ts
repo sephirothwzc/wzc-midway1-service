@@ -78,7 +78,7 @@ export class DB {
         .authenticate()
         .then(() => {
           console.log('DataBase Connection successfully!');
-          resolve();
+          resolve(undefined);
         })
         .catch((err: any) => {
           throw new Error(`Unable to connect to the database:${err}`);

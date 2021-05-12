@@ -47,7 +47,7 @@ export abstract class ServiceBase {
   sequelizeQuery: ISequelizeQuery;
 
   @inject()
-  private ctx: Context;
+  ctx: Context;
 
   @inject('Auth')
   auth: IAuth;
@@ -229,17 +229,15 @@ export abstract class ServiceBase {
   async findCreateOptions(
     param: BaseModel
   ): Promise<{ include?: [any]; transaction?: any; validate?: boolean }> {
-    const context: IApplicationContext = this.ctx.requestContext
-      .applicationContext;
+    const context: IApplicationContext =
+      this.ctx.requestContext.applicationContext;
     const has: Boolean = context.registry.identifiers.includes(
       `${_.camelCase(this.Model.name)}.createOptions`
     );
     if (!has) {
       return {};
     }
-    const createOptions: (
-      param: BaseModel
-    ) => {
+    const createOptions: (param: BaseModel) => {
       include?: [any];
       transaction?: any;
       validate?: boolean;

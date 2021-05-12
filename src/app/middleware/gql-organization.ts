@@ -37,11 +37,13 @@ module.exports = (options: any, app: Application) => {
       return await next();
     }
     const gqlBody: IGraphqlBody = ctx.request.body;
-
+    const docmuent = gql(gqlBody.query);
+    // console.log(docmuent);
     // 获取当前用户科室
     const auth: IAuth = await ctx.requestContext.getAsync('Auth');
     // 保存gql
     if (
+      docmuent.definitions.find((p) => 'mutation' === get(p, 'operation')) &&
       tableName.includes(gqlBody.operationName) &&
       !get(gqlBody.variables, 'param.businessCode')
     ) {
@@ -49,7 +51,6 @@ module.exports = (options: any, app: Application) => {
       departmentDefault(gqlBody, auth, ctx);
     }
     // 查询gql where 过滤
-    const docmuent = gql(gqlBody.query);
     if (docmuent.definitions.find((p) => 'query' === get(p, 'operation'))) {
       departmentFind(gqlBody, auth, ctx, docmuent);
     }

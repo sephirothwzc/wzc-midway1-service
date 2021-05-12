@@ -132,7 +132,16 @@ export default (appInfo: EggAppInfo) => {
     // 追加白名单
     // fileExtensions: ['.jpg', '.jpeg', '.png'],
     // 覆盖白名单
-    whitelist: ['.jpg', '.jpeg', '.png'],
+    whitelist: [
+      '.jpg',
+      '.jpeg',
+      '.png',
+      '.xls',
+      '.docx',
+      '.doc',
+      '.pdf',
+      '.xlxs',
+    ],
     fileSize: '20mb',
     tmpdir: path.join(os.tmpdir(), 'egg-multipart-tmp', appInfo.name),
     cleanSchedule: {
