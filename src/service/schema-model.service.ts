@@ -1,8 +1,10 @@
 import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
-import { ISchemaModelModel, SchemaModelModel } from '../lib/models/schema-model.model';
-import { ISchemaModelService } from './schema-model.service';
+import {
+  ISchemaModelModel,
+  SchemaModelModel,
+} from '../lib/models/schema-model.model';
 
 export interface ISchemaModelService extends SchemaModelService {}
 
@@ -11,7 +13,7 @@ export class SchemaModelService extends ServiceGenericBase<SchemaModelModel> {
   get Model(): any {
     return this.schemaModelModel;
   }
-  
+
   @inject()
   schemaModelModel: ISchemaModelModel;
 
@@ -21,7 +23,10 @@ export class SchemaModelService extends ServiceGenericBase<SchemaModelModel> {
    * 新增
    * @param values
    */
-  public async create(values: SchemaModelModel, useOptions?: CreateOptions): Promise<SchemaModelModel> {
+  public async create(
+    values: SchemaModelModel,
+    useOptions?: CreateOptions
+  ): Promise<SchemaModelModel> {
     const run = async (t: Transaction) => {
       if (values.parentIdObj && !values.parentId) {
         values.parentId = (
@@ -36,5 +41,4 @@ export class SchemaModelService extends ServiceGenericBase<SchemaModelModel> {
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }
