@@ -29,7 +29,6 @@ type RoleGroupItem {
   roleGroupIdObj: RoleGroup
 }
 
-
 # 角色组明细 分页查询返回
 type RoleGroupItemList {
   count: Int!
@@ -49,7 +48,7 @@ extend type Query {
 
 extend type Mutation {
   # 角色组明细 新增
-  roleGroupItemCreate(param: RoleGroupItemSaveIn!): RoleGroupItemSaveIn
+  roleGroupItemCreate(param: RoleGroupItemSaveIn!): RoleGroupItem
   # 角色组明细 新增 or 修改
   roleGroupItem(param: RoleGroupItemSaveIn!, must: Boolean = false): String
   # 角色组明细 批量 新增 or 修改

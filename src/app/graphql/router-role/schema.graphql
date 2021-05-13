@@ -29,7 +29,6 @@ type RouterRole {
   routerIdObj: Router
 }
 
-
 # 路由角色关系 分页查询返回
 type RouterRoleList {
   count: Int!
@@ -49,7 +48,7 @@ extend type Query {
 
 extend type Mutation {
   # 路由角色关系 新增
-  routerRoleCreate(param: RouterRoleSaveIn!): RouterRoleSaveIn
+  routerRoleCreate(param: RouterRoleSaveIn!): RouterRole
   # 路由角色关系 新增 or 修改
   routerRole(param: RouterRoleSaveIn!, must: Boolean = false): String
   # 路由角色关系 批量 新增 or 修改

@@ -42,7 +42,6 @@ type FormCustom {
   workFlowFormCustomId(param: QueryListParam): [WorkFlow]
 }
 
-
 # 自定义表单 分页查询返回
 type FormCustomList {
   count: Int!
@@ -62,7 +61,7 @@ extend type Query {
 
 extend type Mutation {
   # 自定义表单 新增
-  formCustomCreate(param: FormCustomSaveIn!): FormCustomSaveIn
+  formCustomCreate(param: FormCustomSaveIn!): FormCustom
   # 自定义表单 新增 or 修改
   formCustom(param: FormCustomSaveIn!, must: Boolean = false): String
   # 自定义表单 批量 新增 or 修改

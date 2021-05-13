@@ -51,7 +51,7 @@ extend type Query {
 
 extend type Mutation {
   # 用户角色关系 新增
-  appUserRoleCreate(param: AppUserRoleSaveIn!): AppUserRoleSaveIn
+  appUserRoleCreate(param: AppUserRoleSaveIn!): AppUserRole
   # 用户角色关系 新增 or 修改
   appUserRole(param: AppUserRoleSaveIn!, must: Boolean = false): String
   # 用户角色关系 批量 新增 or 修改

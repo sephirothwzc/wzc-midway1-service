@@ -26,7 +26,6 @@ type RoleGroup {
   roleGroupItemRoleGroupId(param: QueryListParam): [RoleGroupItem]
 }
 
-
 # 角色组 分页查询返回
 type RoleGroupList {
   count: Int!
@@ -46,7 +45,7 @@ extend type Query {
 
 extend type Mutation {
   # 角色组 新增
-  roleGroupCreate(param: RoleGroupSaveIn!): RoleGroupSaveIn
+  roleGroupCreate(param: RoleGroupSaveIn!): RoleGroup
   # 角色组 新增 or 修改
   roleGroup(param: RoleGroupSaveIn!, must: Boolean = false): String
   # 角色组 批量 新增 or 修改

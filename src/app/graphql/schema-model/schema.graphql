@@ -44,7 +44,6 @@ type SchemaModel {
   schemaModelRoleSchemaModelId(param: QueryListParam): [SchemaModelRole]
 }
 
-
 # graphql-schema-model 分页查询返回
 type SchemaModelList {
   count: Int!
@@ -64,7 +63,7 @@ extend type Query {
 
 extend type Mutation {
   # graphql-schema-model 新增
-  schemaModelCreate(param: SchemaModelSaveIn!): SchemaModelSaveIn
+  schemaModelCreate(param: SchemaModelSaveIn!): SchemaModel
   # graphql-schema-model 新增 or 修改
   schemaModel(param: SchemaModelSaveIn!, must: Boolean = false): String
   # graphql-schema-model 批量 新增 or 修改

@@ -33,7 +33,6 @@ type File {
   updatedId: String
 }
 
-
 # 文件上传记录表 分页查询返回
 type FileList {
   count: Int!
@@ -53,7 +52,7 @@ extend type Query {
 
 extend type Mutation {
   # 文件上传记录表 新增
-  fileCreate(param: FileSaveIn!): FileSaveIn
+  fileCreate(param: FileSaveIn!): File
   # 文件上传记录表 新增 or 修改
   file(param: FileSaveIn!, must: Boolean = false): String
   # 文件上传记录表 批量 新增 or 修改

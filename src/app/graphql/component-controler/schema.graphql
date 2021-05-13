@@ -41,9 +41,10 @@ type ComponentControler {
   updatedId: String
   parentIdObj: ComponentControler
   componentIdObj: Component
-  componentControlerRoleComponentControlerId(param: QueryListParam): [ComponentControlerRole]
+  componentControlerRoleComponentControlerId(
+    param: QueryListParam
+  ): [ComponentControlerRole]
 }
-
 
 # 组件内控件 分页查询返回
 type ComponentControlerList {
@@ -64,9 +65,12 @@ extend type Query {
 
 extend type Mutation {
   # 组件内控件 新增
-  componentControlerCreate(param: ComponentControlerSaveIn!): ComponentControlerSaveIn
+  componentControlerCreate(param: ComponentControlerSaveIn!): ComponentControler
   # 组件内控件 新增 or 修改
-  componentControler(param: ComponentControlerSaveIn!, must: Boolean = false): String
+  componentControler(
+    param: ComponentControlerSaveIn!
+    must: Boolean = false
+  ): String
   # 组件内控件 批量 新增 or 修改
   componentControlerBulk(param: [ComponentControlerSaveIn]!): [JSONObject]
   # 组件内控件 删除

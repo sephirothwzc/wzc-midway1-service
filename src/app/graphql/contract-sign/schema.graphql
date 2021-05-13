@@ -27,7 +27,6 @@ type ContractSign {
   enterpriseIdObj: Enterprise
 }
 
-
 # 签约双方 分页查询返回
 type ContractSignList {
   count: Int!
@@ -47,7 +46,7 @@ extend type Query {
 
 extend type Mutation {
   # 签约双方 新增
-  contractSignCreate(param: ContractSignSaveIn!): ContractSignSaveIn
+  contractSignCreate(param: ContractSignSaveIn!): ContractSign
   # 签约双方 新增 or 修改
   contractSign(param: ContractSignSaveIn!, must: Boolean = false): String
   # 签约双方 批量 新增 or 修改

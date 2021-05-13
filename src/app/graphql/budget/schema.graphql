@@ -36,7 +36,6 @@ type Budget {
   projectBudgetBudgetId(param: QueryListParam): [ProjectBudget]
 }
 
-
 # 预算 分页查询返回
 type BudgetList {
   count: Int!
@@ -56,7 +55,7 @@ extend type Query {
 
 extend type Mutation {
   # 预算 新增
-  budgetCreate(param: BudgetSaveIn!): BudgetSaveIn
+  budgetCreate(param: BudgetSaveIn!): Budget
   # 预算 新增 or 修改
   budget(param: BudgetSaveIn!, must: Boolean = false): String
   # 预算 批量 新增 or 修改

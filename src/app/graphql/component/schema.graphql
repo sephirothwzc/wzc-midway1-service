@@ -42,7 +42,6 @@ type Component {
   routerComponentId(param: QueryListParam): [Router]
 }
 
-
 # 组件 分页查询返回
 type ComponentList {
   count: Int!
@@ -62,7 +61,7 @@ extend type Query {
 
 extend type Mutation {
   # 组件 新增
-  componentCreate(param: ComponentSaveIn!): ComponentSaveIn
+  componentCreate(param: ComponentSaveIn!): Component
   # 组件 新增 or 修改
   component(param: ComponentSaveIn!, must: Boolean = false): String
   # 组件 批量 新增 or 修改

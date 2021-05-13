@@ -34,7 +34,6 @@ type Organization {
   projectResponsibleOrganizationId(param: QueryListParam): [Project]
 }
 
-
 # 组织架构 分页查询返回
 type OrganizationList {
   count: Int!
@@ -54,7 +53,7 @@ extend type Query {
 
 extend type Mutation {
   # 组织架构 新增
-  organizationCreate(param: OrganizationSaveIn!): OrganizationSaveIn
+  organizationCreate(param: OrganizationSaveIn!): Organization
   # 组织架构 新增 or 修改
   organization(param: OrganizationSaveIn!, must: Boolean = false): String
   # 组织架构 批量 新增 or 修改

@@ -36,7 +36,6 @@ type Router {
   routerRoleRouterId(param: QueryListParam): [RouterRole]
 }
 
-
 # 前端路由 分页查询返回
 type RouterList {
   count: Int!
@@ -56,7 +55,7 @@ extend type Query {
 
 extend type Mutation {
   # 前端路由 新增
-  routerCreate(param: RouterSaveIn!): RouterSaveIn
+  routerCreate(param: RouterSaveIn!): Router
   # 前端路由 新增 or 修改
   router(param: RouterSaveIn!, must: Boolean = false): String
   # 前端路由 批量 新增 or 修改

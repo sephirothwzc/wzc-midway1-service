@@ -34,7 +34,6 @@ type Enterprise {
   enterpriseTypeIdObj: DataDictionary
 }
 
-
 # 企业信息 分页查询返回
 type EnterpriseList {
   count: Int!
@@ -54,7 +53,7 @@ extend type Query {
 
 extend type Mutation {
   # 企业信息 新增
-  enterpriseCreate(param: EnterpriseSaveIn!): EnterpriseSaveIn
+  enterpriseCreate(param: EnterpriseSaveIn!): Enterprise
   # 企业信息 新增 or 修改
   enterprise(param: EnterpriseSaveIn!, must: Boolean = false): String
   # 企业信息 批量 新增 or 修改

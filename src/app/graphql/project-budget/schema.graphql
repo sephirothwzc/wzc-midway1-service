@@ -25,7 +25,6 @@ type ProjectBudget {
   budgetIdObj: Budget
 }
 
-
 # 项目预算关系表 分页查询返回
 type ProjectBudgetList {
   count: Int!
@@ -45,7 +44,7 @@ extend type Query {
 
 extend type Mutation {
   # 项目预算关系表 新增
-  projectBudgetCreate(param: ProjectBudgetSaveIn!): ProjectBudgetSaveIn
+  projectBudgetCreate(param: ProjectBudgetSaveIn!): ProjectBudget
   # 项目预算关系表 新增 or 修改
   projectBudget(param: ProjectBudgetSaveIn!, must: Boolean = false): String
   # 项目预算关系表 批量 新增 or 修改

@@ -49,8 +49,12 @@ type Contract {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  contractCollectionPaymentContractId(param: QueryListParam): [ContractCollectionPayment]
-  contractCollectionPaymentPlanContractId(param: QueryListParam): [ContractCollectionPaymentPlan]
+  contractCollectionPaymentContractId(
+    param: QueryListParam
+  ): [ContractCollectionPayment]
+  contractCollectionPaymentPlanContractId(
+    param: QueryListParam
+  ): [ContractCollectionPaymentPlan]
   projectIdObj: Project
   budgetIdObj: Budget
   contractTypeIdObj: DataDictionary
@@ -60,7 +64,6 @@ type Contract {
   organizationIdObj: Organization
   contractSignContractId(param: QueryListParam): [ContractSign]
 }
-
 
 # 合同 分页查询返回
 type ContractList {
@@ -81,7 +84,7 @@ extend type Query {
 
 extend type Mutation {
   # 合同 新增
-  contractCreate(param: ContractSaveIn!): ContractSaveIn
+  contractCreate(param: ContractSaveIn!): Contract
   # 合同 新增 or 修改
   contract(param: ContractSaveIn!, must: Boolean = false): String
   # 合同 批量 新增 or 修改

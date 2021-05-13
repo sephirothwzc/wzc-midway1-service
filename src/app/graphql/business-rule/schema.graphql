@@ -28,7 +28,6 @@ type BusinessRule {
   businessSchemaBusinessRuleId(param: QueryListParam): [BusinessSchema]
 }
 
-
 # 业务编码规则 分页查询返回
 type BusinessRuleList {
   count: Int!
@@ -48,7 +47,7 @@ extend type Query {
 
 extend type Mutation {
   # 业务编码规则 新增
-  businessRuleCreate(param: BusinessRuleSaveIn!): BusinessRuleSaveIn
+  businessRuleCreate(param: BusinessRuleSaveIn!): BusinessRule
   # 业务编码规则 新增 or 修改
   businessRule(param: BusinessRuleSaveIn!, must: Boolean = false): String
   # 业务编码规则 批量 新增 or 修改

@@ -35,7 +35,6 @@ type ProjectGroup {
   projectProjectGroupId(param: QueryListParam): [Project]
 }
 
-
 # 项目组 分页查询返回
 type ProjectGroupList {
   count: Int!
@@ -55,7 +54,7 @@ extend type Query {
 
 extend type Mutation {
   # 项目组 新增
-  projectGroupCreate(param: ProjectGroupSaveIn!): ProjectGroupSaveIn
+  projectGroupCreate(param: ProjectGroupSaveIn!): ProjectGroup
   # 项目组 新增 or 修改
   projectGroup(param: ProjectGroupSaveIn!, must: Boolean = false): String
   # 项目组 批量 新增 or 修改

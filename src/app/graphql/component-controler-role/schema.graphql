@@ -29,7 +29,6 @@ type ComponentControlerRole {
   componentControlerIdObj: ComponentControler
 }
 
-
 # 控件角色 分页查询返回
 type ComponentControlerRoleList {
   count: Int!
@@ -49,11 +48,18 @@ extend type Query {
 
 extend type Mutation {
   # 控件角色 新增
-  componentControlerRoleCreate(param: ComponentControlerRoleSaveIn!): ComponentControlerRoleSaveIn
+  componentControlerRoleCreate(
+    param: ComponentControlerRoleSaveIn!
+  ): ComponentControlerRole
   # 控件角色 新增 or 修改
-  componentControlerRole(param: ComponentControlerRoleSaveIn!, must: Boolean = false): String
+  componentControlerRole(
+    param: ComponentControlerRoleSaveIn!
+    must: Boolean = false
+  ): String
   # 控件角色 批量 新增 or 修改
-  componentControlerRoleBulk(param: [ComponentControlerRoleSaveIn]!): [JSONObject]
+  componentControlerRoleBulk(
+    param: [ComponentControlerRoleSaveIn]!
+  ): [JSONObject]
   # 控件角色 删除
   componentControlerRoleDestroy(where: JSONObject!, limit: Int): String
   # 控件角色 根据id删除

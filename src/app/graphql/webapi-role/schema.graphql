@@ -1,4 +1,4 @@
-# 
+#
 type WebapiRole {
   id: ID
   # appName
@@ -29,7 +29,6 @@ type WebapiRole {
   webapiIdObj: Webapi
 }
 
-
 #  分页查询返回
 type WebapiRoleList {
   count: Int!
@@ -49,7 +48,7 @@ extend type Query {
 
 extend type Mutation {
   #  新增
-  webapiRoleCreate(param: WebapiRoleSaveIn!): WebapiRoleSaveIn
+  webapiRoleCreate(param: WebapiRoleSaveIn!): WebapiRole
   #  新增 or 修改
   webapiRole(param: WebapiRoleSaveIn!, must: Boolean = false): String
   #  批量 新增 or 修改

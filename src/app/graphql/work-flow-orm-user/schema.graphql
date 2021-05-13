@@ -35,7 +35,6 @@ type WorkFlowOrmUser {
   undertakeUserIdObj: AppUser
 }
 
-
 # 工作流表单记录关联人员用户 分页查询返回
 type WorkFlowOrmUserList {
   count: Int!
@@ -55,7 +54,7 @@ extend type Query {
 
 extend type Mutation {
   # 工作流表单记录关联人员用户 新增
-  workFlowOrmUserCreate(param: WorkFlowOrmUserSaveIn!): WorkFlowOrmUserSaveIn
+  workFlowOrmUserCreate(param: WorkFlowOrmUserSaveIn!): WorkFlowOrmUser
   # 工作流表单记录关联人员用户 新增 or 修改
   workFlowOrmUser(param: WorkFlowOrmUserSaveIn!, must: Boolean = false): String
   # 工作流表单记录关联人员用户 批量 新增 or 修改

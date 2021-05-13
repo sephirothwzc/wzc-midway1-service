@@ -34,7 +34,6 @@ type BudgetFile {
   budgetIdObj: Budget
 }
 
-
 # 预算文件 分页查询返回
 type BudgetFileList {
   count: Int!
@@ -54,7 +53,7 @@ extend type Query {
 
 extend type Mutation {
   # 预算文件 新增
-  budgetFileCreate(param: BudgetFileSaveIn!): BudgetFileSaveIn
+  budgetFileCreate(param: BudgetFileSaveIn!): BudgetFile
   # 预算文件 新增 or 修改
   budgetFile(param: BudgetFileSaveIn!, must: Boolean = false): String
   # 预算文件 批量 新增 or 修改

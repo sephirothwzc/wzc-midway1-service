@@ -65,7 +65,7 @@ extend type Query {
 
 extend type Mutation {
   # 工作流表单记录 新增
-  workFlowOrmCreate(param: WorkFlowOrmSaveIn!): WorkFlowOrmSaveIn
+  workFlowOrmCreate(param: WorkFlowOrmSaveIn!): WorkFlowOrm
   # 工作流表单记录 新增 or 修改
   workFlowOrm(param: WorkFlowOrmSaveIn!, must: Boolean = false): String
   # 工作流表单记录 批量 新增 or 修改

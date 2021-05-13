@@ -28,7 +28,6 @@ type ProjectBudgetHis {
   budgetIdObj: Budget
 }
 
-
 # 项目预算关系表 分页查询返回
 type ProjectBudgetHisList {
   count: Int!
@@ -48,9 +47,12 @@ extend type Query {
 
 extend type Mutation {
   # 项目预算关系表 新增
-  projectBudgetHisCreate(param: ProjectBudgetHisSaveIn!): ProjectBudgetHisSaveIn
+  projectBudgetHisCreate(param: ProjectBudgetHisSaveIn!): ProjectBudgetHis
   # 项目预算关系表 新增 or 修改
-  projectBudgetHis(param: ProjectBudgetHisSaveIn!, must: Boolean = false): String
+  projectBudgetHis(
+    param: ProjectBudgetHisSaveIn!
+    must: Boolean = false
+  ): String
   # 项目预算关系表 批量 新增 or 修改
   projectBudgetHisBulk(param: [ProjectBudgetHisSaveIn]!): [JSONObject]
   # 项目预算关系表 删除

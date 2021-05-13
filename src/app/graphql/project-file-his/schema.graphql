@@ -37,7 +37,6 @@ type ProjectFileHis {
   projectHisIdObj: ProjectHis
 }
 
-
 # 项目文件 分页查询返回
 type ProjectFileHisList {
   count: Int!
@@ -57,7 +56,7 @@ extend type Query {
 
 extend type Mutation {
   # 项目文件 新增
-  projectFileHisCreate(param: ProjectFileHisSaveIn!): ProjectFileHisSaveIn
+  projectFileHisCreate(param: ProjectFileHisSaveIn!): ProjectFileHis
   # 项目文件 新增 or 修改
   projectFileHis(param: ProjectFileHisSaveIn!, must: Boolean = false): String
   # 项目文件 批量 新增 or 修改

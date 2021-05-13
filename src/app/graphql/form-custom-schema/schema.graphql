@@ -46,7 +46,6 @@ type FormCustomSchema {
   schemaOrmFormCustomSchemaId(param: QueryListParam): [SchemaOrm]
 }
 
-
 # 表单xrenderSchema 分页查询返回
 type FormCustomSchemaList {
   count: Int!
@@ -66,9 +65,12 @@ extend type Query {
 
 extend type Mutation {
   # 表单xrenderSchema 新增
-  formCustomSchemaCreate(param: FormCustomSchemaSaveIn!): FormCustomSchemaSaveIn
+  formCustomSchemaCreate(param: FormCustomSchemaSaveIn!): FormCustomSchema
   # 表单xrenderSchema 新增 or 修改
-  formCustomSchema(param: FormCustomSchemaSaveIn!, must: Boolean = false): String
+  formCustomSchema(
+    param: FormCustomSchemaSaveIn!
+    must: Boolean = false
+  ): String
   # 表单xrenderSchema 批量 新增 or 修改
   formCustomSchemaBulk(param: [FormCustomSchemaSaveIn]!): [JSONObject]
   # 表单xrenderSchema 删除

@@ -38,7 +38,6 @@ type BusinessSchema {
   schemaModelIdObj: SchemaModel
 }
 
-
 # 业务角色关系 分页查询返回
 type BusinessSchemaList {
   count: Int!
@@ -58,7 +57,7 @@ extend type Query {
 
 extend type Mutation {
   # 业务角色关系 新增
-  businessSchemaCreate(param: BusinessSchemaSaveIn!): BusinessSchemaSaveIn
+  businessSchemaCreate(param: BusinessSchemaSaveIn!): BusinessSchema
   # 业务角色关系 新增 or 修改
   businessSchema(param: BusinessSchemaSaveIn!, must: Boolean = false): String
   # 业务角色关系 批量 新增 or 修改

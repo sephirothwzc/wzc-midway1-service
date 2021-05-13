@@ -41,7 +41,6 @@ type Webapi {
   webapiRoleWebapiId(param: QueryListParam): [WebapiRole]
 }
 
-
 # serverapi 分页查询返回
 type WebapiList {
   count: Int!
@@ -61,7 +60,7 @@ extend type Query {
 
 extend type Mutation {
   # serverapi 新增
-  webapiCreate(param: WebapiSaveIn!): WebapiSaveIn
+  webapiCreate(param: WebapiSaveIn!): Webapi
   # serverapi 新增 or 修改
   webapi(param: WebapiSaveIn!, must: Boolean = false): String
   # serverapi 批量 新增 or 修改

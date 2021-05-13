@@ -41,10 +41,6 @@ module.exports = {
       _.set(_args, 'param.where.contractNatureId', _root.id);
       return service.findAll(_args.param);
     },
-    parentIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx,'dataDictionary');
-      return service.fetchById(_root.parentId);
-    },
     enterpriseEnterpriseTypeId: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'enterprise');
       _.set(_args, 'param.where.enterpriseTypeId', _root.id);

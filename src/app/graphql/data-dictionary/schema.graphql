@@ -31,10 +31,18 @@ type DataDictionary {
   updatedId: String
   # 字典值
   value: String
-  contractCollectionPaymentMode(param: QueryListParam): [ContractCollectionPayment]
-  contractCollectionPaymentType(param: QueryListParam): [ContractCollectionPayment]
-  contractCollectionPaymentPlanMode(param: QueryListParam): [ContractCollectionPaymentPlan]
-  contractCollectionPaymentPlanType(param: QueryListParam): [ContractCollectionPaymentPlan]
+  contractCollectionPaymentMode(
+    param: QueryListParam
+  ): [ContractCollectionPayment]
+  contractCollectionPaymentType(
+    param: QueryListParam
+  ): [ContractCollectionPayment]
+  contractCollectionPaymentPlanMode(
+    param: QueryListParam
+  ): [ContractCollectionPaymentPlan]
+  contractCollectionPaymentPlanType(
+    param: QueryListParam
+  ): [ContractCollectionPaymentPlan]
   contractContractTypeId(param: QueryListParam): [Contract]
   contractContractStatusId(param: QueryListParam): [Contract]
   contractContractNatureId(param: QueryListParam): [Contract]
@@ -48,7 +56,6 @@ type DataDictionary {
   projectProjectStatusId(param: QueryListParam): [Project]
   projectBuildNatureId(param: QueryListParam): [Project]
 }
-
 
 # 数据字典 分页查询返回
 type DataDictionaryList {
@@ -69,7 +76,7 @@ extend type Query {
 
 extend type Mutation {
   # 数据字典 新增
-  dataDictionaryCreate(param: DataDictionarySaveIn!): DataDictionarySaveIn
+  dataDictionaryCreate(param: DataDictionarySaveIn!): DataDictionary
   # 数据字典 新增 or 修改
   dataDictionary(param: DataDictionarySaveIn!, must: Boolean = false): String
   # 数据字典 批量 新增 or 修改

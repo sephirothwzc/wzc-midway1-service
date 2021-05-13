@@ -74,7 +74,10 @@ type AppUser {
   workFlowOrmUserUndertakeUserId(param: QueryListParam): [WorkFlowOrmUser]
 }
 
-enum EAppUserUserGender{m,w}
+enum EAppUserUserGender {
+  m
+  w
+}
 
 # 终端用户 分页查询返回
 type AppUserList {
@@ -95,7 +98,7 @@ extend type Query {
 
 extend type Mutation {
   # 终端用户 新增
-  appUserCreate(param: AppUserSaveIn!): AppUserSaveIn
+  appUserCreate(param: AppUserSaveIn!): AppUser
   # 终端用户 新增 or 修改
   appUser(param: AppUserSaveIn!, must: Boolean = false): String
   # 终端用户 批量 新增 or 修改
@@ -103,7 +106,7 @@ extend type Mutation {
   # 终端用户 删除
   appUserDestroy(where: JSONObject!, limit: Int): String
   # 终端用户 根据id删除
-  appUserDestroyById(id:String): String
+  appUserDestroyById(id: String): String
 }
 
 input AppUserSaveIn {

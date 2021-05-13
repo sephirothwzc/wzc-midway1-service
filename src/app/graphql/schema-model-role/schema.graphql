@@ -33,7 +33,6 @@ type SchemaModelRole {
   schemaModelIdObj: SchemaModel
 }
 
-
 # model角色关系表 分页查询返回
 type SchemaModelRoleList {
   count: Int!
@@ -53,7 +52,7 @@ extend type Query {
 
 extend type Mutation {
   # model角色关系表 新增
-  schemaModelRoleCreate(param: SchemaModelRoleSaveIn!): SchemaModelRoleSaveIn
+  schemaModelRoleCreate(param: SchemaModelRoleSaveIn!): SchemaModelRole
   # model角色关系表 新增 or 修改
   schemaModelRole(param: SchemaModelRoleSaveIn!, must: Boolean = false): String
   # model角色关系表 批量 新增 or 修改
