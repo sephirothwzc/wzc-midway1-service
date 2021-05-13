@@ -77,7 +77,7 @@ extend type Mutation {
   # 数据字典 删除
   dataDictionaryDestroy(where: JSONObject!, limit: Int): String
   # 数据字典 根据id删除
-  dataDictionaryDestroyById(id:String): String
+  dataDictionaryDestroyById(id: String): String
 }
 
 input DataDictionarySaveIn {

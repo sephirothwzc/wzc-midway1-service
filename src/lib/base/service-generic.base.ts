@@ -303,6 +303,24 @@ export abstract class ServiceGenericBase<T extends BaseModel> {
   }
 
   /**
+   * create 用高阶 transaction
+   * @param fun
+   * @param useOptions
+   * @returns
+   */
+  public async useTransaction(
+    fun: (t: Transaction) => any,
+    useOptions?: CreateOptions
+  ) {
+    if (useOptions) {
+      return await fun(useOptions.transaction);
+    }
+    return await this.db.sequelize.transaction(async (t: Transaction) => {
+      return await fun(t);
+    });
+  }
+
+  /**
    * 批量插入
    * @param param
    * @returns

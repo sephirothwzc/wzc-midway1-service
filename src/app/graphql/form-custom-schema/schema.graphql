@@ -74,7 +74,7 @@ extend type Mutation {
   # 表单xrenderSchema 删除
   formCustomSchemaDestroy(where: JSONObject!, limit: Int): String
   # 表单xrenderSchema 根据id删除
-  formCustomSchemaDestroyById(id:String): String
+  formCustomSchemaDestroyById(id: String): String
 }
 
 input FormCustomSchemaSaveIn {

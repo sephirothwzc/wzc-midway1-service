@@ -70,7 +70,7 @@ extend type Mutation {
   # 自定义表单 删除
   formCustomDestroy(where: JSONObject!, limit: Int): String
   # 自定义表单 根据id删除
-  formCustomDestroyById(id:String): String
+  formCustomDestroyById(id: String): String
 }
 
 input FormCustomSaveIn {

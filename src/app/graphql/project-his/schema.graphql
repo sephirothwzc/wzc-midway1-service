@@ -109,7 +109,7 @@ extend type Mutation {
   # 项目 删除
   projectHisDestroy(where: JSONObject!, limit: Int): String
   # 项目 根据id删除
-  projectHisDestroyById(id:String): String
+  projectHisDestroyById(id: String): String
 }
 
 input ProjectHisSaveIn {

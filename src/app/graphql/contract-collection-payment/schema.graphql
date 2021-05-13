@@ -75,7 +75,7 @@ extend type Mutation {
   # 合同收款 删除
   contractCollectionPaymentDestroy(where: JSONObject!, limit: Int): String
   # 合同收款 根据id删除
-  contractCollectionPaymentDestroyById(id:String): String
+  contractCollectionPaymentDestroyById(id: String): String
 }
 
 input ContractCollectionPaymentSaveIn {

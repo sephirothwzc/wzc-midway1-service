@@ -66,7 +66,7 @@ extend type Mutation {
   # 资金账户 删除
   capitalAccountDestroy(where: JSONObject!, limit: Int): String
   # 资金账户 根据id删除
-  capitalAccountDestroyById(id:String): String
+  capitalAccountDestroyById(id: String): String
 }
 
 input CapitalAccountSaveIn {

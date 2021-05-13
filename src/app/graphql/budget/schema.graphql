@@ -64,7 +64,7 @@ extend type Mutation {
   # 预算 删除
   budgetDestroy(where: JSONObject!, limit: Int): String
   # 预算 根据id删除
-  budgetDestroyById(id:String): String
+  budgetDestroyById(id: String): String
 }
 
 input BudgetSaveIn {

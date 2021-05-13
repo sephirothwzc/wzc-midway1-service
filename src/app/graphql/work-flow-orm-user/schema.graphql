@@ -63,7 +63,7 @@ extend type Mutation {
   # 工作流表单记录关联人员用户 删除
   workFlowOrmUserDestroy(where: JSONObject!, limit: Int): String
   # 工作流表单记录关联人员用户 根据id删除
-  workFlowOrmUserDestroyById(id:String): String
+  workFlowOrmUserDestroyById(id: String): String
 }
 
 input WorkFlowOrmUserSaveIn {

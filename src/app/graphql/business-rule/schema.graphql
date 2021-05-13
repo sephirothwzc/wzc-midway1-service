@@ -56,7 +56,7 @@ extend type Mutation {
   # 业务编码规则 删除
   businessRuleDestroy(where: JSONObject!, limit: Int): String
   # 业务编码规则 根据id删除
-  businessRuleDestroyById(id:String): String
+  businessRuleDestroyById(id: String): String
 }
 
 input BusinessRuleSaveIn {

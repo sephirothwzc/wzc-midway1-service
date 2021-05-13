@@ -61,7 +61,7 @@ extend type Mutation {
   # 工作流 删除
   workFlowDestroy(where: JSONObject!, limit: Int): String
   # 工作流 根据id删除
-  workFlowDestroyById(id:String): String
+  workFlowDestroyById(id: String): String
 }
 
 input WorkFlowSaveIn {

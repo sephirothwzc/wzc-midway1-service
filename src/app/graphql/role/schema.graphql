@@ -61,7 +61,7 @@ extend type Mutation {
   # 角色 删除
   roleDestroy(where: JSONObject!, limit: Int): String
   # 角色 根据id删除
-  roleDestroyById(id:String): String
+  roleDestroyById(id: String): String
 }
 
 input RoleSaveIn {

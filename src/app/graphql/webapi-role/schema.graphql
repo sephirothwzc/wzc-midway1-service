@@ -57,7 +57,7 @@ extend type Mutation {
   #  删除
   webapiRoleDestroy(where: JSONObject!, limit: Int): String
   #  根据id删除
-  webapiRoleDestroyById(id:String): String
+  webapiRoleDestroyById(id: String): String
 }
 
 input WebapiRoleSaveIn {

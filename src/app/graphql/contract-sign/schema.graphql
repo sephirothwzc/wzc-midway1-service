@@ -55,7 +55,7 @@ extend type Mutation {
   # 签约双方 删除
   contractSignDestroy(where: JSONObject!, limit: Int): String
   # 签约双方 根据id删除
-  contractSignDestroyById(id:String): String
+  contractSignDestroyById(id: String): String
 }
 
 input ContractSignSaveIn {

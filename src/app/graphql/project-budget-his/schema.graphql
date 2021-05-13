@@ -56,7 +56,7 @@ extend type Mutation {
   # 项目预算关系表 删除
   projectBudgetHisDestroy(where: JSONObject!, limit: Int): String
   # 项目预算关系表 根据id删除
-  projectBudgetHisDestroyById(id:String): String
+  projectBudgetHisDestroyById(id: String): String
 }
 
 input ProjectBudgetHisSaveIn {

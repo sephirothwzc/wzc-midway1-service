@@ -65,7 +65,7 @@ extend type Mutation {
   # 项目文件 删除
   projectFileHisDestroy(where: JSONObject!, limit: Int): String
   # 项目文件 根据id删除
-  projectFileHisDestroyById(id:String): String
+  projectFileHisDestroyById(id: String): String
 }
 
 input ProjectFileHisSaveIn {

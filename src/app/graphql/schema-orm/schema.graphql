@@ -57,7 +57,7 @@ extend type Mutation {
   # playground schema by ormtable id 删除
   schemaOrmDestroy(where: JSONObject!, limit: Int): String
   # playground schema by ormtable id 根据id删除
-  schemaOrmDestroyById(id:String): String
+  schemaOrmDestroyById(id: String): String
 }
 
 input SchemaOrmSaveIn {

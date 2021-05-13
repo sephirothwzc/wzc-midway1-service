@@ -70,7 +70,7 @@ extend type Mutation {
   # 组件 删除
   componentDestroy(where: JSONObject!, limit: Int): String
   # 组件 根据id删除
-  componentDestroyById(id:String): String
+  componentDestroyById(id: String): String
 }
 
 input ComponentSaveIn {

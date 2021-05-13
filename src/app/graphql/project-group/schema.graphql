@@ -63,7 +63,7 @@ extend type Mutation {
   # 项目组 删除
   projectGroupDestroy(where: JSONObject!, limit: Int): String
   # 项目组 根据id删除
-  projectGroupDestroyById(id:String): String
+  projectGroupDestroyById(id: String): String
 }
 
 input ProjectGroupSaveIn {

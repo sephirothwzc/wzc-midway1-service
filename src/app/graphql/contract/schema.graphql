@@ -89,7 +89,7 @@ extend type Mutation {
   # 合同 删除
   contractDestroy(where: JSONObject!, limit: Int): String
   # 合同 根据id删除
-  contractDestroyById(id:String): String
+  contractDestroyById(id: String): String
 }
 
 input ContractSaveIn {

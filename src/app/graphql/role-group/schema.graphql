@@ -54,7 +54,7 @@ extend type Mutation {
   # 角色组 删除
   roleGroupDestroy(where: JSONObject!, limit: Int): String
   # 角色组 根据id删除
-  roleGroupDestroyById(id:String): String
+  roleGroupDestroyById(id: String): String
 }
 
 input RoleGroupSaveIn {

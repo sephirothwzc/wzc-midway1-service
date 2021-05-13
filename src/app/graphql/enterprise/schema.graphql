@@ -62,7 +62,7 @@ extend type Mutation {
   # 企业信息 删除
   enterpriseDestroy(where: JSONObject!, limit: Int): String
   # 企业信息 根据id删除
-  enterpriseDestroyById(id:String): String
+  enterpriseDestroyById(id: String): String
 }
 
 input EnterpriseSaveIn {

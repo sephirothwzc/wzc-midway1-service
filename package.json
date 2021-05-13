@@ -41,7 +41,7 @@
     "@types/node": "^10.5.5",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "code-generator-wzc": "^1.0.71",
+    "code-generator-wzc": "^1.0.74",
     "commitizen": "^4.1.2",
     "conventional-changelog-cli": "^2.1.0",
     "cross-env": "^6.0.0",

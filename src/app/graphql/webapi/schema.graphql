@@ -69,7 +69,7 @@ extend type Mutation {
   # serverapi 删除
   webapiDestroy(where: JSONObject!, limit: Int): String
   # serverapi 根据id删除
-  webapiDestroyById(id:String): String
+  webapiDestroyById(id: String): String
 }
 
 input WebapiSaveIn {

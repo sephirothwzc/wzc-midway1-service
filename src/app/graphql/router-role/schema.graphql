@@ -57,7 +57,7 @@ extend type Mutation {
   # 路由角色关系 删除
   routerRoleDestroy(where: JSONObject!, limit: Int): String
   # 路由角色关系 根据id删除
-  routerRoleDestroyById(id:String): String
+  routerRoleDestroyById(id: String): String
 }
 
 input RouterRoleSaveIn {

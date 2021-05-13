@@ -61,7 +61,7 @@ extend type Mutation {
   # 文件上传记录表 删除
   fileDestroy(where: JSONObject!, limit: Int): String
   # 文件上传记录表 根据id删除
-  fileDestroyById(id:String): String
+  fileDestroyById(id: String): String
 }
 
 input FileSaveIn {

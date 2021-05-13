@@ -1,15 +1,19 @@
 import { provide, inject } from 'midway';
-import { ServiceBase } from '../lib/base/service.base';
-import { IBusinessRuleModel } from '../lib/models/business-rule.model';
+// import { CreateOptions, Transaction } from 'sequelize/types';
+import { ServiceGenericBase } from '../lib/base/service-generic.base';
+import {
+  IBusinessRuleModel,
+  BusinessRuleModel,
+} from '../lib/models/business-rule.model';
 
 export interface IBusinessRuleService extends BusinessRuleService {}
 
 @provide()
-export class BusinessRuleService extends ServiceBase {
+export class BusinessRuleService extends ServiceGenericBase<BusinessRuleModel> {
   get Model(): any {
     return this.businessRuleModel;
   }
-  
+
   @inject()
   businessRuleModel: IBusinessRuleModel;
 }

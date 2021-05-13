@@ -1,34 +1,40 @@
 import { provide, inject } from 'midway';
-import { ServiceBase } from '../lib/base/service.base';
-import {
-  // FormCustomSchemaModel,
-  // FORM_CUSTOM_SCHEMA,
-  IFormCustomSchemaModel,
-} from '../lib/models/form-custom-schema.model';
+import { CreateOptions, Transaction } from 'sequelize/types';
+import { ServiceGenericBase } from '../lib/base/service-generic.base';
+import { IFormCustomSchemaModel, FormCustomSchemaModel } from '../lib/models/form-custom-schema.model';
+import { IFormCustomService } from './form-custom.service';
 
 export interface IFormCustomSchemaService extends FormCustomSchemaService {}
 
 @provide()
-export class FormCustomSchemaService extends ServiceBase {
+export class FormCustomSchemaService extends ServiceGenericBase<FormCustomSchemaModel> {
   get Model(): any {
     return this.formCustomSchemaModel;
   }
-
+  
   @inject()
   formCustomSchemaModel: IFormCustomSchemaModel;
 
-  // async save(model: FormCustomSchemaModel) {
-  //   !model.version && (model.version = 1);
-  //   if (!model.formCustomId) {
-  //     throw new Error('formCustomId must require');
-  //   }
-  //   const item0 = await FormCustomSchemaModel.findOne({
-  //     where: {
-  //       [FORM_CUSTOM_SCHEMA.FORM_CUSTOM_ID]: model.formCustomId,
-  //     },
-  //     order: [['version', 'DESC']],
-  //   });
-  //   item0 && (model.version = item0.get('version') + 1);
-  //   return super.save(model);
-  // }
+  @inject()
+  formCustomService: IFormCustomService;
+  /**
+   * 新增
+   * @param values
+   */
+  public async create(values: FormCustomSchemaModel, useOptions?: CreateOptions): Promise<FormCustomSchemaModel> {
+    const run = async (t: Transaction) => {
+      if (values.formCustomIdObj && !values.formCustomId) {
+        values.formCustomId = (
+          await this.formCustomService.create(values.formCustomIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
+      return super.create(values, {
+        transaction: t,
+      });
+    };
+    return await this.useTransaction(run, useOptions);
+  }
+  
 }

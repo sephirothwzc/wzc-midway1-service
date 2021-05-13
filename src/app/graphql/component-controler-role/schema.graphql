@@ -57,7 +57,7 @@ extend type Mutation {
   # 控件角色 删除
   componentControlerRoleDestroy(where: JSONObject!, limit: Int): String
   # 控件角色 根据id删除
-  componentControlerRoleDestroyById(id:String): String
+  componentControlerRoleDestroyById(id: String): String
 }
 
 input ComponentControlerRoleSaveIn {

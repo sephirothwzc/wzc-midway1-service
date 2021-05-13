@@ -62,7 +62,7 @@ extend type Mutation {
   # 组织架构 删除
   organizationDestroy(where: JSONObject!, limit: Int): String
   # 组织架构 根据id删除
-  organizationDestroyById(id:String): String
+  organizationDestroyById(id: String): String
 }
 
 input OrganizationSaveIn {

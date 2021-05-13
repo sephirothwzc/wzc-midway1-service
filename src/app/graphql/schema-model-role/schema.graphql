@@ -61,7 +61,7 @@ extend type Mutation {
   # model角色关系表 删除
   schemaModelRoleDestroy(where: JSONObject!, limit: Int): String
   # model角色关系表 根据id删除
-  schemaModelRoleDestroyById(id:String): String
+  schemaModelRoleDestroyById(id: String): String
 }
 
 input SchemaModelRoleSaveIn {

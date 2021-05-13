@@ -140,9 +140,10 @@ export default (appInfo: EggAppInfo) => {
       '.docx',
       '.doc',
       '.pdf',
-      '.xlxs',
+      '.xlsx',
+      '.csv',
     ],
-    fileSize: '20mb',
+    fileSize: '40mb',
     tmpdir: path.join(os.tmpdir(), 'egg-multipart-tmp', appInfo.name),
     cleanSchedule: {
       // run tmpdir clean job on every day 04:30 am
