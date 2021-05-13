@@ -71,6 +71,15 @@ module.exports = (serviceName) => {
       },
     },
     Mutation: {
+      [`${serviceName}Create`]: async (_root, _args, ctx, _info) => {
+        await validationSchema(
+          ctx,
+          `${serviceName}MutationCreate`,
+          _args.param
+        );
+        const service = await getService(ctx);
+        return service.create(_args.param);
+      },
       [serviceName]: async (_root, _args, ctx, _info) => {
         await validationSchema(
           ctx,

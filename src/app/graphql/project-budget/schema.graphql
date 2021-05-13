@@ -43,6 +43,7 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 项目新增
   projectBudgetCreate(param: ProjectBudgetSaveIn!): ProjectBudgetSaveIn
   # 项目预算关系表 新增 or 修改
   projectBudget(param: ProjectBudgetSaveIn!, must: Boolean = false): String
@@ -77,7 +78,7 @@ input ProjectBudgetSaveIn {
   # 修改人id
   updatedId: String
   # 项目信息
-  projectIdObj: Project
+  projectIdObj: ProjectSaveIn
   # 预算信息
-  budgetIdObj: Budget
+  budgetIdObj: BudgetSaveIn
 }
