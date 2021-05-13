@@ -17,7 +17,7 @@ import { SnowFlake } from '../use-plugins/flake-id';
 import { devShowError } from '../utils/runtime-helper';
 
 @provide()
-export abstract class ServiceBase {
+export abstract class ServiceGenericBase<T extends BaseModel> {
   @init()
   init() {
     this.loader = new DataLoader((ids) => this.fetch(ids));
@@ -38,7 +38,7 @@ export abstract class ServiceBase {
   @inject('DB')
   db: IDBContext;
 
-  abstract get Model(): IBaseModel;
+  abstract get Model(): IBaseModel & T;
 
   // @inject()
   logger: any;
@@ -141,14 +141,14 @@ export abstract class ServiceBase {
   /**
    * @deprecated
    */
-  async findList(param: IQueryListParam): Promise<any[]> {
+  async findList(param: IQueryListParam): Promise<T[]> {
     const squelizeParam = this.findParamUtils(param);
-    return this.Model.findAll(squelizeParam);
+    return this.Model.findAll(squelizeParam) as any;
   }
 
-  async findAll(param: IQueryListParam): Promise<any[]> {
+  async findAll(param: IQueryListParam): Promise<T[]> {
     const squelizeParam = this.findParamUtils(param);
-    return this.Model.findAll(squelizeParam);
+    return this.Model.findAll(squelizeParam) as any;
   }
 
   async findOne<T>(param: IQueryListParam): Promise<T> {
@@ -169,7 +169,7 @@ export abstract class ServiceBase {
    * 记录操作人id
    * @param param
    */
-  hookSave(param: BaseModel) {
+  hookSave(param: T) {
     const id = this._.get(this.auth, 'id');
     this._.set(param, BASEMODEL.UPDATEDID, id);
     this._.set(param, BASEMODEL.CREATEDID, id);
@@ -191,12 +191,9 @@ export abstract class ServiceBase {
    * @param param
    * @param must
    */
-  private async ormUpdate(
-    param: BaseModel,
-    t?: Transaction
-  ): Promise<BaseModel> {
+  private async ormUpdate(param: T, t?: Transaction): Promise<T> {
     return await this.Model.findByPk(param.id, { transaction: t }).then(
-      (result: BaseModel) => {
+      (result: T) => {
         if (!result) {
           throw new Error(`[${param.id}]不存在！`);
         }
@@ -211,11 +208,11 @@ export abstract class ServiceBase {
    * update
    * @param param
    */
-  private async update(param: BaseModel): Promise<BaseModel> {
+  private async update(param: T): Promise<T> {
     const tran = this.enableTransaction({
       hookName: HooksName.beforeUpdate,
     });
-    let result: BaseModel;
+    let result: T;
     if (tran) {
       result = await this.db.sequelize.transaction((t: Transaction) => {
         return this.ormUpdate(param, t);
@@ -232,7 +229,7 @@ export abstract class ServiceBase {
    * @returns
    */
   async findCreateOptions(
-    param: BaseModel
+    param: T
   ): Promise<{ include?: [any]; transaction?: any; validate?: boolean }> {
     const context: IApplicationContext =
       this.ctx.requestContext.applicationContext;
@@ -242,7 +239,7 @@ export abstract class ServiceBase {
     if (!has) {
       return {};
     }
-    const createOptions: (param: BaseModel) => {
+    const createOptions: (param: T) => {
       include?: [any];
       transaction?: any;
       validate?: boolean;
@@ -250,7 +247,7 @@ export abstract class ServiceBase {
     return createOptions(param);
   }
 
-  private setChange(resultModel: any, param: BaseModel) {
+  private setChange(resultModel: any, param: T) {
     this._.keys(param).forEach((k) => {
       resultModel.set(k, param[k]);
     });
@@ -260,7 +257,7 @@ export abstract class ServiceBase {
    * 保存
    * @param param model
    */
-  async save(param: BaseModel): Promise<string> {
+  async save(param: T): Promise<string> {
     const model = await this.saveReturnObj(param);
     return model.id;
   }
@@ -270,7 +267,7 @@ export abstract class ServiceBase {
    * @param param
    * @returns
    */
-  async saveReturnObj(param: BaseModel): Promise<BaseModel> {
+  async saveReturnObj(param: T): Promise<T> {
     this.hookSave(param);
     // 修改
     if (param.id) {
@@ -284,10 +281,7 @@ export abstract class ServiceBase {
    * @param param
    * @returns
    */
-  async create<T extends BaseModel>(
-    param: T,
-    useOptions?: CreateOptions
-  ): Promise<T> {
+  async create(param: T, useOptions?: CreateOptions): Promise<T> {
     // 获取createOptions
     const options = await this.findCreateOptions(param);
     const tran = this.enableTransaction({
@@ -335,7 +329,7 @@ export abstract class ServiceBase {
    * @returns
    */
   async destroyById(id: string) {
-    const model: BaseModel = await this.Model.findByPk(id);
+    const model: T = (await this.Model.findByPk(id)) as T;
     if (!model) {
       throw new Error(`[${id}]不存在，请确认！`);
     }
