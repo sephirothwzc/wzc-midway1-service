@@ -63,6 +63,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # graphql-schema-model 新增
+  schemaModelCreate(param: SchemaModelSaveIn!): SchemaModelSaveIn
   # graphql-schema-model 新增 or 修改
   schemaModel(param: SchemaModelSaveIn!, must: Boolean = false): String
   # graphql-schema-model 批量 新增 or 修改
@@ -116,4 +118,5 @@ input SchemaModelSaveIn {
   businessSchemaSchemaModelId: [BusinessSchemaSaveIn]
   schemaModelParentId: [SchemaModelSaveIn]
   schemaModelRoleSchemaModelId: [SchemaModelRoleSaveIn]
+  parentIdObj: SchemaModelSaveIn
 }

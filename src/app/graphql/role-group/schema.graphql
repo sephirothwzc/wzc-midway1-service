@@ -45,6 +45,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 角色组 新增
+  roleGroupCreate(param: RoleGroupSaveIn!): RoleGroupSaveIn
   # 角色组 新增 or 修改
   roleGroup(param: RoleGroupSaveIn!, must: Boolean = false): String
   # 角色组 批量 新增 or 修改

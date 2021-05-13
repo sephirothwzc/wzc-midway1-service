@@ -31,8 +31,8 @@ type Role {
   routerRoleRoleId(param: QueryListParam): [RouterRole]
   schemaModelRoleRoleId(param: QueryListParam): [SchemaModelRole]
   webapiRoleRoleId(param: QueryListParam): [WebapiRole]
-  appUserRoleTypeId(param: QueryListParam): [AppUserRole]
 }
+
 
 # 角色 分页查询返回
 type RoleList {
@@ -52,6 +52,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 角色 新增
+  roleCreate(param: RoleSaveIn!): RoleSaveIn
   # 角色 新增 or 修改
   role(param: RoleSaveIn!, must: Boolean = false): String
   # 角色 批量 新增 or 修改
@@ -59,7 +61,7 @@ extend type Mutation {
   # 角色 删除
   roleDestroy(where: JSONObject!, limit: Int): String
   # 角色 根据id删除
-  roleDestroyById(id: String): String
+  roleDestroyById(id:String): String
 }
 
 input RoleSaveIn {

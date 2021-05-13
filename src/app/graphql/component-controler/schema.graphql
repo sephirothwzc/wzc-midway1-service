@@ -63,6 +63,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 组件内控件 新增
+  componentControlerCreate(param: ComponentControlerSaveIn!): ComponentControlerSaveIn
   # 组件内控件 新增 or 修改
   componentControler(param: ComponentControlerSaveIn!, must: Boolean = false): String
   # 组件内控件 批量 新增 or 修改
@@ -115,4 +117,6 @@ input ComponentControlerSaveIn {
   updatedId: String
   componentControlerParentId: [ComponentControlerSaveIn]
   componentControlerRoleComponentControlerId: [ComponentControlerRoleSaveIn]
+  parentIdObj: ComponentControlerSaveIn
+  componentIdObj: ComponentSaveIn
 }

@@ -53,6 +53,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 企业信息 新增
+  enterpriseCreate(param: EnterpriseSaveIn!): EnterpriseSaveIn
   # 企业信息 新增 or 修改
   enterprise(param: EnterpriseSaveIn!, must: Boolean = false): String
   # 企业信息 批量 新增 or 修改
@@ -95,4 +97,5 @@ input EnterpriseSaveIn {
   updatedId: String
   capitalAccountEnterpriseId: [CapitalAccountSaveIn]
   contractSignEnterpriseId: [ContractSignSaveIn]
+  enterpriseTypeIdObj: DataDictionarySaveIn
 }

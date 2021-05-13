@@ -46,6 +46,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 签约双方 新增
+  contractSignCreate(param: ContractSignSaveIn!): ContractSignSaveIn
   # 签约双方 新增 or 修改
   contractSign(param: ContractSignSaveIn!, must: Boolean = false): String
   # 签约双方 批量 新增 or 修改
@@ -80,4 +82,6 @@ input ContractSignSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractIdObj: ContractSaveIn
+  enterpriseIdObj: EnterpriseSaveIn
 }

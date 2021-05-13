@@ -61,6 +61,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 自定义表单 新增
+  formCustomCreate(param: FormCustomSaveIn!): FormCustomSaveIn
   # 自定义表单 新增 or 修改
   formCustom(param: FormCustomSaveIn!, must: Boolean = false): String
   # 自定义表单 批量 新增 or 修改

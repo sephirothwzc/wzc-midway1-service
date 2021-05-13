@@ -80,6 +80,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 合同 新增
+  contractCreate(param: ContractSaveIn!): ContractSaveIn
   # 合同 新增 or 修改
   contract(param: ContractSaveIn!, must: Boolean = false): String
   # 合同 批量 新增 or 修改
@@ -143,4 +145,11 @@ input ContractSaveIn {
   contractCollectionPaymentContractId: [ContractCollectionPaymentSaveIn]
   contractCollectionPaymentPlanContractId: [ContractCollectionPaymentPlanSaveIn]
   contractSignContractId: [ContractSignSaveIn]
+  projectIdObj: ProjectSaveIn
+  budgetIdObj: BudgetSaveIn
+  contractTypeIdObj: DataDictionarySaveIn
+  contractStatusIdObj: DataDictionarySaveIn
+  contractNatureIdObj: DataDictionarySaveIn
+  addUserIdObj: AppUserSaveIn
+  organizationIdObj: OrganizationSaveIn
 }

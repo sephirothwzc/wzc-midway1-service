@@ -52,6 +52,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 工作流 新增
+  workFlowCreate(param: WorkFlowSaveIn!): WorkFlowSaveIn
   # 工作流 新增 or 修改
   workFlow(param: WorkFlowSaveIn!, must: Boolean = false): String
   # 工作流 批量 新增 or 修改
@@ -93,4 +95,5 @@ input WorkFlowSaveIn {
   # 版本
   version: Float
   workFlowOrmWorkFlowId: [WorkFlowOrmSaveIn]
+  formCustomIdObj: FormCustomSaveIn
 }

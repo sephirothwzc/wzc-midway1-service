@@ -48,6 +48,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # playground schema by ormtable id 新增
+  schemaOrmCreate(param: SchemaOrmSaveIn!): SchemaOrmSaveIn
   # playground schema by ormtable id 新增 or 修改
   schemaOrm(param: SchemaOrmSaveIn!, must: Boolean = false): String
   # playground schema by ormtable id 批量 新增 or 修改
@@ -84,4 +86,6 @@ input SchemaOrmSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  formCustomIdObj: FormCustomSaveIn
+  formCustomSchemaIdObj: FormCustomSchemaSaveIn
 }

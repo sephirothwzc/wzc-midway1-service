@@ -55,6 +55,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 预算 新增
+  budgetCreate(param: BudgetSaveIn!): BudgetSaveIn
   # 预算 新增 or 修改
   budget(param: BudgetSaveIn!, must: Boolean = false): String
   # 预算 批量 新增 or 修改
@@ -99,4 +101,5 @@ input BudgetSaveIn {
   contractBudgetId: [ContractSaveIn]
   projectBudgetHisBudgetId: [ProjectBudgetHisSaveIn]
   projectBudgetBudgetId: [ProjectBudgetSaveIn]
+  departmentObj: OrganizationSaveIn
 }

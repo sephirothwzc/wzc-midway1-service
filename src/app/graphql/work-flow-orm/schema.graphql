@@ -64,6 +64,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 工作流表单记录 新增
+  workFlowOrmCreate(param: WorkFlowOrmSaveIn!): WorkFlowOrmSaveIn
   # 工作流表单记录 新增 or 修改
   workFlowOrm(param: WorkFlowOrmSaveIn!, must: Boolean = false): String
   # 工作流表单记录 批量 新增 or 修改
@@ -112,4 +114,8 @@ input WorkFlowOrmSaveIn {
   workFlowId: String
   # 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
   workType: String
+  workFlowIdObj: WorkFlowSaveIn
+  formUserIdObj: AppUserSaveIn
+  managerUserIdObj: AppUserSaveIn
+  undertakeUserIdObj: AppUserSaveIn
 }

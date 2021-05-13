@@ -53,6 +53,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 预算文件 新增
+  budgetFileCreate(param: BudgetFileSaveIn!): BudgetFileSaveIn
   # 预算文件 新增 or 修改
   budgetFile(param: BudgetFileSaveIn!, must: Boolean = false): String
   # 预算文件 批量 新增 or 修改
@@ -95,4 +97,5 @@ input BudgetFileSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  budgetIdObj: BudgetSaveIn
 }

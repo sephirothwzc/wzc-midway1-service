@@ -47,6 +47,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 业务编码规则 新增
+  businessRuleCreate(param: BusinessRuleSaveIn!): BusinessRuleSaveIn
   # 业务编码规则 新增 or 修改
   businessRule(param: BusinessRuleSaveIn!, must: Boolean = false): String
   # 业务编码规则 批量 新增 or 修改

@@ -54,6 +54,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 项目组 新增
+  projectGroupCreate(param: ProjectGroupSaveIn!): ProjectGroupSaveIn
   # 项目组 新增 or 修改
   projectGroup(param: ProjectGroupSaveIn!, must: Boolean = false): String
   # 项目组 批量 新增 or 修改

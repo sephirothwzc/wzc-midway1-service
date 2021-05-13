@@ -48,6 +48,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 控件角色 新增
+  componentControlerRoleCreate(param: ComponentControlerRoleSaveIn!): ComponentControlerRoleSaveIn
   # 控件角色 新增 or 修改
   componentControlerRole(param: ComponentControlerRoleSaveIn!, must: Boolean = false): String
   # 控件角色 批量 新增 or 修改
@@ -84,4 +86,6 @@ input ComponentControlerRoleSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  roleIdObj: RoleSaveIn
+  componentControlerIdObj: ComponentControlerSaveIn
 }

@@ -62,6 +62,16 @@ type AppUser {
   # 用户名登陆用
   userName: String
   appUserRoleAppUserId(param: QueryListParam): [AppUserRole]
+  contractAddUserId(param: QueryListParam): [Contract]
+  projectHisAddUserId(param: QueryListParam): [ProjectHis]
+  projectAddUserId(param: QueryListParam): [Project]
+  workFlowOrmFormUserId(param: QueryListParam): [WorkFlowOrm]
+  workFlowOrmManagerUserId(param: QueryListParam): [WorkFlowOrm]
+  workFlowOrmUndertakeUserId(param: QueryListParam): [WorkFlowOrm]
+  workFlowOrmUserWorkFlowOrmId(param: QueryListParam): [WorkFlowOrmUser]
+  workFlowOrmUserFormUserId(param: QueryListParam): [WorkFlowOrmUser]
+  workFlowOrmUserManagerUserId(param: QueryListParam): [WorkFlowOrmUser]
+  workFlowOrmUserUndertakeUserId(param: QueryListParam): [WorkFlowOrmUser]
 }
 
 enum EAppUserUserGender{m,w}
@@ -84,6 +94,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 终端用户 新增
+  appUserCreate(param: AppUserSaveIn!): AppUserSaveIn
   # 终端用户 新增 or 修改
   appUser(param: AppUserSaveIn!, must: Boolean = false): String
   # 终端用户 批量 新增 or 修改
@@ -157,4 +169,14 @@ input AppUserSaveIn {
   # 用户名登陆用
   userName: String
   appUserRoleAppUserId: [AppUserRoleSaveIn]
+  contractAddUserId: [ContractSaveIn]
+  projectHisAddUserId: [ProjectHisSaveIn]
+  projectAddUserId: [ProjectSaveIn]
+  workFlowOrmFormUserId: [WorkFlowOrmSaveIn]
+  workFlowOrmManagerUserId: [WorkFlowOrmSaveIn]
+  workFlowOrmUndertakeUserId: [WorkFlowOrmSaveIn]
+  workFlowOrmUserWorkFlowOrmId: [WorkFlowOrmUserSaveIn]
+  workFlowOrmUserFormUserId: [WorkFlowOrmUserSaveIn]
+  workFlowOrmUserManagerUserId: [WorkFlowOrmUserSaveIn]
+  workFlowOrmUserUndertakeUserId: [WorkFlowOrmUserSaveIn]
 }

@@ -112,6 +112,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 项目 新增
+  projectCreate(param: ProjectSaveIn!): ProjectSaveIn
   # 项目 新增 or 修改
   project(param: ProjectSaveIn!, must: Boolean = false): String
   # 项目 批量 新增 or 修改
@@ -206,4 +208,12 @@ input ProjectSaveIn {
   projectFileHisProjectId: [ProjectFileHisSaveIn]
   projectFileProjectId: [ProjectFileSaveIn]
   projectHisProjectId: [ProjectHisSaveIn]
+  projectGroupIdObj: ProjectGroupSaveIn
+  projectTypeIdObj: DataDictionarySaveIn
+  projectSubjectIdObj: DataDictionarySaveIn
+  responsibleOrganizationIdObj: OrganizationSaveIn
+  projectStatusIdObj: DataDictionarySaveIn
+  buildNatureIdObj: DataDictionarySaveIn
+  addUserIdObj: AppUserSaveIn
+  schemaIdObj: FormCustomSchemaSaveIn
 }

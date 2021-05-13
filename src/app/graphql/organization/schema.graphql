@@ -53,6 +53,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 组织架构 新增
+  organizationCreate(param: OrganizationSaveIn!): OrganizationSaveIn
   # 组织架构 新增 or 修改
   organization(param: OrganizationSaveIn!, must: Boolean = false): String
   # 组织架构 批量 新增 or 修改
@@ -96,4 +98,5 @@ input OrganizationSaveIn {
   organizationParentId: [OrganizationSaveIn]
   projectHisResponsibleOrganizationId: [ProjectHisSaveIn]
   projectResponsibleOrganizationId: [ProjectSaveIn]
+  parentIdObj: OrganizationSaveIn
 }

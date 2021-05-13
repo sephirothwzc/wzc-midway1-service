@@ -52,6 +52,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # model角色关系表 新增
+  schemaModelRoleCreate(param: SchemaModelRoleSaveIn!): SchemaModelRoleSaveIn
   # model角色关系表 新增 or 修改
   schemaModelRole(param: SchemaModelRoleSaveIn!, must: Boolean = false): String
   # model角色关系表 批量 新增 or 修改
@@ -92,4 +94,6 @@ input SchemaModelRoleSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  roleIdObj: RoleSaveIn
+  schemaModelIdObj: SchemaModelSaveIn
 }

@@ -38,7 +38,6 @@ type DataDictionary {
   contractContractTypeId(param: QueryListParam): [Contract]
   contractContractStatusId(param: QueryListParam): [Contract]
   contractContractNatureId(param: QueryListParam): [Contract]
-  parentIdObj: DataDictionary
   enterpriseEnterpriseTypeId(param: QueryListParam): [Enterprise]
   projectHisProjectTypeId(param: QueryListParam): [ProjectHis]
   projectHisProjectSubjectId(param: QueryListParam): [ProjectHis]
@@ -69,6 +68,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 数据字典 新增
+  dataDictionaryCreate(param: DataDictionarySaveIn!): DataDictionarySaveIn
   # 数据字典 新增 or 修改
   dataDictionary(param: DataDictionarySaveIn!, must: Boolean = false): String
   # 数据字典 批量 新增 or 修改
@@ -118,7 +119,6 @@ input DataDictionarySaveIn {
   contractContractTypeId: [ContractSaveIn]
   contractContractStatusId: [ContractSaveIn]
   contractContractNatureId: [ContractSaveIn]
-  dataDictionaryParentId: [DataDictionarySaveIn]
   enterpriseEnterpriseTypeId: [EnterpriseSaveIn]
   projectHisProjectTypeId: [ProjectHisSaveIn]
   projectHisProjectSubjectId: [ProjectHisSaveIn]

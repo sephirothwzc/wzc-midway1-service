@@ -100,6 +100,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 项目 新增
+  projectHisCreate(param: ProjectHisSaveIn!): ProjectHisSaveIn
   # 项目 新增 or 修改
   projectHis(param: ProjectHisSaveIn!, must: Boolean = false): String
   # 项目 批量 新增 or 修改
@@ -182,4 +184,12 @@ input ProjectHisSaveIn {
   version: Float
   projectBudgetHisProjectHisId: [ProjectBudgetHisSaveIn]
   projectFileHisProjectHisId: [ProjectFileHisSaveIn]
+  projectIdObj: ProjectSaveIn
+  projectGroupIdObj: ProjectGroupSaveIn
+  projectTypeIdObj: DataDictionarySaveIn
+  projectSubjectIdObj: DataDictionarySaveIn
+  responsibleOrganizationIdObj: OrganizationSaveIn
+  projectStatusIdObj: DataDictionarySaveIn
+  buildNatureIdObj: DataDictionarySaveIn
+  addUserIdObj: AppUserSaveIn
 }

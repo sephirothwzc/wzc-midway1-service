@@ -58,6 +58,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 合同收款计划 新增
+  contractCollectionPaymentPlanCreate(param: ContractCollectionPaymentPlanSaveIn!): ContractCollectionPaymentPlanSaveIn
   # 合同收款计划 新增 or 修改
   contractCollectionPaymentPlan(param: ContractCollectionPaymentPlanSaveIn!, must: Boolean = false): String
   # 合同收款计划 批量 新增 or 修改
@@ -103,4 +105,7 @@ input ContractCollectionPaymentPlanSaveIn {
   # 修改人id
   updatedId: String
   contractCollectionPaymentContractCollectionPlanId: [ContractCollectionPaymentSaveIn]
+  contractIdObj: ContractSaveIn
+  modeObj: DataDictionarySaveIn
+  typeObj: DataDictionarySaveIn
 }

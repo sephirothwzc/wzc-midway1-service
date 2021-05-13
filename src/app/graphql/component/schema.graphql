@@ -1,6 +1,8 @@
 # 组件
 type Component {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件名称[unique]
@@ -59,6 +61,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 组件 新增
+  componentCreate(param: ComponentSaveIn!): ComponentSaveIn
   # 组件 新增 or 修改
   component(param: ComponentSaveIn!, must: Boolean = false): String
   # 组件 批量 新增 or 修改
@@ -71,6 +75,8 @@ extend type Mutation {
 
 input ComponentSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 组件名称[unique]
@@ -108,4 +114,5 @@ input ComponentSaveIn {
   componentControlerComponentId: [ComponentControlerSaveIn]
   componentParentId: [ComponentSaveIn]
   routerComponentId: [RouterSaveIn]
+  parentIdObj: ComponentSaveIn
 }

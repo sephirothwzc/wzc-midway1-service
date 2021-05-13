@@ -48,6 +48,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  #  新增
+  webapiRoleCreate(param: WebapiRoleSaveIn!): WebapiRoleSaveIn
   #  新增 or 修改
   webapiRole(param: WebapiRoleSaveIn!, must: Boolean = false): String
   #  批量 新增 or 修改
@@ -84,4 +86,6 @@ input WebapiRoleSaveIn {
   updatedId: String
   # 对象id
   webapiId: String
+  roleIdObj: RoleSaveIn
+  webapiIdObj: WebapiSaveIn
 }

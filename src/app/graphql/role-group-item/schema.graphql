@@ -1,6 +1,8 @@
 # 角色组明细
 type RoleGroupItem {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间
@@ -46,6 +48,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 角色组明细 新增
+  roleGroupItemCreate(param: RoleGroupItemSaveIn!): RoleGroupItemSaveIn
   # 角色组明细 新增 or 修改
   roleGroupItem(param: RoleGroupItemSaveIn!, must: Boolean = false): String
   # 角色组明细 批量 新增 or 修改
@@ -58,6 +62,8 @@ extend type Mutation {
 
 input RoleGroupItemSaveIn {
   id: ID
+  # appName
+  appName: String
   # 业务编码权限用
   businessCode: String
   # 创建时间
@@ -80,4 +86,6 @@ input RoleGroupItemSaveIn {
   updatedId: String
   # 权重
   weight: Float
+  roleIdObj: RoleSaveIn
+  roleGroupIdObj: RoleGroupSaveIn
 }

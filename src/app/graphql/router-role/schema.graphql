@@ -29,6 +29,7 @@ type RouterRole {
   routerIdObj: Router
 }
 
+
 # 路由角色关系 分页查询返回
 type RouterRoleList {
   count: Int!
@@ -47,6 +48,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 路由角色关系 新增
+  routerRoleCreate(param: RouterRoleSaveIn!): RouterRoleSaveIn
   # 路由角色关系 新增 or 修改
   routerRole(param: RouterRoleSaveIn!, must: Boolean = false): String
   # 路由角色关系 批量 新增 or 修改
@@ -54,7 +57,7 @@ extend type Mutation {
   # 路由角色关系 删除
   routerRoleDestroy(where: JSONObject!, limit: Int): String
   # 路由角色关系 根据id删除
-  routerRoleDestroyById(id: String): String
+  routerRoleDestroyById(id:String): String
 }
 
 input RouterRoleSaveIn {
@@ -83,4 +86,6 @@ input RouterRoleSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  roleIdObj: RoleSaveIn
+  routerIdObj: RouterSaveIn
 }

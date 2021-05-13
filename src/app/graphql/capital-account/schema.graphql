@@ -57,6 +57,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 资金账户 新增
+  capitalAccountCreate(param: CapitalAccountSaveIn!): CapitalAccountSaveIn
   # 资金账户 新增 or 修改
   capitalAccount(param: CapitalAccountSaveIn!, must: Boolean = false): String
   # 资金账户 批量 新增 or 修改
@@ -103,4 +105,5 @@ input CapitalAccountSaveIn {
   updatedId: String
   contractCollectionPaymentCollectionAccountId: [ContractCollectionPaymentSaveIn]
   contractCollectionPaymentPaymentAccountId: [ContractCollectionPaymentSaveIn]
+  enterpriseIdObj: EnterpriseSaveIn
 }

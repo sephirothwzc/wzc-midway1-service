@@ -56,6 +56,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 项目文件 新增
+  projectFileHisCreate(param: ProjectFileHisSaveIn!): ProjectFileHisSaveIn
   # 项目文件 新增 or 修改
   projectFileHis(param: ProjectFileHisSaveIn!, must: Boolean = false): String
   # 项目文件 批量 新增 or 修改
@@ -100,4 +102,6 @@ input ProjectFileHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  projectIdObj: ProjectSaveIn
+  projectHisIdObj: ProjectHisSaveIn
 }

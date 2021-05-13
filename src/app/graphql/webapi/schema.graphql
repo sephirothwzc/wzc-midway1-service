@@ -60,6 +60,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # serverapi 新增
+  webapiCreate(param: WebapiSaveIn!): WebapiSaveIn
   # serverapi 新增 or 修改
   webapi(param: WebapiSaveIn!, must: Boolean = false): String
   # serverapi 批量 新增 or 修改
@@ -110,4 +112,5 @@ input WebapiSaveIn {
   updatedId: String
   webapiParentId: [WebapiSaveIn]
   webapiRoleWebapiId: [WebapiRoleSaveIn]
+  parentIdObj: WebapiSaveIn
 }

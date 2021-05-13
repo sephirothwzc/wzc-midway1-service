@@ -54,6 +54,8 @@ extend type Query {
 }
 
 extend type Mutation {
+  # 工作流表单记录关联人员用户 新增
+  workFlowOrmUserCreate(param: WorkFlowOrmUserSaveIn!): WorkFlowOrmUserSaveIn
   # 工作流表单记录关联人员用户 新增 or 修改
   workFlowOrmUser(param: WorkFlowOrmUserSaveIn!, must: Boolean = false): String
   # 工作流表单记录关联人员用户 批量 新增 or 修改
@@ -94,4 +96,8 @@ input WorkFlowOrmUserSaveIn {
   updatedId: String
   # 发起人id
   workFlowOrmId: String
+  workFlowOrmIdObj: AppUserSaveIn
+  formUserIdObj: AppUserSaveIn
+  managerUserIdObj: AppUserSaveIn
+  undertakeUserIdObj: AppUserSaveIn
 }
