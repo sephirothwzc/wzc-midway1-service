@@ -3,21 +3,20 @@ import { Application } from 'midway-web';
 import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
 import { WorkFlowOrmModel } from '../models/work-flow-orm.model';
+import { IBaseModel } from '../base/model.base';
 
 @provide('WorkFlowOrmHook')
 export class WorkFlowOrmHook {
-  async beforeBulkDestroy(model: {
-    where: { id: string };
-    transaction: Transaction;
-  }) {
-    const item = await WorkFlowOrmModel.findByPk(model.where.id);
-    if (item) {
-      const app = _.get(WorkFlowOrmModel.sequelize, 'app') as Application;
-      const model = app.applicationContext.getAsync(
-        item.get('ormType') + 'Model'
-      );
-      console.log(model);
-      throw new Error(model);
-    }
+  async beforeDestroy(
+    model: WorkFlowOrmModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
+    const app = _.get(WorkFlowOrmModel.sequelize, 'app') as Application;
+    const itemModel: IBaseModel = await app.applicationContext.getAsync(
+      model.get('ormType') + 'Model'
+    );
+    itemModel.findByPk(model.get('ormId')).then((result) => {
+      result.destroy(options);
+    });
   }
 }
