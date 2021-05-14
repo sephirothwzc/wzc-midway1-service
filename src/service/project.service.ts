@@ -15,7 +15,7 @@ export class ProjectService extends ServiceGenericBase<ProjectModel> {
   get Model(): any {
     return this.projectModel;
   }
-  
+
   @inject()
   projectModel: IProjectModel;
 
@@ -33,7 +33,10 @@ export class ProjectService extends ServiceGenericBase<ProjectModel> {
    * 新增
    * @param values
    */
-  public async create(values: ProjectModel, useOptions?: CreateOptions): Promise<ProjectModel> {
+  public async create(
+    values: ProjectModel,
+    useOptions?: CreateOptions
+  ): Promise<ProjectModel> {
     const run = async (t: Transaction) => {
       if (values.projectGroupIdObj && !values.projectGroupId) {
         values.projectGroupId = (
@@ -56,11 +59,17 @@ export class ProjectService extends ServiceGenericBase<ProjectModel> {
           })
         ).get('id');
       }
-      if (values.responsibleOrganizationIdObj && !values.responsibleOrganizationId) {
+      if (
+        values.responsibleOrganizationIdObj &&
+        !values.responsibleOrganizationId
+      ) {
         values.responsibleOrganizationId = (
-          await this.organizationService.create(values.responsibleOrganizationIdObj, {
-            transaction: t,
-          })
+          await this.organizationService.create(
+            values.responsibleOrganizationIdObj,
+            {
+              transaction: t,
+            }
+          )
         ).get('id');
       }
       if (values.projectStatusIdObj && !values.projectStatusId) {
@@ -84,18 +93,10 @@ export class ProjectService extends ServiceGenericBase<ProjectModel> {
           })
         ).get('id');
       }
-      if (values.schemaIdObj && !values.schemaId) {
-        values.schemaId = (
-          await this.formCustomSchemaService.create(values.schemaIdObj, {
-            transaction: t,
-          })
-        ).get('id');
-      }
       return super.create(values, {
         transaction: t,
       });
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }

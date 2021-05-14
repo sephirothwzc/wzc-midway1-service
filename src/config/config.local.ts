@@ -128,23 +128,9 @@ export const sequelize = {
   database: 'financial_system_dev',
   username: 'root_develop',
   password: 'eegDed-gbdacu3-ntuplw',
-
   timezone: '+08:00',
   modelFile: 'ts',
 };
-
-// /**
-//  * sequelize数据库链接-prod
-//  */
-// export const sequelize = {
-//   port: 53306,
-//   host: 'rm-8vb9k9rdy6ayl0o220o.mysql.zhangbei.rds.aliyuncs.com',
-//   database: 'auth_center_prd',
-//   username: 'root_prod',
-//   password: 'xegDed-govcu1-mitpun',
-//   timezone: '+08:00',
-//   modelFile: 'ts',
-// };
 
 export const alioss = {
   url: 'http://localhost:8021/api/oss',
