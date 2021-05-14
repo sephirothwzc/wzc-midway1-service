@@ -8,16 +8,19 @@ import * as Bb from 'bluebird';
 @provide('ComponentControlerHook')
 export class ComponentControlerHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: ComponentControlerModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { componentControlerIbfk1, componentControlerRoleIbfk2 } = await Bb.props({
         componentControlerIbfk1: ComponentControlerModel.findOne({
           where: {
-            [COMPONENT_CONTROLER.PARENT_ID]: _.get(model, 'where.id'),
+            [COMPONENT_CONTROLER.PARENT_ID]: model.get('id'),
           },
         }),
         componentControlerRoleIbfk2: ComponentControlerRoleModel.findOne({
           where: {
-            [COMPONENT_CONTROLER_ROLE.COMPONENT_CONTROLER_ID]: _.get(model, 'where.id'),
+            [COMPONENT_CONTROLER_ROLE.COMPONENT_CONTROLER_ID]: model.get('id'),
           },
         }),
     });
@@ -36,10 +39,10 @@ export class ComponentControlerHook {
       return;
     }
 
-    if (changed.includes(COMPONENT_CONTROLER.CONTROL_CODE) && model.get('ControlCode')) {
+    if (changed.includes(COMPONENT_CONTROLER.CONTROL_CODE) && model.get('controlCode')) {
       const item0 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_CODE]: model.get('ControlCode'),
+          [COMPONENT_CONTROLER.CONTROL_CODE]: model.get('controlCode'),
         },
         transaction: options?.transaction,
       });
@@ -49,10 +52,10 @@ export class ComponentControlerHook {
     }
     
 
-    if (changed.includes(COMPONENT_CONTROLER.CONTROL_KEY) && model.get('ControlKey')) {
+    if (changed.includes(COMPONENT_CONTROLER.CONTROL_KEY) && model.get('controlKey')) {
       const item1 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_KEY]: model.get('ControlKey'),
+          [COMPONENT_CONTROLER.CONTROL_KEY]: model.get('controlKey'),
         },
         transaction: options?.transaction,
       });
@@ -62,10 +65,10 @@ export class ComponentControlerHook {
     }
     
 
-    if (changed.includes(COMPONENT_CONTROLER.CONTROL_NAME) && model.get('ControlName')) {
+    if (changed.includes(COMPONENT_CONTROLER.CONTROL_NAME) && model.get('controlName')) {
       const item2 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_NAME]: model.get('ControlName'),
+          [COMPONENT_CONTROLER.CONTROL_NAME]: model.get('controlName'),
         },
         transaction: options?.transaction,
       });
@@ -81,10 +84,10 @@ export class ComponentControlerHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('ControlCode')) {
+    if (model.get('controlCode')) {
       const item0 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_CODE]: model.get('ControlCode'),
+          [COMPONENT_CONTROLER.CONTROL_CODE]: model.get('controlCode'),
         },
         transaction: options?.transaction,
       });
@@ -94,10 +97,10 @@ export class ComponentControlerHook {
     }
     
 
-    if (model.get('ControlKey')) {
+    if (model.get('controlKey')) {
       const item1 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_KEY]: model.get('ControlKey'),
+          [COMPONENT_CONTROLER.CONTROL_KEY]: model.get('controlKey'),
         },
         transaction: options?.transaction,
       });
@@ -107,10 +110,10 @@ export class ComponentControlerHook {
     }
     
 
-    if (model.get('ControlName')) {
+    if (model.get('controlName')) {
       const item2 = await ComponentControlerModel.findOne({
         where: {
-          [COMPONENT_CONTROLER.CONTROL_NAME]: model.get('ControlName'),
+          [COMPONENT_CONTROLER.CONTROL_NAME]: model.get('controlName'),
         },
         transaction: options?.transaction,
       });

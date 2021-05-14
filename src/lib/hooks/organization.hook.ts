@@ -7,35 +7,39 @@ import { ORGANIZATION, OrganizationModel } from '../models/organization.model';
 import { PROJECT_HIS, ProjectHisModel } from '../models/project-his.model';
 import { PROJECT, ProjectModel } from '../models/project.model';
 import * as Bb from 'bluebird';
+import { OrganizationModel } from '../models/organization.model';
 
 @provide('OrganizationHook')
 export class OrganizationHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: OrganizationModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { budgetIbfk1, contractIbfk7, organizationIbfk1, projectHisIbfk5, projectIbfk4 } = await Bb.props({
         budgetIbfk1: BudgetModel.findOne({
           where: {
-            [BUDGET.DEPARTMENT]: _.get(model, 'where.id'),
+            [BUDGET.DEPARTMENT]: model.get('id'),
           },
         }),
         contractIbfk7: ContractModel.findOne({
           where: {
-            [CONTRACT.ORGANIZATION_ID]: _.get(model, 'where.id'),
+            [CONTRACT.ORGANIZATION_ID]: model.get('id'),
           },
         }),
         organizationIbfk1: OrganizationModel.findOne({
           where: {
-            [ORGANIZATION.PARENT_ID]: _.get(model, 'where.id'),
+            [ORGANIZATION.PARENT_ID]: model.get('id'),
           },
         }),
         projectHisIbfk5: ProjectHisModel.findOne({
           where: {
-            [PROJECT_HIS.RESPONSIBLE_ORGANIZATION_ID]: _.get(model, 'where.id'),
+            [PROJECT_HIS.RESPONSIBLE_ORGANIZATION_ID]: model.get('id'),
           },
         }),
         projectIbfk4: ProjectModel.findOne({
           where: {
-            [PROJECT.RESPONSIBLE_ORGANIZATION_ID]: _.get(model, 'where.id'),
+            [PROJECT.RESPONSIBLE_ORGANIZATION_ID]: model.get('id'),
           },
         }),
     });

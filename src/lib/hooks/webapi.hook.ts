@@ -7,26 +7,28 @@ import * as Bb from 'bluebird';
 
 @provide('WebapiHook')
 export class WebapiHook {
-  async beforeBulkDestroy(model: {
-    where: { id: string };
-    transaction: Transaction;
-  }) {
+
+  async beforeDestroy(
+    model: WebapiModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { webapiIbfk1, webapiRoleIbfk2 } = await Bb.props({
-      webapiIbfk1: WebapiModel.findOne({
-        where: {
-          [WEBAPI.PARENT_ID]: _.get(model, 'where.id'),
-        },
-      }),
-      webapiRoleIbfk2: WebapiRoleModel.findOne({
-        where: {
-          [WEBAPI_ROLE.WEBAPI_ID]: _.get(model, 'where.id'),
-        },
-      }),
+        webapiIbfk1: WebapiModel.findOne({
+          where: {
+            [WEBAPI.PARENT_ID]: model.get('id'),
+          },
+        }),
+        webapiRoleIbfk2: WebapiRoleModel.findOne({
+          where: {
+            [WEBAPI_ROLE.WEBAPI_ID]: model.get('id'),
+          },
+        }),
     });
     if (webapiIbfk1 || webapiRoleIbfk2) {
       throw new Error('已使用数据禁止删除');
     }
   }
+
 
   async beforeUpdate(
     model: WebapiModel,
@@ -37,10 +39,10 @@ export class WebapiHook {
       return;
     }
 
-    if (changed.includes(WEBAPI.CODE) && model.get('Code')) {
+    if (changed.includes(WEBAPI.CODE) && model.get('code')) {
       const item0 = await WebapiModel.findOne({
         where: {
-          [WEBAPI.CODE]: model.get('Code'),
+          [WEBAPI.CODE]: model.get('code'),
         },
         transaction: options?.transaction,
       });
@@ -48,11 +50,12 @@ export class WebapiHook {
         throw new Error('路由编码已存在');
       }
     }
+    
 
-    if (changed.includes(WEBAPI.PATH) && model.get('Path')) {
+    if (changed.includes(WEBAPI.PATH) && model.get('path')) {
       const item1 = await WebapiModel.findOne({
         where: {
-          [WEBAPI.PATH]: model.get('Path'),
+          [WEBAPI.PATH]: model.get('path'),
         },
         transaction: options?.transaction,
       });
@@ -60,16 +63,18 @@ export class WebapiHook {
         throw new Error('路由已存在');
       }
     }
+    
   }
 
   async beforeCreate(
     model: WebapiModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
-    if (model.get('Code')) {
+
+    if (model.get('code')) {
       const item0 = await WebapiModel.findOne({
         where: {
-          [WEBAPI.CODE]: model.get('Code'),
+          [WEBAPI.CODE]: model.get('code'),
         },
         transaction: options?.transaction,
       });
@@ -77,11 +82,12 @@ export class WebapiHook {
         throw new Error('路由编码已存在');
       }
     }
+    
 
-    if (model.get('Path')) {
+    if (model.get('path')) {
       const item1 = await WebapiModel.findOne({
         where: {
-          [WEBAPI.PATH]: model.get('Path'),
+          [WEBAPI.PATH]: model.get('path'),
         },
         transaction: options?.transaction,
       });
@@ -89,5 +95,7 @@ export class WebapiHook {
         throw new Error('路由已存在');
       }
     }
+    
   }
+  
 }

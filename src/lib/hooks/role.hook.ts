@@ -8,40 +8,44 @@ import { ROUTER_ROLE, RouterRoleModel } from '../models/router-role.model';
 import { SCHEMA_MODEL_ROLE, SchemaModelRoleModel } from '../models/schema-model-role.model';
 import { WEBAPI_ROLE, WebapiRoleModel } from '../models/webapi-role.model';
 import * as Bb from 'bluebird';
+import { RoleModel } from '../models/role.model';
 
 @provide('RoleHook')
 export class RoleHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: RoleModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { businessSchemaIbfk1, componentControlerRoleIbfk1, roleGroupItemIbfk1, routerRoleIbfk1, schemaModelRoleIbfk1, webapiRoleIbfk1 } = await Bb.props({
         businessSchemaIbfk1: BusinessSchemaModel.findOne({
           where: {
-            [BUSINESS_SCHEMA.ROLE_ID]: _.get(model, 'where.id'),
+            [BUSINESS_SCHEMA.ROLE_ID]: model.get('id'),
           },
         }),
         componentControlerRoleIbfk1: ComponentControlerRoleModel.findOne({
           where: {
-            [COMPONENT_CONTROLER_ROLE.ROLE_ID]: _.get(model, 'where.id'),
+            [COMPONENT_CONTROLER_ROLE.ROLE_ID]: model.get('id'),
           },
         }),
         roleGroupItemIbfk1: RoleGroupItemModel.findOne({
           where: {
-            [ROLE_GROUP_ITEM.ROLE_ID]: _.get(model, 'where.id'),
+            [ROLE_GROUP_ITEM.ROLE_ID]: model.get('id'),
           },
         }),
         routerRoleIbfk1: RouterRoleModel.findOne({
           where: {
-            [ROUTER_ROLE.ROLE_ID]: _.get(model, 'where.id'),
+            [ROUTER_ROLE.ROLE_ID]: model.get('id'),
           },
         }),
         schemaModelRoleIbfk1: SchemaModelRoleModel.findOne({
           where: {
-            [SCHEMA_MODEL_ROLE.ROLE_ID]: _.get(model, 'where.id'),
+            [SCHEMA_MODEL_ROLE.ROLE_ID]: model.get('id'),
           },
         }),
         webapiRoleIbfk1: WebapiRoleModel.findOne({
           where: {
-            [WEBAPI_ROLE.ROLE_ID]: _.get(model, 'where.id'),
+            [WEBAPI_ROLE.ROLE_ID]: model.get('id'),
           },
         }),
     });

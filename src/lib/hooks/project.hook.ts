@@ -13,36 +13,39 @@ import { PROJECT, ProjectModel } from '../models/project.model';
 @provide('ProjectHook')
 export class ProjectHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: ProjectModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { contractIbfk1, projectBudgetHisIbfk1, projectBudgetIbfk1, projectFileHisIbfk1, projectFileIbfk1, projectHisIbfk1 } = await Bb.props({
         contractIbfk1: ContractModel.findOne({
           where: {
-            [CONTRACT.PROJECT_ID]: _.get(model, 'where.id'),
+            [CONTRACT.PROJECT_ID]: model.get('id'),
           },
         }),
         projectBudgetHisIbfk1: ProjectBudgetHisModel.findOne({
           where: {
-            [PROJECT_BUDGET_HIS.PROJECT_ID]: _.get(model, 'where.id'),
+            [PROJECT_BUDGET_HIS.PROJECT_ID]: model.get('id'),
           },
         }),
         projectBudgetIbfk1: ProjectBudgetModel.findOne({
           where: {
-            [PROJECT_BUDGET.PROJECT_ID]: _.get(model, 'where.id'),
+            [PROJECT_BUDGET.PROJECT_ID]: model.get('id'),
           },
         }),
         projectFileHisIbfk1: ProjectFileHisModel.findOne({
           where: {
-            [PROJECT_FILE_HIS.PROJECT_ID]: _.get(model, 'where.id'),
+            [PROJECT_FILE_HIS.PROJECT_ID]: model.get('id'),
           },
         }),
         projectFileIbfk1: ProjectFileModel.findOne({
           where: {
-            [PROJECT_FILE.PROJECT_ID]: _.get(model, 'where.id'),
+            [PROJECT_FILE.PROJECT_ID]: model.get('id'),
           },
         }),
         projectHisIbfk1: ProjectHisModel.findOne({
           where: {
-            [PROJECT_HIS.PROJECT_ID]: _.get(model, 'where.id'),
+            [PROJECT_HIS.PROJECT_ID]: model.get('id'),
           },
         }),
     });

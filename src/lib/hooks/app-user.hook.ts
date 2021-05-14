@@ -1,24 +1,106 @@
 import * as _ from 'lodash';
 import { provide } from 'midway';
 import { Op, Transaction } from 'sequelize';
-import { AppUserModel, APP_USER } from '../models/app-user.model';
+import { APP_USER_ROLE, AppUserRoleModel } from '../models/app-user-role.model';
+import { CONTRACT, ContractModel } from '../models/contract.model';
+import { PROJECT_HIS, ProjectHisModel } from '../models/project-his.model';
+import { PROJECT, ProjectModel } from '../models/project.model';
+import { WORK_FLOW_ORM, WorkFlowOrmModel } from '../models/work-flow-orm.model';
+import {
+  WORK_FLOW_ORM_USER,
+  WorkFlowOrmUserModel,
+} from '../models/work-flow-orm-user.model';
 import * as Bb from 'bluebird';
-import { AppUserRoleModel, APP_USER_ROLE } from '../models/app-user-role.model';
+import { AppUserModel, APP_USER } from '../models/app-user.model';
 
 @provide('AppUserHook')
 export class AppUserHook {
-  async beforeBulkDestroy(model: {
-    where: { id: string };
-    transaction: Transaction;
-  }) {
-    const { appUserRoleIbfk1 } = await Bb.props({
+  async beforeDestroy(
+    model: AppUserModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
+    const {
+      appUserRoleIbfk1,
+      contractIbfk6,
+      projectHisIbfk8,
+      projectIbfk7,
+      workFlowOrmIbfk2,
+      workFlowOrmIbfk3,
+      workFlowOrmIbfk4,
+      workFlowOrmUserIbfk1,
+      workFlowOrmUserIbfk2,
+      workFlowOrmUserIbfk3,
+      workFlowOrmUserIbfk4,
+    } = await Bb.props({
       appUserRoleIbfk1: AppUserRoleModel.findOne({
         where: {
-          [APP_USER_ROLE.APP_USER_ID]: _.get(model, 'where.id'),
+          [APP_USER_ROLE.APP_USER_ID]: model.get('id'),
+        },
+      }),
+      contractIbfk6: ContractModel.findOne({
+        where: {
+          [CONTRACT.ADD_USER_ID]: model.get('id'),
+        },
+      }),
+      projectHisIbfk8: ProjectHisModel.findOne({
+        where: {
+          [PROJECT_HIS.ADD_USER_ID]: model.get('id'),
+        },
+      }),
+      projectIbfk7: ProjectModel.findOne({
+        where: {
+          [PROJECT.ADD_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmIbfk2: WorkFlowOrmModel.findOne({
+        where: {
+          [WORK_FLOW_ORM.FORM_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmIbfk3: WorkFlowOrmModel.findOne({
+        where: {
+          [WORK_FLOW_ORM.MANAGER_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmIbfk4: WorkFlowOrmModel.findOne({
+        where: {
+          [WORK_FLOW_ORM.UNDERTAKE_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmUserIbfk1: WorkFlowOrmUserModel.findOne({
+        where: {
+          [WORK_FLOW_ORM_USER.WORK_FLOW_ORM_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmUserIbfk2: WorkFlowOrmUserModel.findOne({
+        where: {
+          [WORK_FLOW_ORM_USER.FORM_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmUserIbfk3: WorkFlowOrmUserModel.findOne({
+        where: {
+          [WORK_FLOW_ORM_USER.MANAGER_USER_ID]: model.get('id'),
+        },
+      }),
+      workFlowOrmUserIbfk4: WorkFlowOrmUserModel.findOne({
+        where: {
+          [WORK_FLOW_ORM_USER.UNDERTAKE_USER_ID]: model.get('id'),
         },
       }),
     });
-    if (appUserRoleIbfk1) {
+    if (
+      appUserRoleIbfk1 ||
+      contractIbfk6 ||
+      projectHisIbfk8 ||
+      projectIbfk7 ||
+      workFlowOrmIbfk2 ||
+      workFlowOrmIbfk3 ||
+      workFlowOrmIbfk4 ||
+      workFlowOrmUserIbfk1 ||
+      workFlowOrmUserIbfk2 ||
+      workFlowOrmUserIbfk3 ||
+      workFlowOrmUserIbfk4
+    ) {
       throw new Error('已使用数据禁止删除');
     }
   }

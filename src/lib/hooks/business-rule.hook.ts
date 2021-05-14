@@ -8,11 +8,14 @@ import { BUSINESS_RULE, BusinessRuleModel } from '../models/business-rule.model'
 @provide('BusinessRuleHook')
 export class BusinessRuleHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: BusinessRuleModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { businessSchemaIbfk2 } = await Bb.props({
         businessSchemaIbfk2: BusinessSchemaModel.findOne({
           where: {
-            [BUSINESS_SCHEMA.BUSINESS_RULE_ID]: _.get(model, 'where.id'),
+            [BUSINESS_SCHEMA.BUSINESS_RULE_ID]: model.get('id'),
           },
         }),
     });
@@ -31,10 +34,10 @@ export class BusinessRuleHook {
       return;
     }
 
-    if (changed.includes(BUSINESS_RULE.RULE_CODE) && model.get('RuleCode')) {
+    if (changed.includes(BUSINESS_RULE.RULE_CODE) && model.get('ruleCode')) {
       const item0 = await BusinessRuleModel.findOne({
         where: {
-          [BUSINESS_RULE.RULE_CODE]: model.get('RuleCode'),
+          [BUSINESS_RULE.RULE_CODE]: model.get('ruleCode'),
         },
         transaction: options?.transaction,
       });
@@ -44,10 +47,10 @@ export class BusinessRuleHook {
     }
     
 
-    if (changed.includes(BUSINESS_RULE.RULE_NAME) && model.get('RuleName')) {
+    if (changed.includes(BUSINESS_RULE.RULE_NAME) && model.get('ruleName')) {
       const item1 = await BusinessRuleModel.findOne({
         where: {
-          [BUSINESS_RULE.RULE_NAME]: model.get('RuleName'),
+          [BUSINESS_RULE.RULE_NAME]: model.get('ruleName'),
         },
         transaction: options?.transaction,
       });
@@ -63,10 +66,10 @@ export class BusinessRuleHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('RuleCode')) {
+    if (model.get('ruleCode')) {
       const item0 = await BusinessRuleModel.findOne({
         where: {
-          [BUSINESS_RULE.RULE_CODE]: model.get('RuleCode'),
+          [BUSINESS_RULE.RULE_CODE]: model.get('ruleCode'),
         },
         transaction: options?.transaction,
       });
@@ -76,10 +79,10 @@ export class BusinessRuleHook {
     }
     
 
-    if (model.get('RuleName')) {
+    if (model.get('ruleName')) {
       const item1 = await BusinessRuleModel.findOne({
         where: {
-          [BUSINESS_RULE.RULE_NAME]: model.get('RuleName'),
+          [BUSINESS_RULE.RULE_NAME]: model.get('ruleName'),
         },
         transaction: options?.transaction,
       });

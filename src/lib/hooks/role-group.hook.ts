@@ -8,11 +8,14 @@ import { ROLE_GROUP, RoleGroupModel } from '../models/role-group.model';
 @provide('RoleGroupHook')
 export class RoleGroupHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: RoleGroupModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { roleGroupItemIbfk2 } = await Bb.props({
         roleGroupItemIbfk2: RoleGroupItemModel.findOne({
           where: {
-            [ROLE_GROUP_ITEM.ROLE_GROUP_ID]: _.get(model, 'where.id'),
+            [ROLE_GROUP_ITEM.ROLE_GROUP_ID]: model.get('id'),
           },
         }),
     });
@@ -31,10 +34,10 @@ export class RoleGroupHook {
       return;
     }
 
-    if (changed.includes(ROLE_GROUP.GROUP_CODE) && model.get('GroupCode')) {
+    if (changed.includes(ROLE_GROUP.GROUP_CODE) && model.get('groupCode')) {
       const item0 = await RoleGroupModel.findOne({
         where: {
-          [ROLE_GROUP.GROUP_CODE]: model.get('GroupCode'),
+          [ROLE_GROUP.GROUP_CODE]: model.get('groupCode'),
         },
         transaction: options?.transaction,
       });
@@ -44,10 +47,10 @@ export class RoleGroupHook {
     }
     
 
-    if (changed.includes(ROLE_GROUP.GROUP_NAME) && model.get('GroupName')) {
+    if (changed.includes(ROLE_GROUP.GROUP_NAME) && model.get('groupName')) {
       const item1 = await RoleGroupModel.findOne({
         where: {
-          [ROLE_GROUP.GROUP_NAME]: model.get('GroupName'),
+          [ROLE_GROUP.GROUP_NAME]: model.get('groupName'),
         },
         transaction: options?.transaction,
       });
@@ -63,10 +66,10 @@ export class RoleGroupHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('GroupCode')) {
+    if (model.get('groupCode')) {
       const item0 = await RoleGroupModel.findOne({
         where: {
-          [ROLE_GROUP.GROUP_CODE]: model.get('GroupCode'),
+          [ROLE_GROUP.GROUP_CODE]: model.get('groupCode'),
         },
         transaction: options?.transaction,
       });
@@ -76,10 +79,10 @@ export class RoleGroupHook {
     }
     
 
-    if (model.get('GroupName')) {
+    if (model.get('groupName')) {
       const item1 = await RoleGroupModel.findOne({
         where: {
-          [ROLE_GROUP.GROUP_NAME]: model.get('GroupName'),
+          [ROLE_GROUP.GROUP_NAME]: model.get('groupName'),
         },
         transaction: options?.transaction,
       });

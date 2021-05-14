@@ -10,21 +10,24 @@ import { CONTRACT, ContractModel } from '../models/contract.model';
 @provide('ContractHook')
 export class ContractHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: ContractModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { contractCollectionPaymentIbfk1, contractCollectionPaymentPlanIbfk1, contractSignIbfk1 } = await Bb.props({
         contractCollectionPaymentIbfk1: ContractCollectionPaymentModel.findOne({
           where: {
-            [CONTRACT_COLLECTION_PAYMENT.CONTRACT_ID]: _.get(model, 'where.id'),
+            [CONTRACT_COLLECTION_PAYMENT.CONTRACT_ID]: model.get('id'),
           },
         }),
         contractCollectionPaymentPlanIbfk1: ContractCollectionPaymentPlanModel.findOne({
           where: {
-            [CONTRACT_COLLECTION_PAYMENT_PLAN.CONTRACT_ID]: _.get(model, 'where.id'),
+            [CONTRACT_COLLECTION_PAYMENT_PLAN.CONTRACT_ID]: model.get('id'),
           },
         }),
         contractSignIbfk1: ContractSignModel.findOne({
           where: {
-            [CONTRACT_SIGN.CONTRACT_ID]: _.get(model, 'where.id'),
+            [CONTRACT_SIGN.CONTRACT_ID]: model.get('id'),
           },
         }),
     });

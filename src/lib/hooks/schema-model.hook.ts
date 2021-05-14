@@ -9,21 +9,24 @@ import * as Bb from 'bluebird';
 @provide('SchemaModelHook')
 export class SchemaModelHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: SchemaModelModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { businessSchemaIbfk3, schemaModelIbfk1, schemaModelRoleIbfk2 } = await Bb.props({
         businessSchemaIbfk3: BusinessSchemaModel.findOne({
           where: {
-            [BUSINESS_SCHEMA.SCHEMA_MODEL_ID]: _.get(model, 'where.id'),
+            [BUSINESS_SCHEMA.SCHEMA_MODEL_ID]: model.get('id'),
           },
         }),
         schemaModelIbfk1: SchemaModelModel.findOne({
           where: {
-            [SCHEMA_MODEL.PARENT_ID]: _.get(model, 'where.id'),
+            [SCHEMA_MODEL.PARENT_ID]: model.get('id'),
           },
         }),
         schemaModelRoleIbfk2: SchemaModelRoleModel.findOne({
           where: {
-            [SCHEMA_MODEL_ROLE.SCHEMA_MODEL_ID]: _.get(model, 'where.id'),
+            [SCHEMA_MODEL_ROLE.SCHEMA_MODEL_ID]: model.get('id'),
           },
         }),
     });
@@ -42,10 +45,10 @@ export class SchemaModelHook {
       return;
     }
 
-    if (changed.includes(SCHEMA_MODEL.CODE) && model.get('Code')) {
+    if (changed.includes(SCHEMA_MODEL.CODE) && model.get('code')) {
       const item0 = await SchemaModelModel.findOne({
         where: {
-          [SCHEMA_MODEL.CODE]: model.get('Code'),
+          [SCHEMA_MODEL.CODE]: model.get('code'),
         },
         transaction: options?.transaction,
       });
@@ -55,10 +58,10 @@ export class SchemaModelHook {
     }
     
 
-    if (changed.includes(SCHEMA_MODEL.NAME) && model.get('Name')) {
+    if (changed.includes(SCHEMA_MODEL.NAME) && model.get('name')) {
       const item1 = await SchemaModelModel.findOne({
         where: {
-          [SCHEMA_MODEL.NAME]: model.get('Name'),
+          [SCHEMA_MODEL.NAME]: model.get('name'),
         },
         transaction: options?.transaction,
       });
@@ -74,10 +77,10 @@ export class SchemaModelHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('Code')) {
+    if (model.get('code')) {
       const item0 = await SchemaModelModel.findOne({
         where: {
-          [SCHEMA_MODEL.CODE]: model.get('Code'),
+          [SCHEMA_MODEL.CODE]: model.get('code'),
         },
         transaction: options?.transaction,
       });
@@ -87,10 +90,10 @@ export class SchemaModelHook {
     }
     
 
-    if (model.get('Name')) {
+    if (model.get('name')) {
       const item1 = await SchemaModelModel.findOne({
         where: {
-          [SCHEMA_MODEL.NAME]: model.get('Name'),
+          [SCHEMA_MODEL.NAME]: model.get('name'),
         },
         transaction: options?.transaction,
       });

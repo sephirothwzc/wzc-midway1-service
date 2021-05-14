@@ -11,26 +11,29 @@ import { BUDGET, BudgetModel } from '../models/budget.model';
 @provide('BudgetHook')
 export class BudgetHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: BudgetModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { budgetFileIbfk1, contractIbfk2, projectBudgetHisIbfk3, projectBudgetIbfk2 } = await Bb.props({
         budgetFileIbfk1: BudgetFileModel.findOne({
           where: {
-            [BUDGET_FILE.BUDGET_ID]: _.get(model, 'where.id'),
+            [BUDGET_FILE.BUDGET_ID]: model.get('id'),
           },
         }),
         contractIbfk2: ContractModel.findOne({
           where: {
-            [CONTRACT.BUDGET_ID]: _.get(model, 'where.id'),
+            [CONTRACT.BUDGET_ID]: model.get('id'),
           },
         }),
         projectBudgetHisIbfk3: ProjectBudgetHisModel.findOne({
           where: {
-            [PROJECT_BUDGET_HIS.BUDGET_ID]: _.get(model, 'where.id'),
+            [PROJECT_BUDGET_HIS.BUDGET_ID]: model.get('id'),
           },
         }),
         projectBudgetIbfk2: ProjectBudgetModel.findOne({
           where: {
-            [PROJECT_BUDGET.BUDGET_ID]: _.get(model, 'where.id'),
+            [PROJECT_BUDGET.BUDGET_ID]: model.get('id'),
           },
         }),
     });

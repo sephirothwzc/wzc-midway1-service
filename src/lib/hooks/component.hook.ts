@@ -9,21 +9,24 @@ import * as Bb from 'bluebird';
 @provide('ComponentHook')
 export class ComponentHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: ComponentModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { componentControlerIbfk2, componentIbfk1, routerIbfk2 } = await Bb.props({
         componentControlerIbfk2: ComponentControlerModel.findOne({
           where: {
-            [COMPONENT_CONTROLER.COMPONENT_ID]: _.get(model, 'where.id'),
+            [COMPONENT_CONTROLER.COMPONENT_ID]: model.get('id'),
           },
         }),
         componentIbfk1: ComponentModel.findOne({
           where: {
-            [COMPONENT.PARENT_ID]: _.get(model, 'where.id'),
+            [COMPONENT.PARENT_ID]: model.get('id'),
           },
         }),
         routerIbfk2: RouterModel.findOne({
           where: {
-            [ROUTER.COMPONENT_ID]: _.get(model, 'where.id'),
+            [ROUTER.COMPONENT_ID]: model.get('id'),
           },
         }),
     });
@@ -42,10 +45,10 @@ export class ComponentHook {
       return;
     }
 
-    if (changed.includes(COMPONENT.COMPONENT_CODE) && model.get('ComponentCode')) {
+    if (changed.includes(COMPONENT.COMPONENT_CODE) && model.get('componentCode')) {
       const item0 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_CODE]: model.get('ComponentCode'),
+          [COMPONENT.COMPONENT_CODE]: model.get('componentCode'),
         },
         transaction: options?.transaction,
       });
@@ -55,10 +58,10 @@ export class ComponentHook {
     }
     
 
-    if (changed.includes(COMPONENT.COMPONENT_KEY) && model.get('ComponentKey')) {
+    if (changed.includes(COMPONENT.COMPONENT_KEY) && model.get('componentKey')) {
       const item1 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_KEY]: model.get('ComponentKey'),
+          [COMPONENT.COMPONENT_KEY]: model.get('componentKey'),
         },
         transaction: options?.transaction,
       });
@@ -68,10 +71,10 @@ export class ComponentHook {
     }
     
 
-    if (changed.includes(COMPONENT.COMPONENT_NAME) && model.get('ComponentName')) {
+    if (changed.includes(COMPONENT.COMPONENT_NAME) && model.get('componentName')) {
       const item2 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_NAME]: model.get('ComponentName'),
+          [COMPONENT.COMPONENT_NAME]: model.get('componentName'),
         },
         transaction: options?.transaction,
       });
@@ -87,10 +90,10 @@ export class ComponentHook {
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
 
-    if (model.get('ComponentCode')) {
+    if (model.get('componentCode')) {
       const item0 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_CODE]: model.get('ComponentCode'),
+          [COMPONENT.COMPONENT_CODE]: model.get('componentCode'),
         },
         transaction: options?.transaction,
       });
@@ -100,10 +103,10 @@ export class ComponentHook {
     }
     
 
-    if (model.get('ComponentKey')) {
+    if (model.get('componentKey')) {
       const item1 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_KEY]: model.get('ComponentKey'),
+          [COMPONENT.COMPONENT_KEY]: model.get('componentKey'),
         },
         transaction: options?.transaction,
       });
@@ -113,10 +116,10 @@ export class ComponentHook {
     }
     
 
-    if (model.get('ComponentName')) {
+    if (model.get('componentName')) {
       const item2 = await ComponentModel.findOne({
         where: {
-          [COMPONENT.COMPONENT_NAME]: model.get('ComponentName'),
+          [COMPONENT.COMPONENT_NAME]: model.get('componentName'),
         },
         transaction: options?.transaction,
       });

@@ -3,15 +3,19 @@ import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
 import { CONTRACT_COLLECTION_PAYMENT, ContractCollectionPaymentModel } from '../models/contract-collection-payment.model';
 import * as Bb from 'bluebird';
+import { ContractCollectionPaymentPlanModel } from '../models/contract-collection-payment-plan.model';
 
 @provide('ContractCollectionPaymentPlanHook')
 export class ContractCollectionPaymentPlanHook {
 
-  async beforeBulkDestroy(model: { where: {id: string}; transaction: Transaction }) {
+  async beforeDestroy(
+    model: ContractCollectionPaymentPlanModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
     const { contractCollectionPaymentIbfk2 } = await Bb.props({
         contractCollectionPaymentIbfk2: ContractCollectionPaymentModel.findOne({
           where: {
-            [CONTRACT_COLLECTION_PAYMENT.CONTRACT_COLLECTION_PLAN_ID]: _.get(model, 'where.id'),
+            [CONTRACT_COLLECTION_PAYMENT.CONTRACT_COLLECTION_PLAN_ID]: model.get('id'),
           },
         }),
     });
