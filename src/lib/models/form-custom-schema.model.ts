@@ -1,4 +1,10 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { FormCustomModel } from './form-custom.model';
@@ -82,11 +88,6 @@ export class FormCustomSchemaModel extends BaseModel {
   @Column({ comment: 'schema', type: DataType.JSON })
   xrender?: Record<string, any>;
   /**
-   * 根据router.param.id find graphql
-   */
-  @Column({ comment: '根据router.param.id find graphql', type: DataType.TEXT })
-  xrenderQueryGraphql?: string;
-  /**
    * xrender格式化文本
    */
   @Column({ comment: 'xrender格式化文本', type: DataType.TEXT })
@@ -99,12 +100,10 @@ export class FormCustomSchemaModel extends BaseModel {
 
   @BelongsTo(() => FormCustomModel, 'form_custom_id')
   formCustomIdObj: FormCustomModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class FORM_CUSTOM_SCHEMA {
-
   /**
    * 业务编码权限用
    */
@@ -166,11 +165,6 @@ export class FORM_CUSTOM_SCHEMA {
   static readonly XRENDER: string = 'xrender';
 
   /**
-   * 根据router.param.id find graphql
-   */
-  static readonly XRENDER_QUERY_GRAPHQL: string = 'xrenderQueryGraphql';
-
-  /**
    * xrender格式化文本
    */
   static readonly XRENDER_STRING: string = 'xrenderString';
@@ -179,7 +173,6 @@ export class FORM_CUSTOM_SCHEMA {
    * xrender-onFinish-graphql
    */
   static readonly XRENDER_SUBMIT_GRAPHQL: string = 'xrenderSubmitGraphql';
-
 }
 
 // @provide 用 工厂模式static model
@@ -190,4 +183,3 @@ providerWrapper([
     provider: factory,
   },
 ]);
-

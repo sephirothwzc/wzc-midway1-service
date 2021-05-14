@@ -2,7 +2,10 @@ import * as Joi from 'joi';
 
 // #region Graphql
 export const formCustomSchemaMutationCreate = Joi.object().keys({
-  businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
+  businessCode: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
   deletedAt: Joi.date().allow(null).description('删除时间'),
@@ -20,14 +23,18 @@ export const formCustomSchemaMutationCreate = Joi.object().keys({
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
   version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
-  xrenderQueryGraphql: Joi.string().allow('').allow(null).description('根据router.param.id find graphql'),
-  xrenderString: Joi.string().allow('').allow(null).description('xrender格式化文本'),
-  xrenderSubmitGraphql: Joi.string().allow('').allow(null).description('xrender-onFinish-graphql'),
+  xrenderString: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('xrender格式化文本'),
 });
 
 export const formCustomSchemaMutationUpdate = Joi.object().keys({
-id: Joi.string().allow(''),
-  businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
+  id: Joi.string().allow(''),
+  businessCode: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
   deletedAt: Joi.date().allow(null).description('删除时间'),
@@ -45,10 +52,13 @@ id: Joi.string().allow(''),
   urlGraphql: Joi.string().allow('').allow(null).description('gql地址'),
   version: Joi.number().integer().description('版本'),
   xrender: Joi.object().allow(null).description('schema'),
-  xrenderQueryGraphql: Joi.string().allow('').allow(null).description('根据router.param.id find graphql'),
-  xrenderString: Joi.string().allow('').allow(null).description('xrender格式化文本'),
-  xrenderSubmitGraphql: Joi.string().allow('').allow(null).description('xrender-onFinish-graphql'),
+  xrenderString: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('xrender格式化文本'),
 });
 
-export const formCustomSchemaBulkMutation = Joi.array().items(formCustomSchemaMutationCreate);
+export const formCustomSchemaBulkMutation = Joi.array().items(
+  formCustomSchemaMutationCreate
+);
 // #endregion
