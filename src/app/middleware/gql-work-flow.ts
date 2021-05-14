@@ -116,13 +116,13 @@ const firstFinisth = async (
   ctx: Context,
   orm: SchemaOrmModel
 ) => {
-  const workFlowOrmService: IWorkFlowOrmService = await ctx.requestContext.getAsync(
-    'workFlowOrmService'
-  );
+  const gqlBody: IGraphqlBody = ctx.request.body;
+  const workFlowOrmService: IWorkFlowOrmService =
+    await ctx.requestContext.getAsync('workFlowOrmService');
   // 获取当前用户
   const auth: IAuth = await ctx.requestContext.getAsync('Auth');
   // 首次更新 草稿
-  if (finishType === 'save') {
+  if (finishType === 'save' && !get(gqlBody.variables, 'param.id')) {
     const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
     // 起始节点必须有
     const startNode = cells.find((p) => 'startNode' === p?.data?.type);
