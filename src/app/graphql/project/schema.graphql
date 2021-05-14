@@ -61,8 +61,6 @@ type Project {
   remark: String
   # 责任科室
   responsibleOrganizationId: String
-  # schema version id
-  schemaId: String
   # 来源文号
   sourceFile: String
   # 项目起始时间
@@ -90,8 +88,8 @@ type Project {
   projectStatusIdObj: DataDictionary
   buildNatureIdObj: DataDictionary
   addUserIdObj: AppUser
-  schemaIdObj: FormCustomSchema
 }
+
 
 # 项目 分页查询返回
 type ProjectList {
@@ -185,8 +183,6 @@ input ProjectSaveIn {
   remark: String
   # 责任科室
   responsibleOrganizationId: String
-  # schema version id
-  schemaId: String
   # 来源文号
   sourceFile: String
   # 项目起始时间
@@ -214,5 +210,4 @@ input ProjectSaveIn {
   projectStatusIdObj: DataDictionarySaveIn
   buildNatureIdObj: DataDictionarySaveIn
   addUserIdObj: AppUserSaveIn
-  schemaIdObj: FormCustomSchemaSaveIn
 }
