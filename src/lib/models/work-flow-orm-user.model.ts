@@ -1,6 +1,7 @@
 import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { WorkFlowOrmModel } from './work-flow-orm.model';
 import { AppUserModel } from './app-user.model';
 // #region enum
 
@@ -37,11 +38,16 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @Column({ comment: '发起人id', type: DataType.STRING(50) })
   formUserId?: string;
   /**
-   * 经手人id
+   * 经手人类型AppUser,Role,RoleGroup,的id
    */
   @ForeignKey(() => AppUserModel)
-  @Column({ comment: '经手人id', type: DataType.STRING(50) })
+  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
   managerUserId?: string;
+  /**
+   * 经手人类型AppUser,Role,RoleGroup,
+   */
+  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,', type: DataType.STRING(50) })
+  managerUserType?: string;
   /**
    * 备注
    */
@@ -53,20 +59,25 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @Column({ comment: '节点值true、false', type: DataType.STRING(50) })
   statusValue?: string;
   /**
-   * 承办人id
+   * 承办人类型AppUser,Role,RoleGroup,的id
    */
   @ForeignKey(() => AppUserModel)
-  @Column({ comment: '承办人id', type: DataType.STRING(50) })
+  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
   undertakeUserId?: string;
+  /**
+   * 承办人类型AppUser,Role,RoleGroup,的id
+   */
+  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
+  undertakeUserType?: string;
   /**
    * 发起人id
    */
-  @ForeignKey(() => AppUserModel)
+  @ForeignKey(() => WorkFlowOrmModel)
   @Column({ comment: '发起人id', type: DataType.STRING(50) })
   workFlowOrmId?: string;
 
-  @BelongsTo(() => AppUserModel, 'work_flow_orm_id')
-  workFlowOrmIdObj: AppUserModel;
+  @BelongsTo(() => WorkFlowOrmModel, 'work_flow_orm_id')
+  workFlowOrmIdObj: WorkFlowOrmModel;
 
   @BelongsTo(() => AppUserModel, 'form_user_id')
   formUserIdObj: AppUserModel;
@@ -98,9 +109,14 @@ export class WORK_FLOW_ORM_USER {
   static readonly FORM_USER_ID: string = 'formUserId';
 
   /**
-   * 经手人id
+   * 经手人类型AppUser,Role,RoleGroup,的id
    */
   static readonly MANAGER_USER_ID: string = 'managerUserId';
+
+  /**
+   * 经手人类型AppUser,Role,RoleGroup,
+   */
+  static readonly MANAGER_USER_TYPE: string = 'managerUserType';
 
   /**
    * 备注
@@ -113,9 +129,14 @@ export class WORK_FLOW_ORM_USER {
   static readonly STATUS_VALUE: string = 'statusValue';
 
   /**
-   * 承办人id
+   * 承办人类型AppUser,Role,RoleGroup,的id
    */
   static readonly UNDERTAKE_USER_ID: string = 'undertakeUserId';
+
+  /**
+   * 承办人类型AppUser,Role,RoleGroup,的id
+   */
+  static readonly UNDERTAKE_USER_TYPE: string = 'undertakeUserType';
 
   /**
    * 发起人id

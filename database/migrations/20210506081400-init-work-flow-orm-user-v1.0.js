@@ -26,8 +26,8 @@ module.exports = {
         ...parentColumn,
         work_flow_orm_id: {
           type: STRING(50),
-          references: references('app_user'),
-          comment: '发起人id',
+          references: references('work_flow_orm'),
+          comment: 'workfloworm',
         },
         form_user_id: {
           type: STRING(50),

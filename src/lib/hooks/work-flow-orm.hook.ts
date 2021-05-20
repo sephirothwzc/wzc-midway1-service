@@ -1,22 +1,28 @@
 import * as _ from 'lodash';
-import { Application } from 'midway-web';
 import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
+import { WORK_FLOW_ORM_USER, WorkFlowOrmUserModel } from '../models/work-flow-orm-user.model';
+import * as Bb from 'bluebird';
 import { WorkFlowOrmModel } from '../models/work-flow-orm.model';
-import { IBaseModel } from '../base/model.base';
 
 @provide('WorkFlowOrmHook')
 export class WorkFlowOrmHook {
+
   async beforeDestroy(
     model: WorkFlowOrmModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
-    const app = _.get(WorkFlowOrmModel.sequelize, 'app') as Application;
-    const itemModel: IBaseModel = await app.applicationContext.getAsync(
-      model.get('ormType') + 'Model'
-    );
-    itemModel.findByPk(model.get('ormId')).then((result) => {
-      result.destroy(options);
+    const { workFlowOrmUserIbfk1 } = await Bb.props({
+        workFlowOrmUserIbfk1: WorkFlowOrmUserModel.findOne({
+          where: {
+            [WORK_FLOW_ORM_USER.WORK_FLOW_ORM_ID]: model.get('id'),
+          },
+        }),
     });
+    if (workFlowOrmUserIbfk1) {
+      throw new Error('已使用数据禁止删除');
+    }
   }
+
+
 }

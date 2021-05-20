@@ -40,20 +40,6 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
           })
         ).get('id');
       }
-      if (values.managerUserIdObj && !values.managerUserId) {
-        values.managerUserId = (
-          await this.appUserService.create(values.managerUserIdObj, {
-            transaction: t,
-          })
-        ).get('id');
-      }
-      if (values.undertakeUserIdObj && !values.undertakeUserId) {
-        values.undertakeUserId = (
-          await this.appUserService.create(values.undertakeUserIdObj, {
-            transaction: t,
-          })
-        ).get('id');
-      }
       return super.create(values, {
         transaction: t,
       });

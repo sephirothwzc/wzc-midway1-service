@@ -15,25 +15,30 @@ type WorkFlowOrmUser {
   deletedId: String
   # 发起人id
   formUserId: String
-  # 经手人id
+  # 经手人类型AppUser,Role,RoleGroup,的id
   managerUserId: String
+  # 经手人类型AppUser,Role,RoleGroup,
+  managerUserType: String
   # 备注
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人id
+  # 承办人类型AppUser,Role,RoleGroup,的id
   undertakeUserId: String
+  # 承办人类型AppUser,Role,RoleGroup,的id
+  undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
   updatedId: String
   # 发起人id
   workFlowOrmId: String
-  workFlowOrmIdObj: AppUser
+  workFlowOrmIdObj: WorkFlowOrm
   formUserIdObj: AppUser
   managerUserIdObj: AppUser
   undertakeUserIdObj: AppUser
 }
+
 
 # 工作流表单记录关联人员用户 分页查询返回
 type WorkFlowOrmUserList {
@@ -81,21 +86,25 @@ input WorkFlowOrmUserSaveIn {
   deletedId: String
   # 发起人id
   formUserId: String
-  # 经手人id
+  # 经手人类型AppUser,Role,RoleGroup,的id
   managerUserId: String
+  # 经手人类型AppUser,Role,RoleGroup,
+  managerUserType: String
   # 备注
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人id
+  # 承办人类型AppUser,Role,RoleGroup,的id
   undertakeUserId: String
+  # 承办人类型AppUser,Role,RoleGroup,的id
+  undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
   updatedId: String
   # 发起人id
   workFlowOrmId: String
-  workFlowOrmIdObj: AppUserSaveIn
+  workFlowOrmIdObj: WorkFlowOrmSaveIn
   formUserIdObj: AppUserSaveIn
   managerUserIdObj: AppUserSaveIn
   undertakeUserIdObj: AppUserSaveIn

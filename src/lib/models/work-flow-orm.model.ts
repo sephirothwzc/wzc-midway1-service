@@ -1,14 +1,9 @@
-import {
-  Table,
-  Column,
-  DataType,
-  BelongsTo,
-  ForeignKey,
-} from 'sequelize-typescript';
+import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { WorkFlowModel } from './work-flow.model';
 import { AppUserModel } from './app-user.model';
+import { WorkFlowOrmUserModel } from './work-flow-orm-user.model';
 // #region enum
 
 // #endregion
@@ -35,11 +30,7 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
-  @Column({
-    comment:
-      '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认',
-    type: DataType.STRING(50),
-  })
+  @Column({ comment: '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认', type: DataType.STRING(50) })
   dataStatus?: string;
   /**
    * 发起人id
@@ -48,11 +39,15 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '发起人id', type: DataType.STRING(50) })
   formUserId?: string;
   /**
-   * 经手人id
+   * 经手人类型AppUser,Role,RoleGroup,的id
    */
-  @ForeignKey(() => AppUserModel)
-  @Column({ comment: '经手人id', type: DataType.STRING(50) })
+  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
   managerUserId?: string;
+  /**
+   * 经手人类型AppUser,Role,RoleGroup,
+   */
+  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,', type: DataType.STRING(50) })
+  managerUserType?: string;
   /**
    * 流程节点id
    */
@@ -66,10 +61,7 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 类型project、budget、contract
    */
-  @Column({
-    comment: '类型project、budget、contract',
-    type: DataType.STRING(50),
-  })
+  @Column({ comment: '类型project、budget、contract', type: DataType.STRING(50) })
   ormType?: string;
   /**
    * 备注
@@ -82,11 +74,15 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '节点值true、false', type: DataType.STRING(50) })
   statusValue?: string;
   /**
-   * 承办人id
+   * 承办人类型AppUser,Role,RoleGroup,的id
    */
-  @ForeignKey(() => AppUserModel)
-  @Column({ comment: '承办人id', type: DataType.STRING(50) })
+  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
   undertakeUserId?: string;
+  /**
+   * 承办人类型AppUser,Role,RoleGroup,的id
+   */
+  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
+  undertakeUserType?: string;
   /**
    * 合同id
    */
@@ -96,11 +92,7 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
-  @Column({
-    comment:
-      '节点类型draft 草稿、approval 审批、circulated 传阅、jointlySign 会签、agency 代办',
-    type: DataType.STRING(50),
-  })
+  @Column({ comment: '节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办', type: DataType.STRING(50) })
   workType?: string;
 
   @BelongsTo(() => WorkFlowModel, 'work_flow_id')
@@ -109,15 +101,14 @@ export class WorkFlowOrmModel extends BaseModel {
   @BelongsTo(() => AppUserModel, 'form_user_id')
   formUserIdObj: AppUserModel;
 
-  @BelongsTo(() => AppUserModel, 'manager_user_id')
-  managerUserIdObj: AppUserModel;
+  @HasMany(() => WorkFlowOrmUserModel, 'work_flow_orm_id')
+  workFlowOrmUserWorkFlowOrmId: Array<WorkFlowOrmUserModel>;
 
-  @BelongsTo(() => AppUserModel, 'undertake_user_id')
-  undertakeUserIdObj: AppUserModel;
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class WORK_FLOW_ORM {
+
   /**
    * 业务编码权限用
    */
@@ -134,9 +125,14 @@ export class WORK_FLOW_ORM {
   static readonly FORM_USER_ID: string = 'formUserId';
 
   /**
-   * 经手人id
+   * 经手人类型AppUser,Role,RoleGroup,的id
    */
   static readonly MANAGER_USER_ID: string = 'managerUserId';
+
+  /**
+   * 经手人类型AppUser,Role,RoleGroup,
+   */
+  static readonly MANAGER_USER_TYPE: string = 'managerUserType';
 
   /**
    * 流程节点id
@@ -164,9 +160,14 @@ export class WORK_FLOW_ORM {
   static readonly STATUS_VALUE: string = 'statusValue';
 
   /**
-   * 承办人id
+   * 承办人类型AppUser,Role,RoleGroup,的id
    */
   static readonly UNDERTAKE_USER_ID: string = 'undertakeUserId';
+
+  /**
+   * 承办人类型AppUser,Role,RoleGroup,的id
+   */
+  static readonly UNDERTAKE_USER_TYPE: string = 'undertakeUserType';
 
   /**
    * 合同id
@@ -177,6 +178,7 @@ export class WORK_FLOW_ORM {
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
   static readonly WORK_TYPE: string = 'workType';
+
 }
 
 // @provide 用 工厂模式static model
@@ -187,3 +189,25 @@ providerWrapper([
     provider: factory,
   },
 ]);
+
+export const createOptions = () => {
+  return (
+    param: WorkFlowOrmModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (!param.workFlowOrmUserWorkFlowOrmId) {
+      return {};
+    }
+    const include: any = [];
+    param.workFlowOrmUserWorkFlowOrmId &&
+      param.workFlowOrmUserWorkFlowOrmId.length > 0 &&
+      include.push({ model: WorkFlowOrmUserModel, as: 'workFlowOrmUserWorkFlowOrmId' });
+    return { include };
+  };
+};
+providerWrapper([
+  {
+    id: 'workFlowOrmModel.createOptions',
+    provider: createOptions,
+  },
+]);
+

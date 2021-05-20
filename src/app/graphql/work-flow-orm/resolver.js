@@ -1,7 +1,6 @@
 const resolverUtil = require('../utils/resolver.util');
-const { Query, Mutation, getService, findUnionTypeString } = resolverUtil(
-  'workFlowOrm'
-);
+const { Query, Mutation, getService, findUnionTypeString } =
+  resolverUtil('workFlowOrm');
 const _ = require('lodash');
 
 module.exports = {
@@ -16,13 +15,10 @@ module.exports = {
       const service = await getService(ctx, 'appUser');
       return service.fetchById(_root.formUserId);
     },
-    managerUserIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx, 'appUser');
-      return service.fetchById(_root.managerUserId);
-    },
-    undertakeUserIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx, 'appUser');
-      return service.fetchById(_root.undertakeUserId);
+    workFlowOrmUserWorkFlowOrmId: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'workFlowOrmUser');
+      _.set(_args, 'param.where.workFlowOrmId', _root.id);
+      return service.findAll(_args.param);
     },
     ormIdModel: async (_root, _args, ctx, _info) => {
       if (!_root.ormType || _root.ormType === 'none') {

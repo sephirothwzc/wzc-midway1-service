@@ -22,7 +22,7 @@ interface IGraphqlBody {
 }
 
 /**
- * gql 科室权限 过滤
+ * gql 科室权限 过滤 后期会废弃采用角色配置方式进行处理
  */
 module.exports = (options: any, app: Application) => {
   return async function gqlOrganization(

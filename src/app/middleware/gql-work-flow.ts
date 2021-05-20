@@ -10,6 +10,28 @@ import { IWorkFlowOrmService } from '../../service/work-flow-orm.service';
 import { WorkFlowOrmModel } from '../../lib/models/work-flow-orm.model';
 import { IAuth } from '../../lib/interfaces/auth.interface';
 
+/**
+ * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
+ */
+const enum EFinishType {
+  /**
+   * 保存
+   */
+  SAVE = 'save',
+  /**
+   * 提交
+   */
+  FINISH = 'finish',
+  /**
+   * 驳回
+   */
+  REJECT = 'reject',
+  /**
+   * 确认
+   */
+  CONFIRM = 'confirm',
+}
+
 interface IGraphqlBody {
   operationName: string;
   query: string;
@@ -119,13 +141,16 @@ const firstFinisth = async (
   const gqlBody: IGraphqlBody = ctx.request.body;
   const workFlowOrmService: IWorkFlowOrmService =
     await ctx.requestContext.getAsync('workFlowOrmService');
+  const workFlowService: IWorkFlowService = await ctx.requestContext.getAsync(
+    'workFlowService'
+  );
   // 获取当前用户
   const auth: IAuth = await ctx.requestContext.getAsync('Auth');
+  const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
+  // 起始节点必须有
+  const startNode = cells.find((p) => 'startNode' === p?.data?.type);
   // 首次更新 草稿
-  if (finishType === 'save' && !get(gqlBody.variables, 'param.id')) {
-    const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
-    // 起始节点必须有
-    const startNode = cells.find((p) => 'startNode' === p?.data?.type);
+  if (finishType === EFinishType.SAVE && !get(gqlBody.variables, 'param.id')) {
     workFlowOrmService.save({
       dataStatus: finishType,
       formUserId: auth.id,
@@ -133,6 +158,33 @@ const firstFinisth = async (
       ormId: orm.ormId,
       ormType: orm.ormType,
     } as WorkFlowOrmModel);
+  } else if (finishType === EFinishType.FINISH) {
+    // 起始节点的 下一级节点判断
+    const nextCell: any = workFlowService.findNextNode(
+      cells,
+      startNode,
+      gqlBody.variables,
+      orm
+    );
+    const wfo = {
+      dataStatus: finishType,
+      formUserId: auth.id,
+      nodeId: nextCell.id,
+      managerUserType: nextCell.data.workType,
+      ormId: orm.ormId,
+      ormType: orm.ormType,
+    } as WorkFlowOrmModel;
+    if (nextCell.data.workUserId.length === 1) {
+      wfo.managerUserId = nextCell.data.workUserId[0].id;
+    } else if (nextCell.data.workUserId.length > 1) {
+      wfo.workFlowOrmUserWorkFlowOrmId = nextCell.data.workUserId.map((p) => ({
+        dataStatus: finishType,
+        formUserId: auth.id,
+        managerUserType: nextCell.data.workType,
+        managerUserId: p.id,
+      }));
+    }
+    workFlowOrmService.save(wfo);
   }
 };
 

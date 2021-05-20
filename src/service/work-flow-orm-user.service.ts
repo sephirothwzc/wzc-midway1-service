@@ -2,6 +2,7 @@ import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
 import { IWorkFlowOrmUserModel, WorkFlowOrmUserModel } from '../lib/models/work-flow-orm-user.model';
+import { IWorkFlowOrmService } from './work-flow-orm.service';
 import { IAppUserService } from './app-user.service';
 
 export interface IWorkFlowOrmUserService extends WorkFlowOrmUserService {}
@@ -16,6 +17,8 @@ export class WorkFlowOrmUserService extends ServiceGenericBase<WorkFlowOrmUserMo
   workFlowOrmUserModel: IWorkFlowOrmUserModel;
 
   @inject()
+  workFlowOrmService: IWorkFlowOrmService;
+  @inject()
   appUserService: IAppUserService;
   /**
    * 新增
@@ -25,7 +28,7 @@ export class WorkFlowOrmUserService extends ServiceGenericBase<WorkFlowOrmUserMo
     const run = async (t: Transaction) => {
       if (values.workFlowOrmIdObj && !values.workFlowOrmId) {
         values.workFlowOrmId = (
-          await this.appUserService.create(values.workFlowOrmIdObj, {
+          await this.workFlowOrmService.create(values.workFlowOrmIdObj, {
             transaction: t,
           })
         ).get('id');

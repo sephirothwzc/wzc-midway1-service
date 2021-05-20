@@ -314,3 +314,7 @@ module.exports = (agent: IAgent) => {
 # 临时更改仓库 淘宝
 $ yarn save 软件名 --registry https://registry.npm.taobao.org/
 ```
+
+```userId=123
+http://localhost:8025/graphql?userId=123
+```

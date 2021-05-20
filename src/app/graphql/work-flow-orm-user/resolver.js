@@ -7,7 +7,7 @@ module.exports = {
   Mutation,
   WorkFlowOrmUser: {
     workFlowOrmIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx,'appUser');
+      const service = await getService(ctx,'workFlowOrm');
       return service.fetchById(_root.workFlowOrmId);
     },
     formUserIdObj: async (_root, _args, ctx, _info) => {
