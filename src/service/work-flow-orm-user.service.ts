@@ -40,16 +40,9 @@ export class WorkFlowOrmUserService extends ServiceGenericBase<WorkFlowOrmUserMo
           })
         ).get('id');
       }
-      if (values.managerUserIdObj && !values.managerUserId) {
-        values.managerUserId = (
-          await this.appUserService.create(values.managerUserIdObj, {
-            transaction: t,
-          })
-        ).get('id');
-      }
-      if (values.undertakeUserIdObj && !values.undertakeUserId) {
-        values.undertakeUserId = (
-          await this.appUserService.create(values.undertakeUserIdObj, {
+      if (values.handleUserIdObj && !values.handleUserId) {
+        values.handleUserId = (
+          await this.appUserService.create(values.handleUserIdObj, {
             transaction: t,
           })
         ).get('id');

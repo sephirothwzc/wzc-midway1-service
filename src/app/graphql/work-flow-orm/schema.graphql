@@ -3,6 +3,8 @@ type WorkFlowOrm {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 创建人id
+  createWorkId: String
   # 创建时间
   createdAt: DateTime
   # 创建人id
@@ -13,12 +15,6 @@ type WorkFlowOrm {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
-  # 发起人id
-  formUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,的id
-  managerUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,
-  managerUserType: String
   # 流程节点id
   nodeId: String
   # 具体类型id
@@ -29,10 +25,6 @@ type WorkFlowOrm {
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
-  undertakeUserId: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
-  undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
@@ -42,7 +34,7 @@ type WorkFlowOrm {
   # 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
   workType: String
   workFlowIdObj: WorkFlow
-  formUserIdObj: AppUser
+  createWorkIdObj: AppUser
   workFlowOrmUserWorkFlowOrmId(param: QueryListParam): [WorkFlowOrmUser]
   ormIdModel: OrmIdModel
 }
@@ -83,6 +75,8 @@ input WorkFlowOrmSaveIn {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 创建人id
+  createWorkId: String
   # 创建时间
   createdAt: DateTime
   # 创建人id
@@ -93,12 +87,6 @@ input WorkFlowOrmSaveIn {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
-  # 发起人id
-  formUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,的id
-  managerUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,
-  managerUserType: String
   # 流程节点id
   nodeId: String
   # 具体类型id
@@ -109,10 +97,6 @@ input WorkFlowOrmSaveIn {
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
-  undertakeUserId: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
-  undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
@@ -123,5 +107,5 @@ input WorkFlowOrmSaveIn {
   workType: String
   workFlowOrmUserWorkFlowOrmId: [WorkFlowOrmUserSaveIn]
   workFlowIdObj: WorkFlowSaveIn
-  formUserIdObj: AppUserSaveIn
+  createWorkIdObj: AppUserSaveIn
 }

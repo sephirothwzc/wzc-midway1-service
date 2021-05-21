@@ -38,10 +38,15 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @Column({ comment: '发起人id', type: DataType.STRING(50) })
   formUserId?: string;
   /**
-   * 经手人类型AppUser,Role,RoleGroup,的id
+   * 处理人id
    */
   @ForeignKey(() => AppUserModel)
-  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
+  @Column({ comment: '处理人id', type: DataType.STRING(50) })
+  handleUserId?: string;
+  /**
+   * 经手人id
+   */
+  @Column({ comment: '经手人id', type: DataType.STRING(50) })
   managerUserId?: string;
   /**
    * 经手人类型AppUser,Role,RoleGroup,
@@ -59,21 +64,20 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @Column({ comment: '节点值true、false', type: DataType.STRING(50) })
   statusValue?: string;
   /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
+   * 承办人id
    */
-  @ForeignKey(() => AppUserModel)
-  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
+  @Column({ comment: '承办人id', type: DataType.STRING(50) })
   undertakeUserId?: string;
   /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
+   * 经手人类型AppUser,Role,RoleGroup,
    */
-  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
+  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,', type: DataType.STRING(50) })
   undertakeUserType?: string;
   /**
-   * 发起人id
+   * workfloworm
    */
   @ForeignKey(() => WorkFlowOrmModel)
-  @Column({ comment: '发起人id', type: DataType.STRING(50) })
+  @Column({ comment: 'workfloworm', type: DataType.STRING(50) })
   workFlowOrmId?: string;
 
   @BelongsTo(() => WorkFlowOrmModel, 'work_flow_orm_id')
@@ -82,11 +86,8 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @BelongsTo(() => AppUserModel, 'form_user_id')
   formUserIdObj: AppUserModel;
 
-  @BelongsTo(() => AppUserModel, 'manager_user_id')
-  managerUserIdObj: AppUserModel;
-
-  @BelongsTo(() => AppUserModel, 'undertake_user_id')
-  undertakeUserIdObj: AppUserModel;
+  @BelongsTo(() => AppUserModel, 'handle_user_id')
+  handleUserIdObj: AppUserModel;
 
 }
 
@@ -109,7 +110,12 @@ export class WORK_FLOW_ORM_USER {
   static readonly FORM_USER_ID: string = 'formUserId';
 
   /**
-   * 经手人类型AppUser,Role,RoleGroup,的id
+   * 处理人id
+   */
+  static readonly HANDLE_USER_ID: string = 'handleUserId';
+
+  /**
+   * 经手人id
    */
   static readonly MANAGER_USER_ID: string = 'managerUserId';
 
@@ -129,17 +135,17 @@ export class WORK_FLOW_ORM_USER {
   static readonly STATUS_VALUE: string = 'statusValue';
 
   /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
+   * 承办人id
    */
   static readonly UNDERTAKE_USER_ID: string = 'undertakeUserId';
 
   /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
+   * 经手人类型AppUser,Role,RoleGroup,
    */
   static readonly UNDERTAKE_USER_TYPE: string = 'undertakeUserType';
 
   /**
-   * 发起人id
+   * workfloworm
    */
   static readonly WORK_FLOW_ORM_ID: string = 'workFlowOrmId';
 

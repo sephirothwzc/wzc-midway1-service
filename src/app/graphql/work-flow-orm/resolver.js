@@ -11,9 +11,9 @@ module.exports = {
       const service = await getService(ctx, 'workFlow');
       return service.fetchById(_root.workFlowId);
     },
-    formUserIdObj: async (_root, _args, ctx, _info) => {
+    createWorkIdObj: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'appUser');
-      return service.fetchById(_root.formUserId);
+      return service.fetchById(_root.createWorkId);
     },
     workFlowOrmUserWorkFlowOrmId: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'workFlowOrmUser');

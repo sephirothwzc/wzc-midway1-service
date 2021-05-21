@@ -15,7 +15,9 @@ type WorkFlowOrmUser {
   deletedId: String
   # 发起人id
   formUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,的id
+  # 处理人id
+  handleUserId: String
+  # 经手人id
   managerUserId: String
   # 经手人类型AppUser,Role,RoleGroup,
   managerUserType: String
@@ -23,20 +25,19 @@ type WorkFlowOrmUser {
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
+  # 承办人id
   undertakeUserId: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
+  # 经手人类型AppUser,Role,RoleGroup,
   undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  # 发起人id
+  # workfloworm
   workFlowOrmId: String
   workFlowOrmIdObj: WorkFlowOrm
   formUserIdObj: AppUser
-  managerUserIdObj: AppUser
-  undertakeUserIdObj: AppUser
+  handleUserIdObj: AppUser
 }
 
 
@@ -86,7 +87,9 @@ input WorkFlowOrmUserSaveIn {
   deletedId: String
   # 发起人id
   formUserId: String
-  # 经手人类型AppUser,Role,RoleGroup,的id
+  # 处理人id
+  handleUserId: String
+  # 经手人id
   managerUserId: String
   # 经手人类型AppUser,Role,RoleGroup,
   managerUserType: String
@@ -94,18 +97,17 @@ input WorkFlowOrmUserSaveIn {
   remark: String
   # 节点值true、false
   statusValue: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
+  # 承办人id
   undertakeUserId: String
-  # 承办人类型AppUser,Role,RoleGroup,的id
+  # 经手人类型AppUser,Role,RoleGroup,
   undertakeUserType: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  # 发起人id
+  # workfloworm
   workFlowOrmId: String
   workFlowOrmIdObj: WorkFlowOrmSaveIn
   formUserIdObj: AppUserSaveIn
-  managerUserIdObj: AppUserSaveIn
-  undertakeUserIdObj: AppUserSaveIn
+  handleUserIdObj: AppUserSaveIn
 }

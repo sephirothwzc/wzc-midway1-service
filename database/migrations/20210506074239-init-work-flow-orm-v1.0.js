@@ -48,27 +48,18 @@ module.exports = {
         },
         status_value: {
           type: STRING(50),
-          comment: '节点值true、false',
+          comment:
+            '节点值true、false、confirm 确认、end 结束、reject 驳回、abnormal 异常',
         },
         work_type: {
           type: STRING(50),
           comment:
             '节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办',
         },
-        form_user_id: {
+        create_work_id: {
           type: STRING(50),
           references: references('app_user'),
-          comment: '发起人id',
-        },
-        manager_user_id: {
-          type: STRING(50),
-          references: references('app_user'),
-          comment: '经手人id',
-        },
-        undertake_user_id: {
-          type: STRING(50),
-          references: references('app_user'),
-          comment: '承办人id',
+          comment: '创建人id',
         },
       },
       {

@@ -36,12 +36,10 @@ module.exports = {
         },
         manager_user_id: {
           type: STRING(50),
-          references: references('app_user'),
           comment: '经手人id',
         },
         undertake_user_id: {
           type: STRING(50),
-          references: references('app_user'),
           comment: '承办人id',
         },
         data_status: {
@@ -51,7 +49,21 @@ module.exports = {
         },
         status_value: {
           type: STRING(50),
-          comment: '节点值true、false',
+          comment:
+            '节点值true、false、confirm 确认、end 结束、reject 驳回、abnormal 异常',
+        },
+        manager_user_type: {
+          type: STRING(50),
+          comment: '经手人类型AppUser,Role,RoleGroup,',
+        },
+        undertake_user_type: {
+          type: STRING(50),
+          comment: '承办人类型AppUser,Role,RoleGroup,',
+        },
+        handle_user_id: {
+          type: STRING(50),
+          references: references('app_user'),
+          comment: '处理人id',
         },
       },
       {

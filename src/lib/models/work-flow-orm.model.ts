@@ -28,26 +28,16 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '业务编码权限用', type: DataType.STRING(500) })
   businessCode: string;
   /**
+   * 创建人id
+   */
+  @ForeignKey(() => AppUserModel)
+  @Column({ comment: '创建人id', type: DataType.STRING(50) })
+  createWorkId?: string;
+  /**
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
   @Column({ comment: '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认', type: DataType.STRING(50) })
   dataStatus?: string;
-  /**
-   * 发起人id
-   */
-  @ForeignKey(() => AppUserModel)
-  @Column({ comment: '发起人id', type: DataType.STRING(50) })
-  formUserId?: string;
-  /**
-   * 经手人类型AppUser,Role,RoleGroup,的id
-   */
-  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
-  managerUserId?: string;
-  /**
-   * 经手人类型AppUser,Role,RoleGroup,
-   */
-  @Column({ comment: '经手人类型AppUser,Role,RoleGroup,', type: DataType.STRING(50) })
-  managerUserType?: string;
   /**
    * 流程节点id
    */
@@ -74,16 +64,6 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '节点值true、false', type: DataType.STRING(50) })
   statusValue?: string;
   /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
-   */
-  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
-  undertakeUserId?: string;
-  /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
-   */
-  @Column({ comment: '承办人类型AppUser,Role,RoleGroup,的id', type: DataType.STRING(50) })
-  undertakeUserType?: string;
-  /**
    * 合同id
    */
   @ForeignKey(() => WorkFlowModel)
@@ -98,8 +78,8 @@ export class WorkFlowOrmModel extends BaseModel {
   @BelongsTo(() => WorkFlowModel, 'work_flow_id')
   workFlowIdObj: WorkFlowModel;
 
-  @BelongsTo(() => AppUserModel, 'form_user_id')
-  formUserIdObj: AppUserModel;
+  @BelongsTo(() => AppUserModel, 'create_work_id')
+  createWorkIdObj: AppUserModel;
 
   @HasMany(() => WorkFlowOrmUserModel, 'work_flow_orm_id')
   workFlowOrmUserWorkFlowOrmId: Array<WorkFlowOrmUserModel>;
@@ -115,24 +95,14 @@ export class WORK_FLOW_ORM {
   static readonly BUSINESS_CODE: string = 'businessCode';
 
   /**
+   * 创建人id
+   */
+  static readonly CREATE_WORK_ID: string = 'createWorkId';
+
+  /**
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
   static readonly DATA_STATUS: string = 'dataStatus';
-
-  /**
-   * 发起人id
-   */
-  static readonly FORM_USER_ID: string = 'formUserId';
-
-  /**
-   * 经手人类型AppUser,Role,RoleGroup,的id
-   */
-  static readonly MANAGER_USER_ID: string = 'managerUserId';
-
-  /**
-   * 经手人类型AppUser,Role,RoleGroup,
-   */
-  static readonly MANAGER_USER_TYPE: string = 'managerUserType';
 
   /**
    * 流程节点id
@@ -158,16 +128,6 @@ export class WORK_FLOW_ORM {
    * 节点值true、false
    */
   static readonly STATUS_VALUE: string = 'statusValue';
-
-  /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
-   */
-  static readonly UNDERTAKE_USER_ID: string = 'undertakeUserId';
-
-  /**
-   * 承办人类型AppUser,Role,RoleGroup,的id
-   */
-  static readonly UNDERTAKE_USER_TYPE: string = 'undertakeUserType';
 
   /**
    * 合同id
