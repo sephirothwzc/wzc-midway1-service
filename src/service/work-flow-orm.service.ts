@@ -9,6 +9,7 @@ import { IWorkFlowService } from './work-flow.service';
 import { IAppUserService } from './app-user.service';
 import { SchemaOrmModel } from '../lib/models/schema-orm.model';
 import { ISchemaOrm } from '../app/middleware/gql-work-flow';
+import { IWorkFlowOrmUserModel } from '../lib/models/work-flow-orm-user.model';
 
 export interface IWorkFlowOrmService extends WorkFlowOrmService {}
 
@@ -20,6 +21,9 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
 
   @inject()
   workFlowOrmModel: IWorkFlowOrmModel;
+
+  @inject()
+  workFlowOrmUserModel: IWorkFlowOrmUserModel;
 
   @inject()
   workFlowService: IWorkFlowService;
@@ -58,8 +62,8 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
   /**
    * 关闭之前的记录 当前wfo 的 data status = 旧的 status value，如果多个处理则根据类型处理
    * @param orm
-   * @param wfo
-   * @param schemaOrm
+   * @param wfo 新的记录
+   * @param schemaOrm 旧的记录
    * @returns
    */
   public async closeWorkFlowOrm(
@@ -67,14 +71,14 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     wfo: WorkFlowOrmModel,
     schemaOrm: ISchemaOrm
   ) {
-    this.workFlowOrmModel.update(
+    // 之前的记录处理状态 关闭
+    return this.workFlowOrmUserModel.update(
       { statusValue: wfo.dataStatus },
       {
         where: {
-          id: schemaOrm.workFlowOrmId,
+          id: schemaOrm.workFlowOrmUserId,
         },
       }
     );
-    return undefined;
   }
 }

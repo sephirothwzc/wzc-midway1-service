@@ -23,7 +23,7 @@ export interface ISchemaOrm {
   /**
    * 当前工作流id
    */
-  workFlowOrmId: string;
+  workFlowOrmUserId: string;
 }
 
 /**
@@ -224,11 +224,12 @@ const firstFinisth = async (
     /**
      * 保存提交记录
      */
-    workFlowOrmService.save(wfo);
+    await workFlowOrmService.save(wfo);
     /**
      * 关闭工作流
      */
-    workFlowOrmService.closeWorkFlowOrm(orm, wfo, schemaOrm);
+    schemaOrm.workFlowOrmUserId &&
+      (await workFlowOrmService.closeWorkFlowOrm(orm, wfo, schemaOrm));
   }
 };
 
