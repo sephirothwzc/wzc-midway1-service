@@ -21,9 +21,17 @@ export interface ISchemaOrm {
    */
   formCustomSchemaId: string;
   /**
-   * 当前工作流id
+   * 审批流主表id
+   */
+  workFlowOrmId: string;
+  /**
+   * 当前工作流审批人id
    */
   workFlowOrmUserId: string;
+  /**
+   * 当前工作流id
+   */
+  workFlowId: string;
 }
 
 /**
@@ -59,6 +67,10 @@ interface IGraphqlBody {
  */
 module.exports = (options: any, app: Application) => {
   return async function gqlWorkFlow(ctx: Context, next: () => Promise<void>) {
+    // 判断当前工作流提交数据审批节点是否依然存在，如果不存在则只能报错打回
+
+    // 判断当前节点是否已经审批处理过 只能处理一次防止数据重复提交
+
     // console.log('中间件经过');
     await next();
     // console.log('中间件notFoundHandler错误拦截', ctx.status, ctx.request.url);
@@ -133,6 +145,7 @@ const handleWorkFlowOrm = async (
   const workFlowService: IWorkFlowService = await ctx.requestContext.getAsync(
     'workFlowService'
   );
+  // 查找工作流 始终寻找最新的表单工作流 如果 node不存在 则 报错如果version 不对 也报错
   const wf = await workFlowService.findOne<WorkFlowModel>({
     where: {
       appName,
@@ -179,6 +192,7 @@ const firstFinisth = async (
   // 首次更新 草稿
   if (finishType === EFinishType.SAVE && !get(gqlBody.variables, 'param.id')) {
     const wf = {
+      workFlowId: workFlowModel.get('id'),
       dataStatus: finishType,
       nodeId: startNode.id,
       ormId: orm.ormId,
@@ -204,6 +218,7 @@ const firstFinisth = async (
       throw new Error('未配置审批人员');
     }
     const wfo = {
+      workFlowId: workFlowModel.get('id'),
       dataStatus: finishType,
       nodeId: nextCell.id,
       ormId: orm.ormId,

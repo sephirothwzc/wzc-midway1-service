@@ -16,4 +16,5 @@ export class Auth implements IAuth {
   type: string;
   userName: string;
   exp: number;
+  authPower: { roleIdList: Array<string>; roleGroupIdList: Array<string> };
 }

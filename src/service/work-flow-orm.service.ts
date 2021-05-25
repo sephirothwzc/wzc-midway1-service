@@ -1,5 +1,5 @@
 import { provide, inject } from 'midway';
-import { CreateOptions, Transaction } from 'sequelize/types';
+import { CreateOptions, Op, Transaction } from 'sequelize';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
 import {
   IWorkFlowOrmModel,
@@ -9,7 +9,11 @@ import { IWorkFlowService } from './work-flow.service';
 import { IAppUserService } from './app-user.service';
 import { SchemaOrmModel } from '../lib/models/schema-orm.model';
 import { ISchemaOrm } from '../app/middleware/gql-work-flow';
-import { IWorkFlowOrmUserModel } from '../lib/models/work-flow-orm-user.model';
+import {
+  IWorkFlowOrmUserModel,
+  WORK_FLOW_ORM_USER,
+} from '../lib/models/work-flow-orm-user.model';
+import * as Bb from 'bluebird';
 
 export interface IWorkFlowOrmService extends WorkFlowOrmService {}
 
@@ -71,14 +75,32 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     wfo: WorkFlowOrmModel,
     schemaOrm: ISchemaOrm
   ) {
-    // 之前的记录处理状态 关闭
-    return this.workFlowOrmUserModel.update(
-      { statusValue: wfo.dataStatus },
-      {
+    const { one } = await Bb.props({
+      upd: this.workFlowOrmUserModel.update(
+        { statusValue: wfo.dataStatus },
+        {
+          where: {
+            id: schemaOrm.workFlowOrmUserId,
+          },
+        }
+      ),
+      one: this.workFlowOrmUserModel.findOne({
         where: {
-          id: schemaOrm.workFlowOrmUserId,
+          [WORK_FLOW_ORM_USER.WORK_FLOW_ORM_ID]: schemaOrm.workFlowOrmId,
+          [WORK_FLOW_ORM_USER.STATUS_VALUE]: {
+            [Op.is]: null,
+          },
+          id: { [Op.not]: schemaOrm.workFlowOrmUserId },
         },
-      }
-    );
+      }),
+    });
+    // 之前的记录处理状态 关闭
+    // 判断 是否 所有的都关闭了
+    if (!one) {
+      await this.workFlowOrmModel.update(
+        { statusValue: wfo.dataStatus },
+        { where: { id: schemaOrm.workFlowOrmId } }
+      );
+    }
   }
 }

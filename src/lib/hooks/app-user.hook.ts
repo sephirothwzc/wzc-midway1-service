@@ -5,7 +5,6 @@ import { APP_USER_ROLE, AppUserRoleModel } from '../models/app-user-role.model';
 import { CONTRACT, ContractModel } from '../models/contract.model';
 import { PROJECT_HIS, ProjectHisModel } from '../models/project-his.model';
 import { PROJECT, ProjectModel } from '../models/project.model';
-import { WORK_FLOW_ORM, WorkFlowOrmModel } from '../models/work-flow-orm.model';
 import {
   WORK_FLOW_ORM_USER,
   WorkFlowOrmUserModel,
@@ -24,9 +23,6 @@ export class AppUserHook {
       contractIbfk6,
       projectHisIbfk8,
       projectIbfk7,
-      workFlowOrmIbfk2,
-      workFlowOrmIbfk3,
-      workFlowOrmIbfk4,
       workFlowOrmUserIbfk1,
       workFlowOrmUserIbfk2,
       workFlowOrmUserIbfk3,
@@ -50,21 +46,6 @@ export class AppUserHook {
       projectIbfk7: ProjectModel.findOne({
         where: {
           [PROJECT.ADD_USER_ID]: model.get('id'),
-        },
-      }),
-      workFlowOrmIbfk2: WorkFlowOrmModel.findOne({
-        where: {
-          [WORK_FLOW_ORM.FORM_USER_ID]: model.get('id'),
-        },
-      }),
-      workFlowOrmIbfk3: WorkFlowOrmModel.findOne({
-        where: {
-          [WORK_FLOW_ORM.MANAGER_USER_ID]: model.get('id'),
-        },
-      }),
-      workFlowOrmIbfk4: WorkFlowOrmModel.findOne({
-        where: {
-          [WORK_FLOW_ORM.UNDERTAKE_USER_ID]: model.get('id'),
         },
       }),
       workFlowOrmUserIbfk1: WorkFlowOrmUserModel.findOne({
@@ -93,9 +74,6 @@ export class AppUserHook {
       contractIbfk6 ||
       projectHisIbfk8 ||
       projectIbfk7 ||
-      workFlowOrmIbfk2 ||
-      workFlowOrmIbfk3 ||
-      workFlowOrmIbfk4 ||
       workFlowOrmUserIbfk1 ||
       workFlowOrmUserIbfk2 ||
       workFlowOrmUserIbfk3 ||

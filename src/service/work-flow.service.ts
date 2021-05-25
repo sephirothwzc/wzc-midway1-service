@@ -89,7 +89,7 @@ export class WorkFlowService extends ServiceGenericBase<WorkFlowModel> {
       return false;
     });
     if (edge.length === 0) {
-      throw new Error('工作流未匹配！');
+      throw new Error('工作流未匹配到审批节点！');
     }
     return cells.find((p: any) => p.id === get(edge, '[0].source.port'));
   }

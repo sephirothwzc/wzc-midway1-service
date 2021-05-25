@@ -13,6 +13,13 @@ import { Op } from 'sequelize';
 import { IOrganizationService } from './organization.service';
 import { OrganizationModel } from '../lib/models/organization.model';
 import { set } from 'lodash';
+import {
+  APP_USER_ROLE,
+  IAppUserRoleModel,
+} from '../lib/models/app-user-role.model';
+import * as Bb from 'bluebird';
+import { IRoleModel } from '../lib/models/role.model';
+import { IRoleGroupModel } from '../lib/models/role-group.model';
 
 export interface IAppUserService extends AppUserService {}
 
@@ -36,6 +43,15 @@ export class AppUserService extends ServiceBase {
   appUserModel: IAppUserModel;
 
   @inject()
+  appUserRoleModel: IAppUserRoleModel;
+
+  @inject()
+  roleModel: IRoleModel;
+
+  @inject()
+  roleGroupModel: IRoleGroupModel;
+
+  @inject()
   organizationService: IOrganizationService;
 
   @inject()
@@ -47,6 +63,11 @@ export class AppUserService extends ServiceBase {
   @inject()
   private httpClient: IHttpClient;
 
+  /**
+   * 部门角色权限
+   * @param appUser
+   * @returns
+   */
   private async otherLoginKey(appUser: AppUserModel): Promise<any> {
     const otherKey = {};
     if (appUser.unionid) {
@@ -64,6 +85,39 @@ export class AppUserService extends ServiceBase {
       }
       return otherKey;
     }
+  }
+
+  /**
+   * 权限角色
+   * @param appUser
+   * @returns
+   */
+  private async authPower(appUser: AppUserModel): Promise<any> {
+    const appUserRoleList = await this.appUserRoleModel.findAll({
+      where: {
+        [APP_USER_ROLE.APP_USER_ID]: appUser.id,
+      },
+    });
+    const { roleList, roleGroupList } = await Bb.props({
+      roleList: this.roleModel.findAll({
+        where: {
+          id: appUserRoleList
+            .filter((p) => p.get('roleType') === 'role')
+            .map((p) => p.get('typeId')),
+        },
+      }),
+      roleGroupList: this.roleGroupModel.findAll({
+        where: {
+          id: appUserRoleList
+            .filter((p) => p.get('roleType') === 'roleGroup')
+            .map((p) => p.get('typeId')),
+        },
+      }),
+    });
+    return {
+      roleIdList: roleList.map((p) => p.get('id')),
+      roleGroupIdList: roleGroupList.map((p) => p.get('id')),
+    };
   }
 
   /**
@@ -108,11 +162,15 @@ export class AppUserService extends ServiceBase {
     // #region otherKey
     const otherKey = await this.otherLoginKey(user);
     // #endregion
+    // #region authPower
+    const authPower = await this.authPower(user);
+    // #endregion
     const token = await this.authToken.sign(
       {
         id: user.id,
         userName: user.userName,
         ...otherKey,
+        authPower,
         // type: user.appUserType,
       },
       options
@@ -123,6 +181,7 @@ export class AppUserService extends ServiceBase {
         token,
         userName: user.userName,
         ...otherKey,
+        authPower,
       };
     }
     return this.throw(
