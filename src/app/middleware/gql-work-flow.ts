@@ -37,7 +37,7 @@ export interface ISchemaOrm {
 /**
  * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
  */
-const enum EFinishType {
+export const enum EFinishType {
   /**
    * 保存
    */
@@ -54,6 +54,28 @@ const enum EFinishType {
    * 确认
    */
   CONFIRM = 'confirm',
+}
+
+/**
+ * 工作类型
+ */
+export enum EWorkType {
+  /**
+   * 审批（保存，通过、驳回）支持多人审批，1人 通过 or 驳回 next
+   */
+  approval = 'approval',
+  /**
+   * 传阅（保存，确定）支持多人传阅，全部点击确定后 next
+   */
+  circulated = 'circulated',
+  /**
+   * 会签（保存，通过、驳回）全部通过 next 1人 驳回 则 驳回
+   */
+  jointlySign = 'jointlySign',
+  /**
+   * 代办（确定）
+   */
+  agency = 'agency',
 }
 
 interface IGraphqlBody {
@@ -162,16 +184,52 @@ const handleWorkFlowOrm = async (
   // 节点判断
   if (!graphNodeId) {
     // 初始节点
-    await firstFinisth(wf, finishType, ctx, orm, schemaOrm);
+    await firstFinish(wf, finishType, ctx, orm, schemaOrm);
   } else {
     // 历史节点
+    await nextFinish(wf, finishType, ctx, orm, schemaOrm);
+  }
+};
+
+/**
+ * 其他节点提交
+ * @param workFlowModel
+ * @param finishType
+ * @param ctx
+ * @param orm
+ * @param schemaOrm
+ */
+const nextFinish = async (
+  workFlowModel: WorkFlowModel,
+  finishType: string,
+  ctx: Context,
+  orm: SchemaOrmModel,
+  schemaOrm: ISchemaOrm
+) => {
+  const workFlowOrmService: IWorkFlowOrmService =
+    await ctx.requestContext.getAsync('workFlowOrmService');
+  // 驳回
+  if (finishType === EFinishType.REJECT) {
+    return await workFlowOrmService.reject(
+      schemaOrm,
+      orm,
+      workFlowModel,
+      finishType
+    );
+  } else {
+    return await workFlowOrmService.finishNext(
+      schemaOrm,
+      orm,
+      workFlowModel,
+      finishType
+    );
   }
 };
 
 /**
  * 首次提交 保存、提交都走工作流
  */
-const firstFinisth = async (
+const firstFinish = async (
   workFlowModel: WorkFlowModel,
   finishType: string,
   ctx: Context,
@@ -191,7 +249,7 @@ const firstFinisth = async (
   const startNode = cells.find((p) => 'startNode' === p?.data?.type);
   // 首次更新 草稿
   if (finishType === EFinishType.SAVE && !get(gqlBody.variables, 'param.id')) {
-    const wf = {
+    return await workFlowOrmService.save({
       workFlowId: workFlowModel.get('id'),
       dataStatus: finishType,
       nodeId: startNode.id,
@@ -204,8 +262,7 @@ const firstFinisth = async (
           formUserId: auth.id,
         } as WorkFlowOrmUserModel,
       ],
-    } as WorkFlowOrmModel;
-    workFlowOrmService.save(wf);
+    } as WorkFlowOrmModel);
   } else if (finishType === EFinishType.FINISH) {
     // 起始节点的 下一级节点判断
     const nextCell: any = workFlowService.findNextNode(
@@ -244,7 +301,7 @@ const firstFinisth = async (
      * 关闭工作流
      */
     schemaOrm.workFlowOrmUserId &&
-      (await workFlowOrmService.closeWorkFlowOrm(orm, wfo, schemaOrm));
+      (await workFlowOrmService.closeWorkFlowOrm(finishType, schemaOrm));
   }
 };
 
