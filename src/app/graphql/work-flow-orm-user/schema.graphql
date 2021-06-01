@@ -21,6 +21,8 @@ type WorkFlowOrmUser {
   managerUserId: String
   # 经手人类型AppUser,Role,RoleGroup,
   managerUserType: String
+  # 驳回备注
+  rejectRemark: String
   # 备注
   remark: String
   # 节点值true、false
@@ -93,6 +95,8 @@ input WorkFlowOrmUserSaveIn {
   managerUserId: String
   # 经手人类型AppUser,Role,RoleGroup,
   managerUserType: String
+  # 驳回备注
+  rejectRemark: String
   # 备注
   remark: String
   # 节点值true、false

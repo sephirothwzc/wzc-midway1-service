@@ -54,6 +54,11 @@ export class WorkFlowOrmUserModel extends BaseModel {
   @Column({ comment: '经手人类型AppUser,Role,RoleGroup,', type: DataType.STRING(50) })
   managerUserType?: string;
   /**
+   * 驳回备注
+   */
+  @Column({ comment: '驳回备注', type: DataType.STRING(500) })
+  rejectRemark?: string;
+  /**
    * 备注
    */
   @Column({ comment: '备注', type: DataType.STRING(500) })
@@ -123,6 +128,11 @@ export class WORK_FLOW_ORM_USER {
    * 经手人类型AppUser,Role,RoleGroup,
    */
   static readonly MANAGER_USER_TYPE: string = 'managerUserType';
+
+  /**
+   * 驳回备注
+   */
+  static readonly REJECT_REMARK: string = 'rejectRemark';
 
   /**
    * 备注

@@ -21,6 +21,8 @@ type WorkFlowOrm {
   ormId: String
   # 类型project、budget、contract
   ormType: String
+  # 驳回备注
+  rejectRemark: String
   # 备注
   remark: String
   # 节点值true、false
@@ -93,6 +95,8 @@ input WorkFlowOrmSaveIn {
   ormId: String
   # 类型project、budget、contract
   ormType: String
+  # 驳回备注
+  rejectRemark: String
   # 备注
   remark: String
   # 节点值true、false

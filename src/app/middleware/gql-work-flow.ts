@@ -182,7 +182,7 @@ const handleWorkFlowOrm = async (
   const graphNodeId = ctx.headers['graph-node-id'];
   // 有工作流 插入工作流数据表
   // 节点判断
-  if (!graphNodeId) {
+  if (!graphNodeId || graphNodeId === 'undefined') {
     // 初始节点
     await firstFinish(wf, finishType, ctx, orm, schemaOrm);
   } else {
@@ -210,18 +210,22 @@ const nextFinish = async (
     await ctx.requestContext.getAsync('workFlowOrmService');
   // 驳回
   if (finishType === EFinishType.REJECT) {
+    const rejectRemark = decodeURIComponent(ctx.headers['reject-remark']);
     return await workFlowOrmService.reject(
       schemaOrm,
       orm,
       workFlowModel,
-      finishType
+      finishType,
+      rejectRemark
     );
   } else {
+    const gqlBody: IGraphqlBody = ctx.request.body;
     return await workFlowOrmService.finishNext(
       schemaOrm,
       orm,
       workFlowModel,
-      finishType
+      finishType,
+      gqlBody.variables
     );
   }
 };

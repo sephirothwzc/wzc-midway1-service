@@ -54,6 +54,11 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '类型project、budget、contract', type: DataType.STRING(50) })
   ormType?: string;
   /**
+   * 驳回备注
+   */
+  @Column({ comment: '驳回备注', type: DataType.STRING(500) })
+  rejectRemark?: string;
+  /**
    * 备注
    */
   @Column({ comment: '备注', type: DataType.STRING(500) })
@@ -118,6 +123,11 @@ export class WORK_FLOW_ORM {
    * 类型project、budget、contract
    */
   static readonly ORM_TYPE: string = 'ormType';
+
+  /**
+   * 驳回备注
+   */
+  static readonly REJECT_REMARK: string = 'rejectRemark';
 
   /**
    * 备注

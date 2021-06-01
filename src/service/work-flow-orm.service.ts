@@ -111,7 +111,8 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     schemaOrm: ISchemaOrm,
     orm: SchemaOrmModel,
     workFlowModel: WorkFlowModel,
-    finishType: string
+    finishType: string,
+    rejectRemark: string
   ) {
     // 起始节点必须有
     const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
@@ -120,6 +121,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       ormUser: this.workFlowOrmUserModel.update(
         {
           [WORK_FLOW_ORM_USER.STATUS_VALUE]: EFinishType.REJECT,
+          [WORK_FLOW_ORM_USER.REJECT_REMARK]: rejectRemark,
         },
         {
           where: {
@@ -130,6 +132,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       orm: this.workFlowOrmModel.update(
         {
           [WORK_FLOW_ORM.STATUS_VALUE]: EFinishType.REJECT,
+          [WORK_FLOW_ORM.REJECT_REMARK]: rejectRemark,
         },
         {
           where: {
@@ -144,6 +147,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
         ormId: orm.ormId,
         ormType: orm.ormType,
         createWorkId: this.auth.id,
+        rejectRemark: rejectRemark,
         workFlowOrmUserWorkFlowOrmId: [
           {
             dataStatus: finishType,
@@ -166,12 +170,32 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     schemaOrm: ISchemaOrm,
     orm: SchemaOrmModel,
     workFlowModel: WorkFlowModel,
-    finishType: string
+    finishType: string,
+    variables: any
   ) {
     await this.closeWorkFlowOrm(finishType, schemaOrm);
+    const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
+    const startNode = cells.find((p) => 'startNode' === p?.data?.type);
+    await this.findNextNode(
+      cells,
+      startNode,
+      variables,
+      orm,
+      workFlowModel,
+      finishType
+    );
   }
 
-  public async findNextNode(
+  /**
+   * 下一节点处理
+   * @param cells
+   * @param startNode
+   * @param variables
+   * @param orm
+   * @param workFlowModel
+   * @param finishType
+   */
+  private async findNextNode(
     cells: Array<any>,
     startNode: any,
     variables: any,
