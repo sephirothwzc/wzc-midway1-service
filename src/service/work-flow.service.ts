@@ -42,10 +42,8 @@ export class WorkFlowService extends ServiceGenericBase<WorkFlowModel> {
     return await this.useTransaction(run, useOptions);
   }
 
-  private findConditio(txt: String): (model: any) => boolean {
-    return eval(`function conditioBool(model){
-      ${txt}
-    }`);
+  private findCondition(txt: string): any {
+    return new Function('model', txt);
   }
 
   /**
@@ -82,15 +80,17 @@ export class WorkFlowService extends ServiceGenericBase<WorkFlowModel> {
     // 连接线 判断是否有条件 如果有 进行匹配
     const edge = edges.find((p: any) => {
       // 存在判断条件
-      if (p?.data?.conditio) {
-        const fun = this.findConditio(p?.data?.conditio);
-        return fun(variables.param);
+      if (p?.data?.condition) {
+        const fun = this.findCondition(p?.data?.condition);
+        const value = fun(variables.param);
+        return value;
       }
       return false;
     });
-    if (edge.length === 0) {
+    if (!edge) {
       throw new Error('工作流未匹配到审批节点！');
     }
-    return cells.find((p: any) => p.id === get(edge, '[0].source.port'));
+    const node = cells.find((p: any) => p.id === get(edge, 'target.cell'));
+    return node;
   }
 }

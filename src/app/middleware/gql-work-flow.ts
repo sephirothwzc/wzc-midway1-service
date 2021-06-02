@@ -1,6 +1,4 @@
 import { Application, Context } from 'midway';
-// import { gql } from 'graphql-tag';
-// import { DocumentNode } from 'graphql';
 import { ISchemaOrmService } from '../../service/schema-orm.service';
 import { SchemaOrmModel } from '../../lib/models/schema-orm.model';
 import { get } from 'lodash';
@@ -144,8 +142,10 @@ const schemaOrmSave = async (orm: ISchemaOrm, ctx: Context) => {
       ormType: gqlBody.operationName,
     },
   });
+  if (item) {
+    return item;
+  }
   const id = await schemaOrmService.save({
-    ...(item || {}),
     ...schemaOrm,
   } as any);
   schemaOrm.id = id;
@@ -182,12 +182,16 @@ const handleWorkFlowOrm = async (
   const graphNodeId = ctx.headers['graph-node-id'];
   // 有工作流 插入工作流数据表
   // 节点判断
-  if (!graphNodeId || graphNodeId === 'undefined') {
+  if (
+    !graphNodeId ||
+    graphNodeId === 'undefined' ||
+    finishType === EFinishType.SAVE
+  ) {
     // 初始节点
     await firstFinish(wf, finishType, ctx, orm, schemaOrm);
   } else {
     // 历史节点
-    await nextFinish(wf, finishType, ctx, orm, schemaOrm);
+    await nextFinish(wf, finishType, ctx, orm, schemaOrm, graphNodeId);
   }
 };
 
@@ -204,7 +208,8 @@ const nextFinish = async (
   finishType: string,
   ctx: Context,
   orm: SchemaOrmModel,
-  schemaOrm: ISchemaOrm
+  schemaOrm: ISchemaOrm,
+  graphNodeId: string
 ) => {
   const workFlowOrmService: IWorkFlowOrmService =
     await ctx.requestContext.getAsync('workFlowOrmService');
@@ -225,7 +230,8 @@ const nextFinish = async (
       orm,
       workFlowModel,
       finishType,
-      gqlBody.variables
+      gqlBody.variables,
+      graphNodeId
     );
   }
 };

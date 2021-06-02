@@ -142,7 +142,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       ),
       newOrm: this.save({
         workFlowId: workFlowModel.get('id'),
-        dataStatus: finishType,
+        dataStatus: EFinishType.SAVE,
         nodeId: startNode.id,
         ormId: orm.ormId,
         ormType: orm.ormType,
@@ -150,7 +150,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
         rejectRemark: rejectRemark,
         workFlowOrmUserWorkFlowOrmId: [
           {
-            dataStatus: finishType,
+            dataStatus: EFinishType.SAVE,
             formUserId: this.auth.id,
           } as WorkFlowOrmUserModel,
         ],
@@ -171,11 +171,12 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     orm: SchemaOrmModel,
     workFlowModel: WorkFlowModel,
     finishType: string,
-    variables: any
+    variables: any,
+    graphNodeId: string
   ) {
     await this.closeWorkFlowOrm(finishType, schemaOrm);
     const cells = get(workFlowModel.graph, 'cells', []) as Array<any>;
-    const startNode = cells.find((p) => 'startNode' === p?.data?.type);
+    const startNode = cells.find((p) => graphNodeId === p?.id);
     await this.findNextNode(
       cells,
       startNode,
