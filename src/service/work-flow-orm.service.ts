@@ -144,6 +144,7 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
         workFlowId: workFlowModel.get('id'),
         dataStatus: EFinishType.SAVE,
         nodeId: startNode.id,
+        nodeName: startNode.attrs?.text?.textWrap?.text,
         ormId: orm.ormId,
         ormType: orm.ormType,
         createWorkId: this.auth.id,
@@ -183,7 +184,8 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       variables,
       orm,
       workFlowModel,
-      finishType
+      finishType,
+      schemaOrm
     );
   }
 
@@ -202,7 +204,8 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
     variables: any,
     orm: SchemaOrmModel,
     workFlowModel: WorkFlowModel,
-    finishType: string
+    finishType: string,
+    schemaOrm: ISchemaOrm
   ) {
     // 起始节点的 下一级节点判断
     const nextCell: any = this.workFlowService.findNextNode(
@@ -218,9 +221,10 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       workFlowId: workFlowModel.get('id'),
       dataStatus: get(nextCell, 'data.workType'),
       nodeId: nextCell.id,
+      nodeName: nextCell.attrs?.text?.textWrap?.text,
       ormId: orm.ormId,
       ormType: orm.ormType,
-      createWorkId: this.auth.id,
+      createWorkId: schemaOrm.createWorkId || this.auth.id,
     } as WorkFlowOrmModel;
 
     wfo.workFlowOrmUserWorkFlowOrmId = nextCell.data.workUserId.map(

@@ -24,6 +24,10 @@ module.exports = {
       type: STRING(500),
       comment: '驳回备注',
     });
+    await queryInterface.addColumn('work_flow_orm', 'node_name', {
+      type: STRING(200),
+      comment: '工作流节点名称',
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -34,5 +38,6 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     await queryInterface.removeColumn('work_flow_orm', 'reject_remark');
+    await queryInterface.removeColumn('work_flow_orm', 'node_name');
   },
 };

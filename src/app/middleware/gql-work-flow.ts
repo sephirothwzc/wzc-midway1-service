@@ -30,6 +30,10 @@ export interface ISchemaOrm {
    * 当前工作流id
    */
   workFlowId: string;
+  /**
+   * 创建人
+   */
+  createWorkId: string;
 }
 
 /**
@@ -263,6 +267,7 @@ const firstFinish = async (
       workFlowId: workFlowModel.get('id'),
       dataStatus: finishType,
       nodeId: startNode.id,
+      nodeName: startNode.attrs?.text?.textWrap?.text,
       ormId: orm.ormId,
       ormType: orm.ormType,
       createWorkId: auth.id,
@@ -288,6 +293,7 @@ const firstFinish = async (
       workFlowId: workFlowModel.get('id'),
       dataStatus: finishType,
       nodeId: nextCell.id,
+      nodeName: nextCell.attrs?.text?.textWrap?.text,
       ormId: orm.ormId,
       ormType: orm.ormType,
       createWorkId: auth.id,
