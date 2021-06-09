@@ -92,15 +92,10 @@ interface IGraphqlBody {
 module.exports = (options: any, app: Application) => {
   return async function gqlWorkFlow(ctx: Context, next: () => Promise<void>) {
     // 判断当前工作流提交数据审批节点是否依然存在，如果不存在则只能报错打回
+    await validateWorkFlow(ctx);
 
-    // 判断当前节点是否已经审批处理过 只能处理一次防止数据重复提交
-
-    // console.log('中间件经过');
     await next();
-    // console.log('中间件notFoundHandler错误拦截', ctx.status, ctx.request.url);
-    if (ctx.method !== 'POST' || !ctx.url.includes('/graphql') || !ctx.body) {
-      return;
-    }
+
     const { errors } = JSON.parse(ctx.body);
     if (errors) {
       return; // 错误则退出
@@ -318,6 +313,38 @@ const firstFinish = async (
      */
     schemaOrm.workFlowOrmUserId &&
       (await workFlowOrmService.closeWorkFlowOrm(finishType, schemaOrm));
+  }
+};
+
+/**
+ * 判断当前工作流提交数据审批节点是否依然存在，如果不存在则只能报错打回
+ */
+const validateWorkFlow = async (ctx: Context) => {
+  const ormString = ctx.headers['schema-orm'];
+  const finishType = ctx.headers['finish-type'];
+  if (!ormString) {
+    return;
+  }
+  const orm = JSON.parse(ormString) as ISchemaOrm;
+  // 查找工作流
+  const workFlowService: IWorkFlowService = await ctx.requestContext.getAsync(
+    'workFlowService'
+  );
+  const wfItem = await workFlowService.findByPk(orm.workFlowId);
+  if (finishType !== EFinishType.REJECT && !wfItem) {
+    throw new Error('工作流不存在！请驳回！');
+  }
+  // 判断当前节点是否已经审批处理过 只能处理一次防止数据重复提交
+  const workFlowOrmUserService: IWorkFlowService =
+    await ctx.requestContext.getAsync('workFlowOrmUserService');
+  const item = await workFlowOrmUserService.findByPk<WorkFlowOrmUserModel>(
+    orm.workFlowOrmUserId
+  );
+  if (!item) {
+    throw new Error('工作流节点不存在！请刷新后重试！');
+  }
+  if (item.get('statusValue')) {
+    throw new Error('工作流节点已经审批，请勿重复操作！');
   }
 };
 

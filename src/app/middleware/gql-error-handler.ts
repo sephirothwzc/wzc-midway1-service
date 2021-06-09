@@ -11,9 +11,6 @@ module.exports = (options: any, app: Application) => {
     // console.log('中间件经过');
     await next();
     // console.log('中间件notFoundHandler错误拦截', ctx.status, ctx.request.url);
-    if (ctx.method !== 'POST' || !ctx.url.includes('/graphql') || !ctx.body) {
-      return;
-    }
     const data = JSON.parse(ctx.body);
     const { errors } = data;
     if (!errors) {

@@ -214,7 +214,35 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
       variables,
       orm
     );
-    if (nextCell.data.workUserId.length <= 0) {
+    // 如果结束节点则不需要处理直接标记结束
+    if (nextCell.data.type === 'overNode') {
+      const wfo = {
+        workFlowId: workFlowModel.get('id'),
+        dataStatus: get(nextCell, 'data.workType'),
+        nodeId: nextCell.id,
+        nodeName: nextCell.attrs?.text?.textWrap?.text,
+        ormId: orm.ormId,
+        ormType: orm.ormType,
+        createWorkId: schemaOrm.createWorkId || this.auth.id,
+      } as WorkFlowOrmModel;
+
+      wfo.workFlowOrmUserWorkFlowOrmId = nextCell.data.workUserId.map(
+        (p: any) =>
+          ({
+            dataStatus: get(nextCell, 'data.workType'),
+            statusValue: 'end',
+            formUserId: this.auth.id,
+            managerUserType: 'appUser',
+            managerUserId: schemaOrm.createWorkId || this.auth.id,
+          } as WorkFlowOrmUserModel)
+      );
+
+      /**
+       * 保存记录
+       */
+      return await this.save(wfo);
+    }
+    if (!nextCell.data.workUserId || nextCell.data.workUserId.length <= 0) {
       throw new Error('未配置审批人员');
     }
     const wfo = {

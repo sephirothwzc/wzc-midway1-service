@@ -75,6 +75,32 @@ export default (appInfo: EggAppInfo) => {
   ];
 
   /**
+   * 工作流
+   */
+  config.gqlWorkFlow = {
+    ignore(ctx: Context) {
+      return !(
+        ctx.method !== 'POST' ||
+        !ctx.url.includes('/graphql') ||
+        !ctx.body
+      );
+    },
+  };
+
+  /**
+   * 工作流
+   */
+  config.gqlErrorHandler = {
+    ignore(ctx: Context) {
+      return !(
+        ctx.method !== 'POST' ||
+        !ctx.url.includes('/graphql') ||
+        !ctx.body
+      );
+    },
+  };
+
+  /**
    * 不走权限验证
    */
   const authMatch = {
@@ -171,7 +197,7 @@ export default (appInfo: EggAppInfo) => {
       ctx.body = err.message;
     },
     json(err: Error, ctx: Context) {
-      // json hander
+      console.log(err);
       ctx.body = {
         message: _.get(err, 'message'),
         stack: _.get(err, 'stack'),

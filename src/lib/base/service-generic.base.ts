@@ -161,8 +161,8 @@ export abstract class ServiceGenericBase<T extends BaseModel> {
     return this.Model.count(squelizeParam);
   }
 
-  async findByPk(id: string): Promise<any> {
-    return this.Model.findByPk(id);
+  async findByPk<T>(id: string): Promise<T> {
+    return this.Model.findByPk(id) as any;
   }
 
   /**
