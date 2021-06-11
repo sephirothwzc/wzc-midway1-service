@@ -136,6 +136,11 @@ export class ContractModel extends BaseModel {
   @Column({ comment: '签订日期', type: DataType.DATE })
   signingDate?: Date;
   /**
+   * 预算来源文件号
+   */
+  @Column({ comment: '预算来源文件号', type: DataType.STRING(50) })
+  sourceNumber?: string;
+  /**
    * 合同状态
    */
   @Column({ comment: '合同状态', type: DataType.STRING(50) })
@@ -260,6 +265,11 @@ export class CONTRACT {
    * 签订日期
    */
   static readonly SIGNING_DATE: string = 'signingDate';
+
+  /**
+   * 预算来源文件号
+   */
+  static readonly SOURCE_NUMBER: string = 'sourceNumber';
 
   /**
    * 合同状态

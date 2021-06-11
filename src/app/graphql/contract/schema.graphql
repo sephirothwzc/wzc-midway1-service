@@ -43,18 +43,16 @@ type Contract {
   signingAmount: Float
   # 签订日期
   signingDate: DateTime
+  # 预算来源文件号
+  sourceNumber: String
   # 合同状态
   status: String
   # 修改时间
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  contractCollectionPaymentContractId(
-    param: QueryListParam
-  ): [ContractCollectionPayment]
-  contractCollectionPaymentPlanContractId(
-    param: QueryListParam
-  ): [ContractCollectionPaymentPlan]
+  contractCollectionPaymentContractId(param: QueryListParam): [ContractCollectionPayment]
+  contractCollectionPaymentPlanContractId(param: QueryListParam): [ContractCollectionPaymentPlan]
   projectIdObj: Project
   budgetIdObj: Budget
   contractTypeIdObj: DataDictionary
@@ -64,6 +62,7 @@ type Contract {
   organizationIdObj: Organization
   contractSignContractId(param: QueryListParam): [ContractSign]
 }
+
 
 # 合同 分页查询返回
 type ContractList {
@@ -139,6 +138,8 @@ input ContractSaveIn {
   signingAmount: Float
   # 签订日期
   signingDate: DateTime
+  # 预算来源文件号
+  sourceNumber: String
   # 合同状态
   status: String
   # 修改时间
