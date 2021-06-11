@@ -80,9 +80,9 @@ export default (appInfo: EggAppInfo) => {
   config.gqlWorkFlow = {
     ignore(ctx: Context) {
       return !(
-        ctx.method !== 'POST' ||
-        !ctx.url.includes('/graphql') ||
-        !ctx.body
+        ctx.method === 'POST' &&
+        ctx.url.includes('/graphql') &&
+        ctx.body
       );
     },
   };
@@ -93,9 +93,9 @@ export default (appInfo: EggAppInfo) => {
   config.gqlErrorHandler = {
     ignore(ctx: Context) {
       return !(
-        ctx.method !== 'POST' ||
-        !ctx.url.includes('/graphql') ||
-        !ctx.body
+        ctx.method === 'POST' &&
+        ctx.url.includes('/graphql') &&
+        ctx.body
       );
     },
   };
