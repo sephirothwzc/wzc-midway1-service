@@ -80,7 +80,9 @@ export class AppUserService extends ServiceBase {
       }
       set(otherKey, role.type, role.code);
       if (role.parentId) {
-        const depa = await this.organizationService.findByPk(role.parentId);
+        const depa = (await this.organizationService.findByPk(
+          role.parentId
+        )) as any;
         set(otherKey, depa.type, depa.code);
       }
       return otherKey;
