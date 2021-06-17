@@ -16,6 +16,11 @@ module.exports = {
       _.set(_args, 'param.where.contractId', _root.id);
       return service.findAll(_args.param);
     },
+    contractFileContractId: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'contractFile');
+      _.set(_args, 'param.where.contractId', _root.id);
+      return service.findAll(_args.param);
+    },
     projectIdObj: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx,'project');
       return service.fetchById(_root.projectId);
@@ -43,6 +48,11 @@ module.exports = {
     organizationIdObj: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx,'organization');
       return service.fetchById(_root.organizationId);
+    },
+    contractMeetingContractId: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'contractMeeting');
+      _.set(_args, 'param.where.contractId', _root.id);
+      return service.findAll(_args.param);
     },
     contractSignContractId: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'contractSign');

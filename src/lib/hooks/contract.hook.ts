@@ -3,6 +3,8 @@ import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
 import { CONTRACT_COLLECTION_PAYMENT, ContractCollectionPaymentModel } from '../models/contract-collection-payment.model';
 import { CONTRACT_COLLECTION_PAYMENT_PLAN, ContractCollectionPaymentPlanModel } from '../models/contract-collection-payment-plan.model';
+import { CONTRACT_FILE, ContractFileModel } from '../models/contract-file.model';
+import { CONTRACT_MEETING, ContractMeetingModel } from '../models/contract-meeting.model';
 import { CONTRACT_SIGN, ContractSignModel } from '../models/contract-sign.model';
 import * as Bb from 'bluebird';
 import { CONTRACT, ContractModel } from '../models/contract.model';
@@ -14,7 +16,7 @@ export class ContractHook {
     model: ContractModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
-    const { contractCollectionPaymentIbfk1, contractCollectionPaymentPlanIbfk1, contractSignIbfk1 } = await Bb.props({
+    const { contractCollectionPaymentIbfk1, contractCollectionPaymentPlanIbfk1, contractFileIbfk1, contractMeetingIbfk1, contractSignIbfk1 } = await Bb.props({
         contractCollectionPaymentIbfk1: ContractCollectionPaymentModel.findOne({
           where: {
             [CONTRACT_COLLECTION_PAYMENT.CONTRACT_ID]: model.get('id'),
@@ -25,13 +27,23 @@ export class ContractHook {
             [CONTRACT_COLLECTION_PAYMENT_PLAN.CONTRACT_ID]: model.get('id'),
           },
         }),
+        contractFileIbfk1: ContractFileModel.findOne({
+          where: {
+            [CONTRACT_FILE.CONTRACT_ID]: model.get('id'),
+          },
+        }),
+        contractMeetingIbfk1: ContractMeetingModel.findOne({
+          where: {
+            [CONTRACT_MEETING.CONTRACT_ID]: model.get('id'),
+          },
+        }),
         contractSignIbfk1: ContractSignModel.findOne({
           where: {
             [CONTRACT_SIGN.CONTRACT_ID]: model.get('id'),
           },
         }),
     });
-    if (contractCollectionPaymentIbfk1 || contractCollectionPaymentPlanIbfk1 || contractSignIbfk1) {
+    if (contractCollectionPaymentIbfk1 || contractCollectionPaymentPlanIbfk1 || contractFileIbfk1 || contractMeetingIbfk1 || contractSignIbfk1) {
       throw new Error('已使用数据禁止删除');
     }
   }

@@ -1,0 +1,101 @@
+# 合同会议纪要
+type ContractMeeting {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractIdObj: Contract
+}
+
+
+# 合同会议纪要 分页查询返回
+type ContractMeetingList {
+  count: Int!
+  list: [ContractMeeting]
+}
+
+extend type Query {
+  # 合同会议纪要 总行数
+  contractMeetingCount(param: QueryListParam): Int
+  # 合同会议纪要 分页查询
+  contractMeetingList(param: QueryListParam): ContractMeetingList
+  # 合同会议纪要  id 获取
+  contractMeeting(id: ID!): ContractMeeting
+  # 合同会议纪要 有条件返回
+  contractMeetingAll(param: QueryListParam): [ContractMeeting]
+}
+
+extend type Mutation {
+  # 合同会议纪要 新增
+  contractMeetingCreate(param: ContractMeetingSaveIn!): ContractMeeting
+  # 合同会议纪要 新增 or 修改
+  contractMeeting(param: ContractMeetingSaveIn!, must: Boolean = false): String
+  # 合同会议纪要 批量 新增 or 修改
+  contractMeetingBulk(param: [ContractMeetingSaveIn]!): [JSONObject]
+  # 合同会议纪要 删除
+  contractMeetingDestroy(where: JSONObject!, limit: Int): String
+  # 合同会议纪要 根据id删除
+  contractMeetingDestroyById(id: String): String
+}
+
+input ContractMeetingSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractIdObj: ContractSaveIn
+}

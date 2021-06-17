@@ -53,6 +53,7 @@ type Contract {
   updatedId: String
   contractCollectionPaymentContractId(param: QueryListParam): [ContractCollectionPayment]
   contractCollectionPaymentPlanContractId(param: QueryListParam): [ContractCollectionPaymentPlan]
+  contractFileContractId(param: QueryListParam): [ContractFile]
   projectIdObj: Project
   budgetIdObj: Budget
   contractTypeIdObj: DataDictionary
@@ -60,6 +61,7 @@ type Contract {
   contractNatureIdObj: DataDictionary
   addUserIdObj: AppUser
   organizationIdObj: Organization
+  contractMeetingContractId(param: QueryListParam): [ContractMeeting]
   contractSignContractId(param: QueryListParam): [ContractSign]
 }
 
@@ -148,6 +150,8 @@ input ContractSaveIn {
   updatedId: String
   contractCollectionPaymentContractId: [ContractCollectionPaymentSaveIn]
   contractCollectionPaymentPlanContractId: [ContractCollectionPaymentPlanSaveIn]
+  contractFileContractId: [ContractFileSaveIn]
+  contractMeetingContractId: [ContractMeetingSaveIn]
   contractSignContractId: [ContractSignSaveIn]
   projectIdObj: ProjectSaveIn
   budgetIdObj: BudgetSaveIn

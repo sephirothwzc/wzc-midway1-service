@@ -3,11 +3,13 @@ import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ContractCollectionPaymentModel } from './contract-collection-payment.model';
 import { ContractCollectionPaymentPlanModel } from './contract-collection-payment-plan.model';
+import { ContractFileModel } from './contract-file.model';
 import { ProjectModel } from './project.model';
 import { BudgetModel } from './budget.model';
 import { DataDictionaryModel } from './data-dictionary.model';
 import { AppUserModel } from './app-user.model';
 import { OrganizationModel } from './organization.model';
+import { ContractMeetingModel } from './contract-meeting.model';
 import { ContractSignModel } from './contract-sign.model';
 // #region enum
 export enum EContractContractCode {
@@ -152,6 +154,9 @@ export class ContractModel extends BaseModel {
   @HasMany(() => ContractCollectionPaymentPlanModel, 'contract_id')
   contractCollectionPaymentPlanContractId: Array<ContractCollectionPaymentPlanModel>;
 
+  @HasMany(() => ContractFileModel, 'contract_id')
+  contractFileContractId: Array<ContractFileModel>;
+
   @BelongsTo(() => ProjectModel, 'project_id')
   projectIdObj: ProjectModel;
 
@@ -172,6 +177,9 @@ export class ContractModel extends BaseModel {
 
   @BelongsTo(() => OrganizationModel, 'organization_id')
   organizationIdObj: OrganizationModel;
+
+  @HasMany(() => ContractMeetingModel, 'contract_id')
+  contractMeetingContractId: Array<ContractMeetingModel>;
 
   @HasMany(() => ContractSignModel, 'contract_id')
   contractSignContractId: Array<ContractSignModel>;
@@ -291,7 +299,7 @@ export const createOptions = () => {
   return (
     param: ContractModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.contractCollectionPaymentContractId && !param.contractCollectionPaymentPlanContractId && !param.contractSignContractId) {
+    if (!param.contractCollectionPaymentContractId && !param.contractCollectionPaymentPlanContractId && !param.contractFileContractId && !param.contractMeetingContractId && !param.contractSignContractId) {
       return {};
     }
     const include: any = [];
@@ -301,6 +309,12 @@ export const createOptions = () => {
     param.contractCollectionPaymentPlanContractId &&
       param.contractCollectionPaymentPlanContractId.length > 0 &&
       include.push({ model: ContractCollectionPaymentPlanModel, as: 'contractCollectionPaymentPlanContractId' });
+    param.contractFileContractId &&
+      param.contractFileContractId.length > 0 &&
+      include.push({ model: ContractFileModel, as: 'contractFileContractId' });
+    param.contractMeetingContractId &&
+      param.contractMeetingContractId.length > 0 &&
+      include.push({ model: ContractMeetingModel, as: 'contractMeetingContractId' });
     param.contractSignContractId &&
       param.contractSignContractId.length > 0 &&
       include.push({ model: ContractSignModel, as: 'contractSignContractId' });
