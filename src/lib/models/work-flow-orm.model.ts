@@ -47,7 +47,7 @@ export class WorkFlowOrmModel extends BaseModel {
    * 工作流节点名称
    */
   @Column({ comment: '工作流节点名称', type: DataType.STRING(200) })
-  nodeName?: string;
+  nodeText?: string;
   /**
    * 具体类型id
    */
@@ -122,7 +122,7 @@ export class WORK_FLOW_ORM {
   /**
    * 工作流节点名称
    */
-  static readonly NODE_NAME: string = 'nodeName';
+  static readonly NODE_TEXT: string = 'nodeText';
 
   /**
    * 具体类型id

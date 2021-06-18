@@ -18,7 +18,7 @@ type WorkFlowOrm {
   # 流程节点id
   nodeId: String
   # 工作流节点名称
-  nodeName: String
+  nodeText: String
   # 具体类型id
   ormId: String
   # 类型project、budget、contract
@@ -94,7 +94,7 @@ input WorkFlowOrmSaveIn {
   # 流程节点id
   nodeId: String
   # 工作流节点名称
-  nodeName: String
+  nodeText: String
   # 具体类型id
   ormId: String
   # 类型project、budget、contract
