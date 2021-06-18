@@ -20,6 +20,13 @@ import {
 import * as Bb from 'bluebird';
 import { IRoleModel } from '../lib/models/role.model';
 import { IRoleGroupModel } from '../lib/models/role-group.model';
+import { RoleGroupItemModel } from '../lib/models/role-group-item.model';
+import {
+  IRouterRoleModel,
+  RouterRoleModel,
+  ROUTER_ROLE,
+} from '../lib/models/router-role.model';
+import { RouterModel } from '../lib/models/router.model';
 
 export interface IAppUserService extends AppUserService {}
 
@@ -50,6 +57,9 @@ export class AppUserService extends ServiceBase {
 
   @inject()
   roleGroupModel: IRoleGroupModel;
+
+  @inject()
+  routerRoleModel: IRouterRoleModel;
 
   @inject()
   organizationService: IOrganizationService;
@@ -114,11 +124,42 @@ export class AppUserService extends ServiceBase {
             .filter((p) => p.get('roleType') === 'roleGroup')
             .map((p) => p.get('typeId')),
         },
+        include: [
+          {
+            model: RoleGroupItemModel,
+            as: 'roleGroupItemRoleGroupId',
+          },
+        ],
       }),
     });
+    const roleAll = new Set();
+    roleList.forEach((p) => {
+      roleAll.add(p.get('id'));
+    });
+    roleGroupList.forEach((p) => {
+      p.roleGroupItemRoleGroupId.forEach((x) => {
+        roleAll.add(x.get('roleId'));
+      });
+    });
+    const routerList = await this.routerRoleModel.findAll<RouterRoleModel>({
+      where: {
+        [ROUTER_ROLE.ROLE_ID]: Array.from(roleAll) as Array<string>,
+      },
+      include: [
+        {
+          model: RouterModel,
+          as: 'routerIdObj',
+        },
+      ],
+    });
+    const routerAll = new Set();
+    routerList.forEach((p) => {
+      routerAll.add(p?.routerIdObj?.routerName);
+    });
     return {
-      roleIdList: roleList.map((p) => p.get('id')),
+      roleIdList: Array.from(roleAll),
       roleGroupIdList: roleGroupList.map((p) => p.get('id')),
+      routerList: Array.from(routerAll),
     };
   }
 
