@@ -123,6 +123,11 @@ export class ContractModel extends BaseModel {
   @Column({ comment: '项目id', type: DataType.STRING(50) })
   projectId?: string;
   /**
+   * 采购类型
+   */
+  @Column({ comment: '采购类型', type: DataType.STRING(50) })
+  purchaseType?: string;
+  /**
    * 备注
    */
   @Column({ comment: '备注', type: DataType.STRING(500) })
@@ -258,6 +263,11 @@ export class CONTRACT {
    * 项目id
    */
   static readonly PROJECT_ID: string = 'projectId';
+
+  /**
+   * 采购类型
+   */
+  static readonly PURCHASE_TYPE: string = 'purchaseType';
 
   /**
    * 备注

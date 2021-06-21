@@ -38,10 +38,10 @@ export class ContractCollectionPaymentPlanModel extends BaseModel {
   @Column({ comment: '收款比例', type: DataType.INTEGER })
   collectedProportion?: number;
   /**
-   * 收款备注
+   * 预算来源文件号
    */
-  @Column({ comment: '收款备注', type: DataType.DATE })
-  collectedRemark?: Date;
+  @Column({ comment: '预算来源文件号', type: DataType.STRING(500) })
+  collectedRemark?: string;
   /**
    * 收款时间
    */
@@ -109,7 +109,7 @@ export class CONTRACT_COLLECTION_PAYMENT_PLAN {
   static readonly COLLECTED_PROPORTION: string = 'collectedProportion';
 
   /**
-   * 收款备注
+   * 预算来源文件号
    */
   static readonly COLLECTED_REMARK: string = 'collectedRemark';
 

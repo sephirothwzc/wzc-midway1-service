@@ -7,8 +7,8 @@ type ContractCollectionPaymentPlan {
   collectedAmount: Float
   # 收款比例
   collectedProportion: Float
-  # 收款备注
-  collectedRemark: DateTime
+  # 预算来源文件号
+  collectedRemark: String
   # 收款时间
   collectedTime: DateTime
   # 合同id
@@ -33,13 +33,12 @@ type ContractCollectionPaymentPlan {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  contractCollectionPaymentContractCollectionPlanId(
-    param: QueryListParam
-  ): [ContractCollectionPayment]
+  contractCollectionPaymentContractCollectionPlanId(param: QueryListParam): [ContractCollectionPayment]
   contractIdObj: Contract
   modeObj: DataDictionary
   typeObj: DataDictionary
 }
+
 
 # 合同收款计划 分页查询返回
 type ContractCollectionPaymentPlanList {
@@ -51,31 +50,20 @@ extend type Query {
   # 合同收款计划 总行数
   contractCollectionPaymentPlanCount(param: QueryListParam): Int
   # 合同收款计划 分页查询
-  contractCollectionPaymentPlanList(
-    param: QueryListParam
-  ): ContractCollectionPaymentPlanList
+  contractCollectionPaymentPlanList(param: QueryListParam): ContractCollectionPaymentPlanList
   # 合同收款计划  id 获取
   contractCollectionPaymentPlan(id: ID!): ContractCollectionPaymentPlan
   # 合同收款计划 有条件返回
-  contractCollectionPaymentPlanAll(
-    param: QueryListParam
-  ): [ContractCollectionPaymentPlan]
+  contractCollectionPaymentPlanAll(param: QueryListParam): [ContractCollectionPaymentPlan]
 }
 
 extend type Mutation {
   # 合同收款计划 新增
-  contractCollectionPaymentPlanCreate(
-    param: ContractCollectionPaymentPlanSaveIn!
-  ): ContractCollectionPaymentPlan
+  contractCollectionPaymentPlanCreate(param: ContractCollectionPaymentPlanSaveIn!): ContractCollectionPaymentPlan
   # 合同收款计划 新增 or 修改
-  contractCollectionPaymentPlan(
-    param: ContractCollectionPaymentPlanSaveIn!
-    must: Boolean = false
-  ): String
+  contractCollectionPaymentPlan(param: ContractCollectionPaymentPlanSaveIn!, must: Boolean = false): String
   # 合同收款计划 批量 新增 or 修改
-  contractCollectionPaymentPlanBulk(
-    param: [ContractCollectionPaymentPlanSaveIn]!
-  ): [JSONObject]
+  contractCollectionPaymentPlanBulk(param: [ContractCollectionPaymentPlanSaveIn]!): [JSONObject]
   # 合同收款计划 删除
   contractCollectionPaymentPlanDestroy(where: JSONObject!, limit: Int): String
   # 合同收款计划 根据id删除
@@ -90,8 +78,8 @@ input ContractCollectionPaymentPlanSaveIn {
   collectedAmount: Float
   # 收款比例
   collectedProportion: Float
-  # 收款备注
-  collectedRemark: DateTime
+  # 预算来源文件号
+  collectedRemark: String
   # 收款时间
   collectedTime: DateTime
   # 合同id
