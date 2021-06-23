@@ -1,6 +1,7 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractCollectionPaymentFileModel } from './contract-collection-payment-file.model';
 import { ContractModel } from './contract.model';
 import { ContractCollectionPaymentPlanModel } from './contract-collection-payment-plan.model';
 import { CapitalAccountModel } from './capital-account.model';
@@ -94,6 +95,9 @@ export class ContractCollectionPaymentModel extends BaseModel {
   @ForeignKey(() => DataDictionaryModel)
   @Column({ comment: '收款类型', type: DataType.STRING(50) })
   type?: string;
+
+  @HasMany(() => ContractCollectionPaymentFileModel, 'contract_collection_payment_id')
+  contractCollectionPaymentFileContractCollectionPaymentId: Array<ContractCollectionPaymentFileModel>;
 
   @BelongsTo(() => ContractModel, 'contract_id')
   contractIdObj: ContractModel;
@@ -191,6 +195,27 @@ providerWrapper([
   {
     id: 'contractCollectionPaymentModel',
     provider: factory,
+  },
+]);
+
+export const createOptions = () => {
+  return (
+    param: ContractCollectionPaymentModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (!param.contractCollectionPaymentFileContractCollectionPaymentId) {
+      return {};
+    }
+    const include: any = [];
+    param.contractCollectionPaymentFileContractCollectionPaymentId &&
+      param.contractCollectionPaymentFileContractCollectionPaymentId.length > 0 &&
+      include.push({ model: ContractCollectionPaymentFileModel, as: 'contractCollectionPaymentFileContractCollectionPaymentId' });
+    return { include };
+  };
+};
+providerWrapper([
+  {
+    id: 'contractCollectionPaymentModel.createOptions',
+    provider: createOptions,
   },
 ]);
 

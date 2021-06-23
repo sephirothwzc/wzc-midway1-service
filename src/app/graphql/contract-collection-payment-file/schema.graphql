@@ -1,0 +1,101 @@
+# 合同文件
+type ContractCollectionPaymentFile {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同收款id
+  contractCollectionPaymentId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentIdObj: ContractCollectionPayment
+}
+
+
+# 合同文件 分页查询返回
+type ContractCollectionPaymentFileList {
+  count: Int!
+  list: [ContractCollectionPaymentFile]
+}
+
+extend type Query {
+  # 合同文件 总行数
+  contractCollectionPaymentFileCount(param: QueryListParam): Int
+  # 合同文件 分页查询
+  contractCollectionPaymentFileList(param: QueryListParam): ContractCollectionPaymentFileList
+  # 合同文件  id 获取
+  contractCollectionPaymentFile(id: ID!): ContractCollectionPaymentFile
+  # 合同文件 有条件返回
+  contractCollectionPaymentFileAll(param: QueryListParam): [ContractCollectionPaymentFile]
+}
+
+extend type Mutation {
+  # 合同文件 新增
+  contractCollectionPaymentFileCreate(param: ContractCollectionPaymentFileSaveIn!): ContractCollectionPaymentFile
+  # 合同文件 新增 or 修改
+  contractCollectionPaymentFile(param: ContractCollectionPaymentFileSaveIn!, must: Boolean = false): String
+  # 合同文件 批量 新增 or 修改
+  contractCollectionPaymentFileBulk(param: [ContractCollectionPaymentFileSaveIn]!): [JSONObject]
+  # 合同文件 删除
+  contractCollectionPaymentFileDestroy(where: JSONObject!, limit: Int): String
+  # 合同文件 根据id删除
+  contractCollectionPaymentFileDestroyById(id: String): String
+}
+
+input ContractCollectionPaymentFileSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同收款id
+  contractCollectionPaymentId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentIdObj: ContractCollectionPaymentSaveIn
+}

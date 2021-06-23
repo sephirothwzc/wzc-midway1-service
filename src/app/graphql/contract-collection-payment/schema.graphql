@@ -39,6 +39,7 @@ type ContractCollectionPayment {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractCollectionPaymentFileContractCollectionPaymentId(param: QueryListParam): [ContractCollectionPaymentFile]
   contractIdObj: Contract
   contractCollectionPlanIdObj: ContractCollectionPaymentPlan
   collectionAccountIdObj: CapitalAccount
@@ -46,6 +47,7 @@ type ContractCollectionPayment {
   modeObj: DataDictionary
   typeObj: DataDictionary
 }
+
 
 # 合同收款 分页查询返回
 type ContractCollectionPaymentList {
@@ -57,31 +59,20 @@ extend type Query {
   # 合同收款 总行数
   contractCollectionPaymentCount(param: QueryListParam): Int
   # 合同收款 分页查询
-  contractCollectionPaymentList(
-    param: QueryListParam
-  ): ContractCollectionPaymentList
+  contractCollectionPaymentList(param: QueryListParam): ContractCollectionPaymentList
   # 合同收款  id 获取
   contractCollectionPayment(id: ID!): ContractCollectionPayment
   # 合同收款 有条件返回
-  contractCollectionPaymentAll(
-    param: QueryListParam
-  ): [ContractCollectionPayment]
+  contractCollectionPaymentAll(param: QueryListParam): [ContractCollectionPayment]
 }
 
 extend type Mutation {
   # 合同收款 新增
-  contractCollectionPaymentCreate(
-    param: ContractCollectionPaymentSaveIn!
-  ): ContractCollectionPayment
+  contractCollectionPaymentCreate(param: ContractCollectionPaymentSaveIn!): ContractCollectionPayment
   # 合同收款 新增 or 修改
-  contractCollectionPayment(
-    param: ContractCollectionPaymentSaveIn!
-    must: Boolean = false
-  ): String
+  contractCollectionPayment(param: ContractCollectionPaymentSaveIn!, must: Boolean = false): String
   # 合同收款 批量 新增 or 修改
-  contractCollectionPaymentBulk(
-    param: [ContractCollectionPaymentSaveIn]!
-  ): [JSONObject]
+  contractCollectionPaymentBulk(param: [ContractCollectionPaymentSaveIn]!): [JSONObject]
   # 合同收款 删除
   contractCollectionPaymentDestroy(where: JSONObject!, limit: Int): String
   # 合同收款 根据id删除
@@ -128,6 +119,7 @@ input ContractCollectionPaymentSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractCollectionPaymentFileContractCollectionPaymentId: [ContractCollectionPaymentFileSaveIn]
   contractIdObj: ContractSaveIn
   contractCollectionPlanIdObj: ContractCollectionPaymentPlanSaveIn
   collectionAccountIdObj: CapitalAccountSaveIn
