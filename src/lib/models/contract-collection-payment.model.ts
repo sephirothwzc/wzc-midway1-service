@@ -68,11 +68,26 @@ export class ContractCollectionPaymentModel extends BaseModel {
   @Column({ comment: '合同id', type: DataType.STRING(50) })
   contractId?: string;
   /**
+   * 付款人
+   */
+  @Column({ comment: '付款人', type: DataType.STRING(50) })
+  drawee?: string;
+  /**
    * 收款方式
    */
   @ForeignKey(() => DataDictionaryModel)
   @Column({ comment: '收款方式', type: DataType.STRING(50) })
   mode?: string;
+  /**
+   * 操作人id
+   */
+  @Column({ comment: '操作人id', type: DataType.STRING(50) })
+  optionsUserId?: string;
+  /**
+   * 收款人
+   */
+  @Column({ comment: '收款人', type: DataType.STRING(50) })
+  payee?: string;
   /**
    * 付款账号id
    */
@@ -163,9 +178,24 @@ export class CONTRACT_COLLECTION_PAYMENT {
   static readonly CONTRACT_ID: string = 'contractId';
 
   /**
+   * 付款人
+   */
+  static readonly DRAWEE: string = 'drawee';
+
+  /**
    * 收款方式
    */
   static readonly MODE: string = 'mode';
+
+  /**
+   * 操作人id
+   */
+  static readonly OPTIONS_USER_ID: string = 'optionsUserId';
+
+  /**
+   * 收款人
+   */
+  static readonly PAYEE: string = 'payee';
 
   /**
    * 付款账号id
