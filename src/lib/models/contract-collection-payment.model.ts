@@ -42,8 +42,8 @@ export class ContractCollectionPaymentModel extends BaseModel {
   /**
    * 收款备注
    */
-  @Column({ comment: '收款备注', type: DataType.DATE })
-  collectedRemark?: Date;
+  @Column({ comment: '收款备注', type: DataType.STRING(500) })
+  collectedRemark?: string;
   /**
    * 收款时间
    */

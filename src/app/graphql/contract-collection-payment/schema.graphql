@@ -8,7 +8,7 @@ type ContractCollectionPayment {
   # 收款比例
   collectedProportion: Float
   # 收款备注
-  collectedRemark: DateTime
+  collectedRemark: String
   # 收款时间
   collectedTime: DateTime
   # 收款账号id
@@ -94,7 +94,7 @@ input ContractCollectionPaymentSaveIn {
   # 收款比例
   collectedProportion: Float
   # 收款备注
-  collectedRemark: DateTime
+  collectedRemark: String
   # 收款时间
   collectedTime: DateTime
   # 收款账号id
