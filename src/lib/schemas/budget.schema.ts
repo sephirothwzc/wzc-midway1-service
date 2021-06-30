@@ -2,6 +2,7 @@ import * as Joi from 'joi';
 
 // #region Graphql
 export const budgetMutationCreate = Joi.object().keys({
+  budgetAllocationId: Joi.string().allow('').allow(null).description('预算调拨id'),
   budgetCode: Joi.string().allow('').allow(null).description('预算编号[unique]'),
   businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),
@@ -20,6 +21,7 @@ export const budgetMutationCreate = Joi.object().keys({
 
 export const budgetMutationUpdate = Joi.object().keys({
 id: Joi.string().allow(''),
+  budgetAllocationId: Joi.string().allow('').allow(null).description('预算调拨id'),
   budgetCode: Joi.string().allow('').allow(null).description('预算编号[unique]'),
   businessCode: Joi.string().allow('').allow(null).description('业务编码权限用'),
   createdAt: Joi.date().allow(null).description('创建时间'),

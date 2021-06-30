@@ -1,6 +1,8 @@
 # 预算
 type Budget {
   id: ID
+  # 预算调拨id
+  budgetAllocationId: String
   # 预算编号[unique]
   budgetCode: String
   # 业务编码权限用
@@ -29,12 +31,16 @@ type Budget {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  budgetAllocationBudgetAid(param: QueryListParam): [BudgetAllocation]
+  budgetAllocationBudgetBid(param: QueryListParam): [BudgetAllocation]
+  budgetAllocationIdObj: BudgetAllocation
   budgetFileBudgetId(param: QueryListParam): [BudgetFile]
   departmentObj: Organization
   contractBudgetId(param: QueryListParam): [Contract]
   projectBudgetHisBudgetId(param: QueryListParam): [ProjectBudgetHis]
   projectBudgetBudgetId(param: QueryListParam): [ProjectBudget]
 }
+
 
 # 预算 分页查询返回
 type BudgetList {
@@ -68,6 +74,8 @@ extend type Mutation {
 
 input BudgetSaveIn {
   id: ID
+  # 预算调拨id
+  budgetAllocationId: String
   # 预算编号[unique]
   budgetCode: String
   # 业务编码权限用
@@ -96,9 +104,12 @@ input BudgetSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  budgetAllocationBudgetAid: [BudgetAllocationSaveIn]
+  budgetAllocationBudgetBid: [BudgetAllocationSaveIn]
   budgetFileBudgetId: [BudgetFileSaveIn]
   contractBudgetId: [ContractSaveIn]
   projectBudgetHisBudgetId: [ProjectBudgetHisSaveIn]
   projectBudgetBudgetId: [ProjectBudgetSaveIn]
+  budgetAllocationIdObj: BudgetAllocationSaveIn
   departmentObj: OrganizationSaveIn
 }

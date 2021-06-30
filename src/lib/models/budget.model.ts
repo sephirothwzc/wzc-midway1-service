@@ -1,6 +1,7 @@
 import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { BudgetAllocationModel } from './budget-allocation.model';
 import { BudgetFileModel } from './budget-file.model';
 import { OrganizationModel } from './organization.model';
 import { ContractModel } from './contract.model';
@@ -32,6 +33,12 @@ export type IBudgetModel = typeof BudgetModel;
   comment: '预算',
 })
 export class BudgetModel extends BaseModel {
+  /**
+   * 预算调拨id
+   */
+  @ForeignKey(() => BudgetAllocationModel)
+  @Column({ comment: '预算调拨id', type: DataType.STRING(50) })
+  budgetAllocationId?: string;
   /**
    * 预算编号[unique]
    */
@@ -74,6 +81,15 @@ export class BudgetModel extends BaseModel {
   @Column({ comment: '预算状态', type: DataType.STRING(50) })
   status?: string;
 
+  @HasMany(() => BudgetAllocationModel, 'budget_aid')
+  budgetAllocationBudgetAid: Array<BudgetAllocationModel>;
+
+  @HasMany(() => BudgetAllocationModel, 'budget_bid')
+  budgetAllocationBudgetBid: Array<BudgetAllocationModel>;
+
+  @BelongsTo(() => BudgetAllocationModel, 'budget_allocation_id')
+  budgetAllocationIdObj: BudgetAllocationModel;
+
   @HasMany(() => BudgetFileModel, 'budget_id')
   budgetFileBudgetId: Array<BudgetFileModel>;
 
@@ -93,6 +109,11 @@ export class BudgetModel extends BaseModel {
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class BUDGET {
+
+  /**
+   * 预算调拨id
+   */
+  static readonly BUDGET_ALLOCATION_ID: string = 'budgetAllocationId';
 
   /**
    * 预算编号[unique]
@@ -149,10 +170,16 @@ export const createOptions = () => {
   return (
     param: BudgetModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.budgetFileBudgetId && !param.contractBudgetId && !param.projectBudgetHisBudgetId && !param.projectBudgetBudgetId) {
+    if (!param.budgetAllocationBudgetAid && !param.budgetAllocationBudgetBid && !param.budgetFileBudgetId && !param.contractBudgetId && !param.projectBudgetHisBudgetId && !param.projectBudgetBudgetId) {
       return {};
     }
     const include: any = [];
+    param.budgetAllocationBudgetAid &&
+      param.budgetAllocationBudgetAid.length > 0 &&
+      include.push({ model: BudgetAllocationModel, as: 'budgetAllocationBudgetAid' });
+    param.budgetAllocationBudgetBid &&
+      param.budgetAllocationBudgetBid.length > 0 &&
+      include.push({ model: BudgetAllocationModel, as: 'budgetAllocationBudgetBid' });
     param.budgetFileBudgetId &&
       param.budgetFileBudgetId.length > 0 &&
       include.push({ model: BudgetFileModel, as: 'budgetFileBudgetId' });

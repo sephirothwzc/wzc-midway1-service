@@ -6,6 +6,20 @@ module.exports = {
   Query,
   Mutation,
   Budget: {
+    budgetAllocationBudgetAid: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'budgetAllocation');
+      _.set(_args, 'param.where.budgetAid', _root.id);
+      return service.findAll(_args.param);
+    },
+    budgetAllocationBudgetBid: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'budgetAllocation');
+      _.set(_args, 'param.where.budgetBid', _root.id);
+      return service.findAll(_args.param);
+    },
+    budgetAllocationIdObj: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx,'budgetAllocation');
+      return service.fetchById(_root.budgetAllocationId);
+    },
     budgetFileBudgetId: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'budgetFile');
       _.set(_args, 'param.where.budgetId', _root.id);

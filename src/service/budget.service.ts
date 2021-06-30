@@ -2,6 +2,7 @@ import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
 import { IBudgetModel, BudgetModel } from '../lib/models/budget.model';
+import { IBudgetAllocationService } from './budget-allocation.service';
 import { IOrganizationService } from './organization.service';
 
 export interface IBudgetService extends BudgetService {}
@@ -16,6 +17,8 @@ export class BudgetService extends ServiceGenericBase<BudgetModel> {
   budgetModel: IBudgetModel;
 
   @inject()
+  budgetAllocationService: IBudgetAllocationService;
+  @inject()
   organizationService: IOrganizationService;
   /**
    * 新增
@@ -23,6 +26,13 @@ export class BudgetService extends ServiceGenericBase<BudgetModel> {
    */
   public async create(values: BudgetModel, useOptions?: CreateOptions): Promise<BudgetModel> {
     const run = async (t: Transaction) => {
+      if (values.budgetAllocationIdObj && !values.budgetAllocationId) {
+        values.budgetAllocationId = (
+          await this.budgetAllocationService.create(values.budgetAllocationIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
       if (values.departmentObj && !values.department) {
         values.department = (
           await this.organizationService.create(values.departmentObj, {

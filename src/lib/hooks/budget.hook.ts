@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
+import { BUDGET_ALLOCATION, BudgetAllocationModel } from '../models/budget-allocation.model';
 import { BUDGET_FILE, BudgetFileModel } from '../models/budget-file.model';
 import { CONTRACT, ContractModel } from '../models/contract.model';
 import { PROJECT_BUDGET_HIS, ProjectBudgetHisModel } from '../models/project-budget-his.model';
@@ -15,7 +16,17 @@ export class BudgetHook {
     model: BudgetModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }
   ) {
-    const { budgetFileIbfk1, contractIbfk2, projectBudgetHisIbfk3, projectBudgetIbfk2 } = await Bb.props({
+    const { budgetAllocationIbfk2, budgetAllocationIbfk4, budgetFileIbfk1, contractIbfk2, projectBudgetHisIbfk3, projectBudgetIbfk2 } = await Bb.props({
+        budgetAllocationIbfk2: BudgetAllocationModel.findOne({
+          where: {
+            [BUDGET_ALLOCATION.BUDGET_AID]: model.get('id'),
+          },
+        }),
+        budgetAllocationIbfk4: BudgetAllocationModel.findOne({
+          where: {
+            [BUDGET_ALLOCATION.BUDGET_BID]: model.get('id'),
+          },
+        }),
         budgetFileIbfk1: BudgetFileModel.findOne({
           where: {
             [BUDGET_FILE.BUDGET_ID]: model.get('id'),
@@ -37,7 +48,7 @@ export class BudgetHook {
           },
         }),
     });
-    if (budgetFileIbfk1 || contractIbfk2 || projectBudgetHisIbfk3 || projectBudgetIbfk2) {
+    if (budgetAllocationIbfk2 || budgetAllocationIbfk4 || budgetFileIbfk1 || contractIbfk2 || projectBudgetHisIbfk3 || projectBudgetIbfk2) {
       throw new Error('已使用数据禁止删除');
     }
   }
