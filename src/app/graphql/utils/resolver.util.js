@@ -10,7 +10,9 @@ const _ = require('lodash');
 
 module.exports = (serviceName) => {
   const getService = async (ctx, otherName = serviceName) => {
-    const service = await ctx.requestContext.getAsync(`${otherName}Service`);
+    // 并发获取services 泛型 需要 同步不能异步
+    // const service = await ctx.requestContext.getAsync(`${otherName}Service`);
+    const service = ctx.requestContext.get(`${otherName}Service`);
     if (!service) {
       throw new Error(`[resolver.util] serviceName not find services inject!`);
     }
