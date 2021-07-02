@@ -1,6 +1,14 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { FormCustomSchemaModel } from './form-custom-schema.model';
 import { WorkFlowModel } from './work-flow.model';
 import { AppUserModel } from './app-user.model';
 import { WorkFlowOrmUserModel } from './work-flow-orm-user.model';
@@ -36,8 +44,23 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
-  @Column({ comment: '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认', type: DataType.STRING(50) })
+  @Column({
+    comment:
+      '节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认',
+    type: DataType.STRING(50),
+  })
   dataStatus?: string;
+  /**
+   * 权限表单为空则获取默认
+   */
+  @Column({ comment: '权限表单为空则获取默认', type: DataType.STRING(50) })
+  formAuthSchema?: string;
+  /**
+   * 权限表单id
+   */
+  @ForeignKey(() => FormCustomSchemaModel)
+  @Column({ comment: '权限表单id', type: DataType.STRING(50) })
+  formCustomSchemaId?: string;
   /**
    * 流程节点id
    */
@@ -56,7 +79,10 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 类型project、budget、contract
    */
-  @Column({ comment: '类型project、budget、contract', type: DataType.STRING(50) })
+  @Column({
+    comment: '类型project、budget、contract',
+    type: DataType.STRING(50),
+  })
   ormType?: string;
   /**
    * 驳回备注
@@ -82,8 +108,15 @@ export class WorkFlowOrmModel extends BaseModel {
   /**
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
-  @Column({ comment: '节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办', type: DataType.STRING(50) })
+  @Column({
+    comment:
+      '节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办',
+    type: DataType.STRING(50),
+  })
   workType?: string;
+
+  @BelongsTo(() => FormCustomSchemaModel, 'form_custom_schema_id')
+  formCustomSchemaIdObj: FormCustomSchemaModel;
 
   @BelongsTo(() => WorkFlowModel, 'work_flow_id')
   workFlowIdObj: WorkFlowModel;
@@ -93,12 +126,10 @@ export class WorkFlowOrmModel extends BaseModel {
 
   @HasMany(() => WorkFlowOrmUserModel, 'work_flow_orm_id')
   workFlowOrmUserWorkFlowOrmId: Array<WorkFlowOrmUserModel>;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class WORK_FLOW_ORM {
-
   /**
    * 业务编码权限用
    */
@@ -113,6 +144,16 @@ export class WORK_FLOW_ORM {
    * 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
    */
   static readonly DATA_STATUS: string = 'dataStatus';
+
+  /**
+   * 权限表单为空则获取默认
+   */
+  static readonly FORM_AUTH_SCHEMA: string = 'formAuthSchema';
+
+  /**
+   * 权限表单id
+   */
+  static readonly FORM_CUSTOM_SCHEMA_ID: string = 'formCustomSchemaId';
 
   /**
    * 流程节点id
@@ -158,7 +199,6 @@ export class WORK_FLOW_ORM {
    * 节点类型approval 审批、circulated 传阅、jointlySign 会签、agency 代办
    */
   static readonly WORK_TYPE: string = 'workType';
-
 }
 
 // @provide 用 工厂模式static model
@@ -180,7 +220,10 @@ export const createOptions = () => {
     const include: any = [];
     param.workFlowOrmUserWorkFlowOrmId &&
       param.workFlowOrmUserWorkFlowOrmId.length > 0 &&
-      include.push({ model: WorkFlowOrmUserModel, as: 'workFlowOrmUserWorkFlowOrmId' });
+      include.push({
+        model: WorkFlowOrmUserModel,
+        as: 'workFlowOrmUserWorkFlowOrmId',
+      });
     return { include };
   };
 };
@@ -190,4 +233,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-

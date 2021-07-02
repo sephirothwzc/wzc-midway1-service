@@ -7,6 +7,10 @@ module.exports = {
   Query,
   Mutation,
   WorkFlowOrm: {
+    formCustomSchemaIdObj: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'formCustomSchema');
+      return service.fetchById(_root.formCustomSchemaId);
+    },
     workFlowIdObj: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'workFlow');
       return service.fetchById(_root.workFlowId);
