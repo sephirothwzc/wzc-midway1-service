@@ -30,7 +30,7 @@ export const vBudgetMutationCreate = Joi.object().keys({
     .integer()
     .description('是否市级以上投资工程'),
   projectHasReview: Joi.number().integer().description('是否经过投资评审'),
-  projectId: Joi.string().allow('').allow(null).description(''),
+  projectId: Joi.string().allow('').allow(null).description('projectId'),
   projectIncorporatePerformance: Joi.number()
     .integer()
     .description('是否纳入绩效'),
@@ -111,7 +111,7 @@ export const vBudgetMutationUpdate = Joi.object().keys({
     .integer()
     .description('是否市级以上投资工程'),
   projectHasReview: Joi.number().integer().description('是否经过投资评审'),
-  projectId: Joi.string().allow('').allow(null).description(''),
+  projectId: Joi.string().allow('').allow(null).description('projectId'),
   projectIncorporatePerformance: Joi.number()
     .integer()
     .description('是否纳入绩效'),
