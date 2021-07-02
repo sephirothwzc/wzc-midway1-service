@@ -1,0 +1,96 @@
+# VIEW
+type VBudget {
+  id: ID
+  # 项目录入人
+  projectAddUserId: String
+  # 审定金额
+  projectApprovedAmount: Float
+  # 建设性质
+  projectBuildNatureId: String
+  # 业务编码权限用
+  projectBusinessCode: String
+  # 创建时间
+  projectCreatedAt: DateTime
+  # 创建人id
+  projectCreatedId: String
+  # 删除时间
+  projectDeletedAt: DateTime
+  # 删除人id
+  projectDeletedId: String
+  # 折子工程内容描述
+  projectEclecticContentDescribe: String
+  # 是否为折子工程
+  projectEclecticProject: Float
+  # 项目终止时间
+  projectEndDate: DateTime
+  # 是否政府采购
+  projectGovernmentPurchase: Float
+  # 是否市级以上投资工程
+  projectHasMunicipalLevel: Float
+  # 是否经过投资评审
+  projectHasReview: Float
+  projectId: String
+  # 是否纳入绩效
+  projectIncorporatePerformance: Float
+  # 投资金额
+  projectInvestmentAmount: Float
+  # 投资年度
+  projectInvestmentYear: Float
+  # 市级以上投资工程内容描述
+  projectMunicipalLevelContentDescribe: String
+  # 项目名称
+  projectName: String
+  # 是否常年项目
+  projectPerennial: Float
+  # 是否实施项目事前评估
+  projectPreEvaluation: Float
+  # 项目编号[unique]
+  projectProjectCode: String
+  # 项目组id
+  projectProjectGroupId: String
+  # 项目状态
+  projectProjectStatusId: String
+  # 功能科目
+  projectProjectSubjectId: String
+  # 项目类型
+  projectProjectTypeId: String
+  # 是否公共项目
+  projectPublicProjects: Float
+  # 是否购买服务
+  projectPurchaseService: Float
+  # 备注
+  projectRemark: String
+  # 责任科室
+  projectResponsibleOrganizationId: String
+  # 来源文号
+  projectSourceFile: String
+  # 项目起始时间
+  projectStartDate: DateTime
+  # 项目状态
+  projectStatus: String
+  # 项目简介
+  projectSynopsis: String
+  # 修改时间
+  projectUpdatedAt: DateTime
+  # 修改人id
+  projectUpdatedId: String
+  # 版本
+  projectVersion: Float
+}
+
+# VIEW 分页查询返回
+type VBudgetList {
+  count: Int!
+  list: [VBudget]
+}
+
+extend type Query {
+  # VIEW 总行数
+  vBudgetCount(param: QueryListParam): Int
+  # VIEW 分页查询
+  vBudgetList(param: QueryListParam): VBudgetList
+  # VIEW  id 获取
+  vBudget(id: ID!): VBudget
+  # VIEW 有条件返回
+  vBudgetAll(param: QueryListParam): [VBudget]
+}
