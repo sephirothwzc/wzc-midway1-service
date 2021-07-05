@@ -75,6 +75,18 @@ module.exports = {
           type: INTEGER,
           comment: '投资年度',
         },
+        // start_date: {
+        //   type: DATE,
+        //   comment: '项目起始时间',
+        // },
+        // end_date: {
+        //   type: DATE,
+        //   comment: '项目终止时间',
+        // },
+        // investment_amount: {
+        //   type: INTEGER,
+        //   comment: '投资金额',
+        // },
         source_file: {
           type: STRING(50),
           comment: '来源文件号',

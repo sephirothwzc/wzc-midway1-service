@@ -82,7 +82,7 @@ export default (appInfo: EggAppInfo) => {
       return !(
         ctx.method === 'POST' &&
         ctx.url.includes('/graphql') &&
-        ctx.body
+        ctx.request.body
       );
     },
   };
@@ -95,7 +95,7 @@ export default (appInfo: EggAppInfo) => {
       return !(
         ctx.method === 'POST' &&
         ctx.url.includes('/graphql') &&
-        ctx.body
+        ctx.request.body
       );
     },
   };

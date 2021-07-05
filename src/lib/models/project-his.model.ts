@@ -1,4 +1,11 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ProjectBudgetHisModel } from './project-budget-his.model';
@@ -59,6 +66,11 @@ export class ProjectHisModel extends BaseModel {
   @Column({ comment: '是否为折子工程', type: DataType.INTEGER })
   eclecticProject?: number;
   /**
+   * 项目终止时间
+   */
+  @Column({ comment: '项目终止时间', type: DataType.DATE })
+  endDate?: Date;
+  /**
    * 是否政府采购
    */
   @Column({ comment: '是否政府采购', type: DataType.INTEGER })
@@ -78,6 +90,11 @@ export class ProjectHisModel extends BaseModel {
    */
   @Column({ comment: '是否纳入绩效', type: DataType.INTEGER })
   incorporatePerformance?: number;
+  /**
+   * 投资金额
+   */
+  @Column({ comment: '投资金额', type: DataType.INTEGER })
+  investmentAmount?: number;
   /**
    * 投资年度
    */
@@ -165,6 +182,11 @@ export class ProjectHisModel extends BaseModel {
   @Column({ comment: '来源文件号', type: DataType.STRING(50) })
   sourceFile?: string;
   /**
+   * 项目起始时间
+   */
+  @Column({ comment: '项目起始时间', type: DataType.DATE })
+  startDate?: Date;
+  /**
    * 项目组简介
    */
   @Column({ comment: '项目组简介', type: DataType.STRING(200) })
@@ -204,12 +226,10 @@ export class ProjectHisModel extends BaseModel {
 
   @BelongsTo(() => AppUserModel, 'add_user_id')
   addUserIdObj: AppUserModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class PROJECT_HIS {
-
   /**
    * 项目录入人
    */
@@ -241,6 +261,11 @@ export class PROJECT_HIS {
   static readonly ECLECTIC_PROJECT: string = 'eclecticProject';
 
   /**
+   * 项目终止时间
+   */
+  static readonly END_DATE: string = 'endDate';
+
+  /**
    * 是否政府采购
    */
   static readonly GOVERNMENT_PURCHASE: string = 'governmentPurchase';
@@ -261,6 +286,11 @@ export class PROJECT_HIS {
   static readonly INCORPORATE_PERFORMANCE: string = 'incorporatePerformance';
 
   /**
+   * 投资金额
+   */
+  static readonly INVESTMENT_AMOUNT: string = 'investmentAmount';
+
+  /**
    * 投资年度
    */
   static readonly INVESTMENT_YEAR: string = 'investmentYear';
@@ -268,7 +298,8 @@ export class PROJECT_HIS {
   /**
    * 市级以上投资工程内容描述
    */
-  static readonly MUNICIPAL_LEVEL_CONTENT_DESCRIBE: string = 'municipalLevelContentDescribe';
+  static readonly MUNICIPAL_LEVEL_CONTENT_DESCRIBE: string =
+    'municipalLevelContentDescribe';
 
   /**
    * 项目名称
@@ -333,12 +364,18 @@ export class PROJECT_HIS {
   /**
    * 责任科室
    */
-  static readonly RESPONSIBLE_ORGANIZATION_ID: string = 'responsibleOrganizationId';
+  static readonly RESPONSIBLE_ORGANIZATION_ID: string =
+    'responsibleOrganizationId';
 
   /**
    * 来源文件号
    */
   static readonly SOURCE_FILE: string = 'sourceFile';
+
+  /**
+   * 项目起始时间
+   */
+  static readonly START_DATE: string = 'startDate';
 
   /**
    * 项目组简介
@@ -349,7 +386,6 @@ export class PROJECT_HIS {
    * 版本
    */
   static readonly VERSION: string = 'version';
-
 }
 
 // @provide 用 工厂模式static model
@@ -365,16 +401,25 @@ export const createOptions = () => {
   return (
     param: ProjectHisModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.projectBudgetHisProjectHisId && !param.projectFileHisProjectHisId) {
+    if (
+      !param.projectBudgetHisProjectHisId &&
+      !param.projectFileHisProjectHisId
+    ) {
       return {};
     }
     const include: any = [];
     param.projectBudgetHisProjectHisId &&
       param.projectBudgetHisProjectHisId.length > 0 &&
-      include.push({ model: ProjectBudgetHisModel, as: 'projectBudgetHisProjectHisId' });
+      include.push({
+        model: ProjectBudgetHisModel,
+        as: 'projectBudgetHisProjectHisId',
+      });
     param.projectFileHisProjectHisId &&
       param.projectFileHisProjectHisId.length > 0 &&
-      include.push({ model: ProjectFileHisModel, as: 'projectFileHisProjectHisId' });
+      include.push({
+        model: ProjectFileHisModel,
+        as: 'projectFileHisProjectHisId',
+      });
     return { include };
   };
 };
@@ -384,4 +429,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-

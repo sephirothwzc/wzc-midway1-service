@@ -21,6 +21,8 @@ type ProjectHis {
   eclecticContentDescribe: String
   # 是否为折子工程
   eclecticProject: Float
+  # 项目终止时间
+  endDate: DateTime
   # 是否政府采购
   governmentPurchase: Float
   # 是否市级以上投资工程
@@ -29,6 +31,8 @@ type ProjectHis {
   hasReview: Float
   # 是否纳入绩效
   incorporatePerformance: Float
+  # 投资金额
+  investmentAmount: Float
   # 投资年度
   investmentYear: Float
   # 市级以上投资工程内容描述
@@ -61,6 +65,8 @@ type ProjectHis {
   responsibleOrganizationId: String
   # 来源文件号
   sourceFile: String
+  # 项目起始时间
+  startDate: DateTime
   # 项目组简介
   synopsis: String
   # 修改时间
@@ -133,6 +139,8 @@ input ProjectHisSaveIn {
   eclecticContentDescribe: String
   # 是否为折子工程
   eclecticProject: Float
+  # 项目终止时间
+  endDate: DateTime
   # 是否政府采购
   governmentPurchase: Float
   # 是否市级以上投资工程
@@ -141,6 +149,8 @@ input ProjectHisSaveIn {
   hasReview: Float
   # 是否纳入绩效
   incorporatePerformance: Float
+  # 投资金额
+  investmentAmount: Float
   # 投资年度
   investmentYear: Float
   # 市级以上投资工程内容描述
@@ -173,6 +183,8 @@ input ProjectHisSaveIn {
   responsibleOrganizationId: String
   # 来源文件号
   sourceFile: String
+  # 项目起始时间
+  startDate: DateTime
   # 项目组简介
   synopsis: String
   # 修改时间
