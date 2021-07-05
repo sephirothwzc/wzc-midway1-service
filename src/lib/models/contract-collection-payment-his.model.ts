@@ -1,4 +1,10 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ContractCollectionPaymentModel } from './contract-collection-payment.model';
@@ -14,7 +20,8 @@ import { DataDictionaryModel } from './data-dictionary.model';
 /**
  * 合同收款历史
  */
-export type IContractCollectionPaymentHisModel = typeof ContractCollectionPaymentHisModel;
+export type IContractCollectionPaymentHisModel =
+  typeof ContractCollectionPaymentHisModel;
 
 /**
  * 合同收款历史
@@ -74,11 +81,26 @@ export class ContractCollectionPaymentHisModel extends BaseModel {
   @Column({ comment: '合同id', type: DataType.STRING(50) })
   contractId?: string;
   /**
+   * 付款人
+   */
+  @Column({ comment: '付款人', type: DataType.STRING(50) })
+  drawee?: string;
+  /**
    * 收款方式
    */
   @ForeignKey(() => DataDictionaryModel)
   @Column({ comment: '收款方式', type: DataType.STRING(50) })
   mode?: string;
+  /**
+   * 操作人id
+   */
+  @Column({ comment: '操作人id', type: DataType.STRING(50) })
+  optionsUserId?: string;
+  /**
+   * 收款人
+   */
+  @Column({ comment: '收款人', type: DataType.STRING(50) })
+  payee?: string;
   /**
    * 付款账号id
    */
@@ -102,13 +124,19 @@ export class ContractCollectionPaymentHisModel extends BaseModel {
   @Column({ comment: '收款类型', type: DataType.STRING(50) })
   type?: string;
 
-  @BelongsTo(() => ContractCollectionPaymentModel, 'contract_collection_payment_id')
+  @BelongsTo(
+    () => ContractCollectionPaymentModel,
+    'contract_collection_payment_id'
+  )
   contractCollectionPaymentIdObj: ContractCollectionPaymentModel;
 
   @BelongsTo(() => ContractModel, 'contract_id')
   contractIdObj: ContractModel;
 
-  @BelongsTo(() => ContractCollectionPaymentPlanModel, 'contract_collection_plan_id')
+  @BelongsTo(
+    () => ContractCollectionPaymentPlanModel,
+    'contract_collection_plan_id'
+  )
   contractCollectionPlanIdObj: ContractCollectionPaymentPlanModel;
 
   @BelongsTo(() => CapitalAccountModel, 'collection_account_id')
@@ -122,12 +150,10 @@ export class ContractCollectionPaymentHisModel extends BaseModel {
 
   @BelongsTo(() => DataDictionaryModel, 'type')
   typeObj: DataDictionaryModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class CONTRACT_COLLECTION_PAYMENT_HIS {
-
   /**
    * 业务编码权限用
    */
@@ -161,12 +187,14 @@ export class CONTRACT_COLLECTION_PAYMENT_HIS {
   /**
    * 合同收款id
    */
-  static readonly CONTRACT_COLLECTION_PAYMENT_ID: string = 'contractCollectionPaymentId';
+  static readonly CONTRACT_COLLECTION_PAYMENT_ID: string =
+    'contractCollectionPaymentId';
 
   /**
    * 合同收款计划id 可以为空
    */
-  static readonly CONTRACT_COLLECTION_PLAN_ID: string = 'contractCollectionPlanId';
+  static readonly CONTRACT_COLLECTION_PLAN_ID: string =
+    'contractCollectionPlanId';
 
   /**
    * 合同id
@@ -174,9 +202,24 @@ export class CONTRACT_COLLECTION_PAYMENT_HIS {
   static readonly CONTRACT_ID: string = 'contractId';
 
   /**
+   * 付款人
+   */
+  static readonly DRAWEE: string = 'drawee';
+
+  /**
    * 收款方式
    */
   static readonly MODE: string = 'mode';
+
+  /**
+   * 操作人id
+   */
+  static readonly OPTIONS_USER_ID: string = 'optionsUserId';
+
+  /**
+   * 收款人
+   */
+  static readonly PAYEE: string = 'payee';
 
   /**
    * 付款账号id
@@ -197,7 +240,6 @@ export class CONTRACT_COLLECTION_PAYMENT_HIS {
    * 收款类型
    */
   static readonly TYPE: string = 'type';
-
 }
 
 // @provide 用 工厂模式static model
@@ -208,4 +250,3 @@ providerWrapper([
     provider: factory,
   },
 ]);
-

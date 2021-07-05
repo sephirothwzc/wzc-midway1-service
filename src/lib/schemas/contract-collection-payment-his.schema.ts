@@ -27,7 +27,10 @@ export const contractCollectionPaymentHisMutationCreate = Joi.object().keys({
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
   deletedAt: Joi.date().allow(null).description('删除时间'),
   deletedId: Joi.string().allow('').allow(null).description('删除人id'),
+  drawee: Joi.string().allow('').allow(null).description('付款人'),
   mode: Joi.string().allow('').allow(null).description('收款方式'),
+  optionsUserId: Joi.string().allow('').allow(null).description('操作人id'),
+  payee: Joi.string().allow('').allow(null).description('收款人'),
   paymentAccountId: Joi.string()
     .allow('')
     .allow(null)
@@ -66,7 +69,10 @@ export const contractCollectionPaymentHisMutationUpdate = Joi.object().keys({
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
   deletedAt: Joi.date().allow(null).description('删除时间'),
   deletedId: Joi.string().allow('').allow(null).description('删除人id'),
+  drawee: Joi.string().allow('').allow(null).description('付款人'),
   mode: Joi.string().allow('').allow(null).description('收款方式'),
+  optionsUserId: Joi.string().allow('').allow(null).description('操作人id'),
+  payee: Joi.string().allow('').allow(null).description('收款人'),
   paymentAccountId: Joi.string()
     .allow('')
     .allow(null)

@@ -27,8 +27,14 @@ type ContractCollectionPaymentHis {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
+  # 付款人
+  drawee: String
   # 收款方式
   mode: String
+  # 操作人id
+  optionsUserId: String
+  # 收款人
+  payee: String
   # 付款账号id
   paymentAccountId: String
   # 备注
@@ -119,8 +125,14 @@ input ContractCollectionPaymentHisSaveIn {
   deletedAt: DateTime
   # 删除人id
   deletedId: String
+  # 付款人
+  drawee: String
   # 收款方式
   mode: String
+  # 操作人id
+  optionsUserId: String
+  # 收款人
+  payee: String
   # 付款账号id
   paymentAccountId: String
   # 备注
