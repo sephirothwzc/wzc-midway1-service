@@ -77,6 +77,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('project_file');
+    await queryInterface.dropTable('contract_file');
   },
 };

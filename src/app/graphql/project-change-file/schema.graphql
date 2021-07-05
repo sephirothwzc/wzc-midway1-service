@@ -1,0 +1,109 @@
+# 项目变更文件
+type ProjectChangeFile {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 变更id
+  projectChangeId: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  projectChangeIdObj: ProjectChange
+  projectIdObj: Project
+}
+
+# 项目变更文件 分页查询返回
+type ProjectChangeFileList {
+  count: Int!
+  list: [ProjectChangeFile]
+}
+
+extend type Query {
+  # 项目变更文件 总行数
+  projectChangeFileCount(param: QueryListParam): Int
+  # 项目变更文件 分页查询
+  projectChangeFileList(param: QueryListParam): ProjectChangeFileList
+  # 项目变更文件  id 获取
+  projectChangeFile(id: ID!): ProjectChangeFile
+  # 项目变更文件 有条件返回
+  projectChangeFileAll(param: QueryListParam): [ProjectChangeFile]
+}
+
+extend type Mutation {
+  # 项目变更文件 新增
+  projectChangeFileCreate(param: ProjectChangeFileSaveIn!): ProjectChangeFile
+  # 项目变更文件 新增 or 修改
+  projectChangeFile(
+    param: ProjectChangeFileSaveIn!
+    must: Boolean = false
+  ): String
+  # 项目变更文件 批量 新增 or 修改
+  projectChangeFileBulk(param: [ProjectChangeFileSaveIn]!): [JSONObject]
+  # 项目变更文件 删除
+  projectChangeFileDestroy(where: JSONObject!, limit: Int): String
+  # 项目变更文件 根据id删除
+  projectChangeFileDestroyById(id: String): String
+}
+
+input ProjectChangeFileSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 变更id
+  projectChangeId: String
+  # 项目id
+  projectId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  projectChangeIdObj: ProjectChangeSaveIn
+  projectIdObj: ProjectSaveIn
+}

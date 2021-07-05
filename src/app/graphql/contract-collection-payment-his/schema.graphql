@@ -1,0 +1,143 @@
+# 合同收款历史
+type ContractCollectionPaymentHis {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 收款金额
+  collectedAmount: Float
+  # 收款比例
+  collectedProportion: Float
+  # 收款备注
+  collectedRemark: DateTime
+  # 收款时间
+  collectedTime: DateTime
+  # 收款账号id
+  collectionAccountId: String
+  # 合同收款id
+  contractCollectionPaymentId: String
+  # 合同收款计划id 可以为空
+  contractCollectionPlanId: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 收款方式
+  mode: String
+  # 付款账号id
+  paymentAccountId: String
+  # 备注
+  remark: String
+  # 收款状态
+  status: String
+  # 收款类型
+  type: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentIdObj: ContractCollectionPayment
+  contractIdObj: Contract
+  contractCollectionPlanIdObj: ContractCollectionPaymentPlan
+  collectionAccountIdObj: CapitalAccount
+  paymentAccountIdObj: CapitalAccount
+  modeObj: DataDictionary
+  typeObj: DataDictionary
+}
+
+# 合同收款历史 分页查询返回
+type ContractCollectionPaymentHisList {
+  count: Int!
+  list: [ContractCollectionPaymentHis]
+}
+
+extend type Query {
+  # 合同收款历史 总行数
+  contractCollectionPaymentHisCount(param: QueryListParam): Int
+  # 合同收款历史 分页查询
+  contractCollectionPaymentHisList(
+    param: QueryListParam
+  ): ContractCollectionPaymentHisList
+  # 合同收款历史  id 获取
+  contractCollectionPaymentHis(id: ID!): ContractCollectionPaymentHis
+  # 合同收款历史 有条件返回
+  contractCollectionPaymentHisAll(
+    param: QueryListParam
+  ): [ContractCollectionPaymentHis]
+}
+
+extend type Mutation {
+  # 合同收款历史 新增
+  contractCollectionPaymentHisCreate(
+    param: ContractCollectionPaymentHisSaveIn!
+  ): ContractCollectionPaymentHis
+  # 合同收款历史 新增 or 修改
+  contractCollectionPaymentHis(
+    param: ContractCollectionPaymentHisSaveIn!
+    must: Boolean = false
+  ): String
+  # 合同收款历史 批量 新增 or 修改
+  contractCollectionPaymentHisBulk(
+    param: [ContractCollectionPaymentHisSaveIn]!
+  ): [JSONObject]
+  # 合同收款历史 删除
+  contractCollectionPaymentHisDestroy(where: JSONObject!, limit: Int): String
+  # 合同收款历史 根据id删除
+  contractCollectionPaymentHisDestroyById(id: String): String
+}
+
+input ContractCollectionPaymentHisSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 收款金额
+  collectedAmount: Float
+  # 收款比例
+  collectedProportion: Float
+  # 收款备注
+  collectedRemark: DateTime
+  # 收款时间
+  collectedTime: DateTime
+  # 收款账号id
+  collectionAccountId: String
+  # 合同收款id
+  contractCollectionPaymentId: String
+  # 合同收款计划id 可以为空
+  contractCollectionPlanId: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 收款方式
+  mode: String
+  # 付款账号id
+  paymentAccountId: String
+  # 备注
+  remark: String
+  # 收款状态
+  status: String
+  # 收款类型
+  type: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractCollectionPaymentIdObj: ContractCollectionPaymentSaveIn
+  contractIdObj: ContractSaveIn
+  contractCollectionPlanIdObj: ContractCollectionPaymentPlanSaveIn
+  collectionAccountIdObj: CapitalAccountSaveIn
+  paymentAccountIdObj: CapitalAccountSaveIn
+  modeObj: DataDictionarySaveIn
+  typeObj: DataDictionarySaveIn
+}

@@ -1,0 +1,162 @@
+# 合同历史
+type ContractHis {
+  id: ID
+  # 录入人
+  addUserId: String
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 合同编号[unique]
+  contractCode: String
+  # 合同id
+  contractId: String
+  # 合同名称[unique]
+  contractName: String
+  # 合同性质
+  contractNatureId: String
+  # 签订期限止
+  contractPeriodEnd: DateTime
+  # 签订期限起
+  contractPeriodStart: DateTime
+  # 合同备注
+  contractRemark: String
+  # 合同状态
+  contractStatusId: String
+  # 合同类型
+  contractTypeId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 合同归属部门
+  organizationId: String
+  # 项目编号
+  projectCode: String
+  # 项目id
+  projectId: String
+  # 采购类型
+  purchaseType: String
+  # 备注
+  remark: String
+  # 签订金额
+  signingAmount: Float
+  # 签订日期
+  signingDate: DateTime
+  # 预算来源文件号
+  sourceNumber: String
+  # 合同状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractIdObj: Contract
+  projectIdObj: Project
+  budgetIdObj: Budget
+  contractTypeIdObj: DataDictionary
+  contractStatusIdObj: DataDictionary
+  contractNatureIdObj: DataDictionary
+  addUserIdObj: AppUser
+  organizationIdObj: Organization
+}
+
+# 合同历史 分页查询返回
+type ContractHisList {
+  count: Int!
+  list: [ContractHis]
+}
+
+extend type Query {
+  # 合同历史 总行数
+  contractHisCount(param: QueryListParam): Int
+  # 合同历史 分页查询
+  contractHisList(param: QueryListParam): ContractHisList
+  # 合同历史  id 获取
+  contractHis(id: ID!): ContractHis
+  # 合同历史 有条件返回
+  contractHisAll(param: QueryListParam): [ContractHis]
+}
+
+extend type Mutation {
+  # 合同历史 新增
+  contractHisCreate(param: ContractHisSaveIn!): ContractHis
+  # 合同历史 新增 or 修改
+  contractHis(param: ContractHisSaveIn!, must: Boolean = false): String
+  # 合同历史 批量 新增 or 修改
+  contractHisBulk(param: [ContractHisSaveIn]!): [JSONObject]
+  # 合同历史 删除
+  contractHisDestroy(where: JSONObject!, limit: Int): String
+  # 合同历史 根据id删除
+  contractHisDestroyById(id: String): String
+}
+
+input ContractHisSaveIn {
+  id: ID
+  # 录入人
+  addUserId: String
+  # 预算id
+  budgetId: String
+  # 业务编码权限用
+  businessCode: String
+  # 合同编号[unique]
+  contractCode: String
+  # 合同id
+  contractId: String
+  # 合同名称[unique]
+  contractName: String
+  # 合同性质
+  contractNatureId: String
+  # 签订期限止
+  contractPeriodEnd: DateTime
+  # 签订期限起
+  contractPeriodStart: DateTime
+  # 合同备注
+  contractRemark: String
+  # 合同状态
+  contractStatusId: String
+  # 合同类型
+  contractTypeId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 合同归属部门
+  organizationId: String
+  # 项目编号
+  projectCode: String
+  # 项目id
+  projectId: String
+  # 采购类型
+  purchaseType: String
+  # 备注
+  remark: String
+  # 签订金额
+  signingAmount: Float
+  # 签订日期
+  signingDate: DateTime
+  # 预算来源文件号
+  sourceNumber: String
+  # 合同状态
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractIdObj: ContractSaveIn
+  projectIdObj: ProjectSaveIn
+  budgetIdObj: BudgetSaveIn
+  contractTypeIdObj: DataDictionarySaveIn
+  contractStatusIdObj: DataDictionarySaveIn
+  contractNatureIdObj: DataDictionarySaveIn
+  addUserIdObj: AppUserSaveIn
+  organizationIdObj: OrganizationSaveIn
+}

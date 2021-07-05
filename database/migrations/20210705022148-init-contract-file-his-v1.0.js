@@ -21,9 +21,14 @@ module.exports = {
       DECIMAL,
     } = Sequelize;
     await queryInterface.createTable(
-      'contract_meeting',
+      'contract_file_his',
       {
         ...parentColumn,
+        contract_file_id: {
+          type: STRING(50),
+          references: references('contract_file'),
+          comment: '合同文件id',
+        },
         contract_id: {
           type: STRING(50),
           references: references('contract'),
@@ -65,7 +70,7 @@ module.exports = {
         },
       },
       {
-        comment: '合同会议纪要',
+        comment: '合同文件历史',
       }
     );
   },
@@ -77,6 +82,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('contract_meeting');
+    await queryInterface.dropTable('contract_file_his');
   },
 };

@@ -21,7 +21,7 @@ module.exports = {
       DECIMAL,
     } = Sequelize;
     await queryInterface.createTable(
-      'contract_meeting',
+      'contract_change',
       {
         ...parentColumn,
         contract_id: {
@@ -29,43 +29,17 @@ module.exports = {
           references: references('contract'),
           comment: '合同id',
         },
-        file_type: {
+        change_type: {
           type: STRING(50),
-          comment: '文件类型',
+          comment: '变更类型',
         },
-        image_uri: {
+        change_remark: {
           type: STRING(500),
-          allowNull,
-          defaultVlue: '',
-          comment: '域名 默认空，走config的oss url',
-        },
-        image_path: {
-          type: STRING(500),
-          allowNull,
-          defaultVlue: '',
-          comment: '路径',
-        },
-        image_name: {
-          type: STRING(500),
-          allowNull,
-          comment: '文件名',
-          defaultValue: '',
-        },
-        image_suffix: {
-          type: STRING(200),
-          allowNull,
-          comment: '文件名后缀',
-          defaultValue: '',
-        },
-        image_size: {
-          type: INTEGER,
-          allowNull,
-          comment: '文件大小',
-          defaultValue: 0,
+          comment: '变更描述',
         },
       },
       {
-        comment: '合同会议纪要',
+        comment: '合同变更',
       }
     );
   },
@@ -77,6 +51,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('contract_meeting');
+    await queryInterface.dropTable('contract_change');
   },
 };

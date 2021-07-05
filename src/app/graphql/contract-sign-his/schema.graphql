@@ -1,0 +1,94 @@
+# 签约双方历史
+type ContractSignHis {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同id
+  contractId: String
+  # 合同签约id
+  contractSignId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 企业信息id
+  enterpriseId: String
+  # 签约类型甲方、乙方
+  enterpriseType: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractSignIdObj: ContractSign
+  contractIdObj: Contract
+  enterpriseIdObj: Enterprise
+}
+
+
+# 签约双方历史 分页查询返回
+type ContractSignHisList {
+  count: Int!
+  list: [ContractSignHis]
+}
+
+extend type Query {
+  # 签约双方历史 总行数
+  contractSignHisCount(param: QueryListParam): Int
+  # 签约双方历史 分页查询
+  contractSignHisList(param: QueryListParam): ContractSignHisList
+  # 签约双方历史  id 获取
+  contractSignHis(id: ID!): ContractSignHis
+  # 签约双方历史 有条件返回
+  contractSignHisAll(param: QueryListParam): [ContractSignHis]
+}
+
+extend type Mutation {
+  # 签约双方历史 新增
+  contractSignHisCreate(param: ContractSignHisSaveIn!): ContractSignHis
+  # 签约双方历史 新增 or 修改
+  contractSignHis(param: ContractSignHisSaveIn!, must: Boolean = false): String
+  # 签约双方历史 批量 新增 or 修改
+  contractSignHisBulk(param: [ContractSignHisSaveIn]!): [JSONObject]
+  # 签约双方历史 删除
+  contractSignHisDestroy(where: JSONObject!, limit: Int): String
+  # 签约双方历史 根据id删除
+  contractSignHisDestroyById(id: String): String
+}
+
+input ContractSignHisSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 合同id
+  contractId: String
+  # 合同签约id
+  contractSignId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 企业信息id
+  enterpriseId: String
+  # 签约类型甲方、乙方
+  enterpriseType: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractSignIdObj: ContractSignSaveIn
+  contractIdObj: ContractSaveIn
+  enterpriseIdObj: EnterpriseSaveIn
+}
+

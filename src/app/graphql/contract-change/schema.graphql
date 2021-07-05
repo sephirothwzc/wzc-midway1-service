@@ -1,0 +1,88 @@
+# 合同变更
+type ContractChange {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 变更描述
+  changeRemark: String
+  # 变更类型
+  changeType: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractChangeFileContractChangeId(
+    param: QueryListParam
+  ): [ContractChangeFile]
+  contractIdObj: Contract
+}
+
+# 合同变更 分页查询返回
+type ContractChangeList {
+  count: Int!
+  list: [ContractChange]
+}
+
+extend type Query {
+  # 合同变更 总行数
+  contractChangeCount(param: QueryListParam): Int
+  # 合同变更 分页查询
+  contractChangeList(param: QueryListParam): ContractChangeList
+  # 合同变更  id 获取
+  contractChange(id: ID!): ContractChange
+  # 合同变更 有条件返回
+  contractChangeAll(param: QueryListParam): [ContractChange]
+}
+
+extend type Mutation {
+  # 合同变更 新增
+  contractChangeCreate(param: ContractChangeSaveIn!): ContractChange
+  # 合同变更 新增 or 修改
+  contractChange(param: ContractChangeSaveIn!, must: Boolean = false): String
+  # 合同变更 批量 新增 or 修改
+  contractChangeBulk(param: [ContractChangeSaveIn]!): [JSONObject]
+  # 合同变更 删除
+  contractChangeDestroy(where: JSONObject!, limit: Int): String
+  # 合同变更 根据id删除
+  contractChangeDestroyById(id: String): String
+}
+
+input ContractChangeSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 变更描述
+  changeRemark: String
+  # 变更类型
+  changeType: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractChangeFileContractChangeId: [ContractChangeFileSaveIn]
+  contractIdObj: ContractSaveIn
+}

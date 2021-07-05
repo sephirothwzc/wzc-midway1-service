@@ -21,51 +21,31 @@ module.exports = {
       DECIMAL,
     } = Sequelize;
     await queryInterface.createTable(
-      'contract_meeting',
+      'contract_sign_his',
       {
         ...parentColumn,
+        contract_sign_id: {
+          type: STRING(50),
+          references: references('contract_sign'),
+          comment: '合同签约id',
+        },
         contract_id: {
           type: STRING(50),
           references: references('contract'),
           comment: '合同id',
         },
-        file_type: {
+        enterprise_id: {
           type: STRING(50),
-          comment: '文件类型',
+          references: references('enterprise'),
+          comment: '企业信息id',
         },
-        image_uri: {
-          type: STRING(500),
-          allowNull,
-          defaultVlue: '',
-          comment: '域名 默认空，走config的oss url',
-        },
-        image_path: {
-          type: STRING(500),
-          allowNull,
-          defaultVlue: '',
-          comment: '路径',
-        },
-        image_name: {
-          type: STRING(500),
-          allowNull,
-          comment: '文件名',
-          defaultValue: '',
-        },
-        image_suffix: {
-          type: STRING(200),
-          allowNull,
-          comment: '文件名后缀',
-          defaultValue: '',
-        },
-        image_size: {
-          type: INTEGER,
-          allowNull,
-          comment: '文件大小',
-          defaultValue: 0,
+        enterprise_type: {
+          type: STRING(50),
+          comment: '签约类型甲方、乙方',
         },
       },
       {
-        comment: '合同会议纪要',
+        comment: '签约双方历史',
       }
     );
   },
@@ -77,6 +57,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('contract_meeting');
+    await queryInterface.dropTable('contract_sign_his');
   },
 };

@@ -1,0 +1,109 @@
+# 合同变更文件
+type ContractChangeFile {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 变更id
+  contractChangeId: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractChangeIdObj: ContractChange
+  contractIdObj: Contract
+}
+
+# 合同变更文件 分页查询返回
+type ContractChangeFileList {
+  count: Int!
+  list: [ContractChangeFile]
+}
+
+extend type Query {
+  # 合同变更文件 总行数
+  contractChangeFileCount(param: QueryListParam): Int
+  # 合同变更文件 分页查询
+  contractChangeFileList(param: QueryListParam): ContractChangeFileList
+  # 合同变更文件  id 获取
+  contractChangeFile(id: ID!): ContractChangeFile
+  # 合同变更文件 有条件返回
+  contractChangeFileAll(param: QueryListParam): [ContractChangeFile]
+}
+
+extend type Mutation {
+  # 合同变更文件 新增
+  contractChangeFileCreate(param: ContractChangeFileSaveIn!): ContractChangeFile
+  # 合同变更文件 新增 or 修改
+  contractChangeFile(
+    param: ContractChangeFileSaveIn!
+    must: Boolean = false
+  ): String
+  # 合同变更文件 批量 新增 or 修改
+  contractChangeFileBulk(param: [ContractChangeFileSaveIn]!): [JSONObject]
+  # 合同变更文件 删除
+  contractChangeFileDestroy(where: JSONObject!, limit: Int): String
+  # 合同变更文件 根据id删除
+  contractChangeFileDestroyById(id: String): String
+}
+
+input ContractChangeFileSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 变更id
+  contractChangeId: String
+  # 合同id
+  contractId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 文件类型
+  fileType: String
+  # 文件名
+  imageName: String
+  # 路径
+  imagePath: String
+  # 文件大小
+  imageSize: Float
+  # 文件名后缀
+  imageSuffix: String
+  # 域名 默认空，走config的oss url
+  imageUri: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  contractChangeIdObj: ContractChangeSaveIn
+  contractIdObj: ContractSaveIn
+}
