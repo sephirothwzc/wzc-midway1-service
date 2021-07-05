@@ -1,19 +1,30 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractCollectionPaymentHisModel } from './contract-collection-payment-his.model';
+import { ContractCollectionPaymentPlanHisModel } from './contract-collection-payment-plan-his.model';
+import { ContractFileHisModel } from './contract-file-his.model';
 import { ContractModel } from './contract.model';
 import { ProjectModel } from './project.model';
 import { BudgetModel } from './budget.model';
 import { DataDictionaryModel } from './data-dictionary.model';
 import { AppUserModel } from './app-user.model';
 import { OrganizationModel } from './organization.model';
+import { ContractMeetingHisModel } from './contract-meeting-his.model';
+import { ContractSignHisModel } from './contract-sign-his.model';
 // #region enum
 export enum EContractHisContractCode {
   /**
    *
    */
   unique = 'unique',
-
 }
 
 export enum EContractHisContractName {
@@ -21,9 +32,7 @@ export enum EContractHisContractName {
    *
    */
   unique = 'unique',
-
 }
-
 
 // #endregion
 
@@ -155,6 +164,15 @@ export class ContractHisModel extends BaseModel {
   @Column({ comment: '合同状态', type: DataType.STRING(50) })
   status?: string;
 
+  @HasMany(() => ContractCollectionPaymentHisModel, 'contract_his_id')
+  contractCollectionPaymentHisContractHisId: Array<ContractCollectionPaymentHisModel>;
+
+  @HasMany(() => ContractCollectionPaymentPlanHisModel, 'contract_his_id')
+  contractCollectionPaymentPlanHisContractHisId: Array<ContractCollectionPaymentPlanHisModel>;
+
+  @HasMany(() => ContractFileHisModel, 'contract_his_id')
+  contractFileHisContractHisId: Array<ContractFileHisModel>;
+
   @BelongsTo(() => ContractModel, 'contract_id')
   contractIdObj: ContractModel;
 
@@ -179,11 +197,15 @@ export class ContractHisModel extends BaseModel {
   @BelongsTo(() => OrganizationModel, 'organization_id')
   organizationIdObj: OrganizationModel;
 
+  @HasMany(() => ContractMeetingHisModel, 'contract_his_id')
+  contractMeetingHisContractHisId: Array<ContractMeetingHisModel>;
+
+  @HasMany(() => ContractSignHisModel, 'contract_his_id')
+  contractSignHisContractHisId: Array<ContractSignHisModel>;
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class CONTRACT_HIS {
-
   /**
    * 录入人
    */
@@ -288,7 +310,6 @@ export class CONTRACT_HIS {
    * 合同状态
    */
   static readonly STATUS: string = 'status';
-
 }
 
 // @provide 用 工厂模式static model
@@ -300,3 +321,56 @@ providerWrapper([
   },
 ]);
 
+export const createOptions = () => {
+  return (
+    param: ContractHisModel
+  ): { include?: [any]; transaction?: any; validate?: boolean } => {
+    if (
+      !param.contractCollectionPaymentHisContractHisId &&
+      !param.contractCollectionPaymentPlanHisContractHisId &&
+      !param.contractFileHisContractHisId &&
+      !param.contractMeetingHisContractHisId &&
+      !param.contractSignHisContractHisId
+    ) {
+      return {};
+    }
+    const include: any = [];
+    param.contractCollectionPaymentHisContractHisId &&
+      param.contractCollectionPaymentHisContractHisId.length > 0 &&
+      include.push({
+        model: ContractCollectionPaymentHisModel,
+        as: 'contractCollectionPaymentHisContractHisId',
+      });
+    param.contractCollectionPaymentPlanHisContractHisId &&
+      param.contractCollectionPaymentPlanHisContractHisId.length > 0 &&
+      include.push({
+        model: ContractCollectionPaymentPlanHisModel,
+        as: 'contractCollectionPaymentPlanHisContractHisId',
+      });
+    param.contractFileHisContractHisId &&
+      param.contractFileHisContractHisId.length > 0 &&
+      include.push({
+        model: ContractFileHisModel,
+        as: 'contractFileHisContractHisId',
+      });
+    param.contractMeetingHisContractHisId &&
+      param.contractMeetingHisContractHisId.length > 0 &&
+      include.push({
+        model: ContractMeetingHisModel,
+        as: 'contractMeetingHisContractHisId',
+      });
+    param.contractSignHisContractHisId &&
+      param.contractSignHisContractHisId.length > 0 &&
+      include.push({
+        model: ContractSignHisModel,
+        as: 'contractSignHisContractHisId',
+      });
+    return { include };
+  };
+};
+providerWrapper([
+  {
+    id: 'contractHisModel.createOptions',
+    provider: createOptions,
+  },
+]);

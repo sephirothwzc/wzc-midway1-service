@@ -3,6 +3,8 @@ type ContractSignHis {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 合同签约id
@@ -25,11 +27,11 @@ type ContractSignHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHis
   contractSignIdObj: ContractSign
   contractIdObj: Contract
   enterpriseIdObj: Enterprise
 }
-
 
 # 签约双方历史 分页查询返回
 type ContractSignHisList {
@@ -65,6 +67,8 @@ input ContractSignHisSaveIn {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 合同签约id
@@ -87,8 +91,8 @@ input ContractSignHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHisSaveIn
   contractSignIdObj: ContractSignSaveIn
   contractIdObj: ContractSaveIn
   enterpriseIdObj: EnterpriseSaveIn
 }
-

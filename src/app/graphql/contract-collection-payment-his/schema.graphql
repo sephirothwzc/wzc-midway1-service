@@ -17,6 +17,8 @@ type ContractCollectionPaymentHis {
   contractCollectionPaymentId: String
   # 合同收款计划id 可以为空
   contractCollectionPlanId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -47,6 +49,7 @@ type ContractCollectionPaymentHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHis
   contractCollectionPaymentIdObj: ContractCollectionPayment
   contractIdObj: Contract
   contractCollectionPlanIdObj: ContractCollectionPaymentPlan
@@ -115,6 +118,8 @@ input ContractCollectionPaymentHisSaveIn {
   contractCollectionPaymentId: String
   # 合同收款计划id 可以为空
   contractCollectionPlanId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -145,6 +150,7 @@ input ContractCollectionPaymentHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHisSaveIn
   contractCollectionPaymentIdObj: ContractCollectionPaymentSaveIn
   contractIdObj: ContractSaveIn
   contractCollectionPlanIdObj: ContractCollectionPaymentPlanSaveIn

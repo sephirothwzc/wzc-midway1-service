@@ -22,6 +22,7 @@ export const contractCollectionPaymentHisMutationCreate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('合同收款计划id 可以为空'),
+  contractHisId: Joi.string().allow('').allow(null).description('合同历史id'),
   contractId: Joi.string().allow('').allow(null).description('合同id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
@@ -64,6 +65,7 @@ export const contractCollectionPaymentHisMutationUpdate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('合同收款计划id 可以为空'),
+  contractHisId: Joi.string().allow('').allow(null).description('合同历史id'),
   contractId: Joi.string().allow('').allow(null).description('合同id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),

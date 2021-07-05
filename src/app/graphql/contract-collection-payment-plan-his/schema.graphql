@@ -13,6 +13,8 @@ type ContractCollectionPaymentPlanHis {
   collectedTime: DateTime
   # 合同收款计划id
   contractCollectionPaymentPlanId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -35,12 +37,12 @@ type ContractCollectionPaymentPlanHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHis
   contractCollectionPaymentPlanIdObj: ContractCollectionPaymentPlan
   contractIdObj: Contract
   modeObj: DataDictionary
   typeObj: DataDictionary
 }
-
 
 # 合同收款计划历史 分页查询返回
 type ContractCollectionPaymentPlanHisList {
@@ -52,22 +54,36 @@ extend type Query {
   # 合同收款计划历史 总行数
   contractCollectionPaymentPlanHisCount(param: QueryListParam): Int
   # 合同收款计划历史 分页查询
-  contractCollectionPaymentPlanHisList(param: QueryListParam): ContractCollectionPaymentPlanHisList
+  contractCollectionPaymentPlanHisList(
+    param: QueryListParam
+  ): ContractCollectionPaymentPlanHisList
   # 合同收款计划历史  id 获取
   contractCollectionPaymentPlanHis(id: ID!): ContractCollectionPaymentPlanHis
   # 合同收款计划历史 有条件返回
-  contractCollectionPaymentPlanHisAll(param: QueryListParam): [ContractCollectionPaymentPlanHis]
+  contractCollectionPaymentPlanHisAll(
+    param: QueryListParam
+  ): [ContractCollectionPaymentPlanHis]
 }
 
 extend type Mutation {
   # 合同收款计划历史 新增
-  contractCollectionPaymentPlanHisCreate(param: ContractCollectionPaymentPlanHisSaveIn!): ContractCollectionPaymentPlanHis
+  contractCollectionPaymentPlanHisCreate(
+    param: ContractCollectionPaymentPlanHisSaveIn!
+  ): ContractCollectionPaymentPlanHis
   # 合同收款计划历史 新增 or 修改
-  contractCollectionPaymentPlanHis(param: ContractCollectionPaymentPlanHisSaveIn!, must: Boolean = false): String
+  contractCollectionPaymentPlanHis(
+    param: ContractCollectionPaymentPlanHisSaveIn!
+    must: Boolean = false
+  ): String
   # 合同收款计划历史 批量 新增 or 修改
-  contractCollectionPaymentPlanHisBulk(param: [ContractCollectionPaymentPlanHisSaveIn]!): [JSONObject]
+  contractCollectionPaymentPlanHisBulk(
+    param: [ContractCollectionPaymentPlanHisSaveIn]!
+  ): [JSONObject]
   # 合同收款计划历史 删除
-  contractCollectionPaymentPlanHisDestroy(where: JSONObject!, limit: Int): String
+  contractCollectionPaymentPlanHisDestroy(
+    where: JSONObject!
+    limit: Int
+  ): String
   # 合同收款计划历史 根据id删除
   contractCollectionPaymentPlanHisDestroyById(id: String): String
 }
@@ -86,6 +102,8 @@ input ContractCollectionPaymentPlanHisSaveIn {
   collectedTime: DateTime
   # 合同收款计划id
   contractCollectionPaymentPlanId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -108,9 +126,9 @@ input ContractCollectionPaymentPlanHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHisSaveIn
   contractCollectionPaymentPlanIdObj: ContractCollectionPaymentPlanSaveIn
   contractIdObj: ContractSaveIn
   modeObj: DataDictionarySaveIn
   typeObj: DataDictionarySaveIn
 }
-

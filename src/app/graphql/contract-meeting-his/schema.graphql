@@ -3,6 +3,8 @@ type ContractMeetingHis {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 合同会议纪要id
@@ -33,10 +35,10 @@ type ContractMeetingHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHis
   contractMeetingIdObj: ContractMeeting
   contractIdObj: Contract
 }
-
 
 # 合同会议纪要历史 分页查询返回
 type ContractMeetingHisList {
@@ -59,7 +61,10 @@ extend type Mutation {
   # 合同会议纪要历史 新增
   contractMeetingHisCreate(param: ContractMeetingHisSaveIn!): ContractMeetingHis
   # 合同会议纪要历史 新增 or 修改
-  contractMeetingHis(param: ContractMeetingHisSaveIn!, must: Boolean = false): String
+  contractMeetingHis(
+    param: ContractMeetingHisSaveIn!
+    must: Boolean = false
+  ): String
   # 合同会议纪要历史 批量 新增 or 修改
   contractMeetingHisBulk(param: [ContractMeetingHisSaveIn]!): [JSONObject]
   # 合同会议纪要历史 删除
@@ -72,6 +77,8 @@ input ContractMeetingHisSaveIn {
   id: ID
   # 业务编码权限用
   businessCode: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 合同会议纪要id
@@ -102,7 +109,7 @@ input ContractMeetingHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHisSaveIn
   contractMeetingIdObj: ContractMeetingSaveIn
   contractIdObj: ContractSaveIn
 }
-

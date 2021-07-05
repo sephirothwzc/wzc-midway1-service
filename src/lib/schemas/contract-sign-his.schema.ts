@@ -6,6 +6,7 @@ export const contractSignHisMutationCreate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('业务编码权限用'),
+  contractHisId: Joi.string().allow('').allow(null).description('合同历史id'),
   contractId: Joi.string().allow('').allow(null).description('合同id'),
   contractSignId: Joi.string().allow('').allow(null).description('合同签约id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
@@ -28,6 +29,7 @@ export const contractSignHisMutationUpdate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('业务编码权限用'),
+  contractHisId: Joi.string().allow('').allow(null).description('合同历史id'),
   contractId: Joi.string().allow('').allow(null).description('合同id'),
   contractSignId: Joi.string().allow('').allow(null).description('合同签约id'),
   createdAt: Joi.date().allow(null).description('创建时间'),

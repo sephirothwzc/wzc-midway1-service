@@ -5,6 +5,7 @@ import {
   IContractCollectionPaymentHisModel,
   ContractCollectionPaymentHisModel,
 } from '../lib/models/contract-collection-payment-his.model';
+import { IContractHisService } from './contract-his.service';
 import { IContractCollectionPaymentService } from './contract-collection-payment.service';
 import { IContractService } from './contract.service';
 import { IContractCollectionPaymentPlanService } from './contract-collection-payment-plan.service';
@@ -24,6 +25,8 @@ export class ContractCollectionPaymentHisService extends ServiceGenericBase<Cont
   contractCollectionPaymentHisModel: IContractCollectionPaymentHisModel;
 
   @inject()
+  contractHisService: IContractHisService;
+  @inject()
   contractCollectionPaymentService: IContractCollectionPaymentService;
   @inject()
   contractService: IContractService;
@@ -42,6 +45,13 @@ export class ContractCollectionPaymentHisService extends ServiceGenericBase<Cont
     useOptions?: CreateOptions
   ): Promise<ContractCollectionPaymentHisModel> {
     const run = async (t: Transaction) => {
+      if (values.contractHisIdObj && !values.contractHisId) {
+        values.contractHisId = (
+          await this.contractHisService.create(values.contractHisIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
       if (
         values.contractCollectionPaymentIdObj &&
         !values.contractCollectionPaymentId

@@ -55,6 +55,13 @@ type ContractHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractCollectionPaymentHisContractHisId(
+    param: QueryListParam
+  ): [ContractCollectionPaymentHis]
+  contractCollectionPaymentPlanHisContractHisId(
+    param: QueryListParam
+  ): [ContractCollectionPaymentPlanHis]
+  contractFileHisContractHisId(param: QueryListParam): [ContractFileHis]
   contractIdObj: Contract
   projectIdObj: Project
   budgetIdObj: Budget
@@ -63,6 +70,8 @@ type ContractHis {
   contractNatureIdObj: DataDictionary
   addUserIdObj: AppUser
   organizationIdObj: Organization
+  contractMeetingHisContractHisId(param: QueryListParam): [ContractMeetingHis]
+  contractSignHisContractHisId(param: QueryListParam): [ContractSignHis]
 }
 
 # 合同历史 分页查询返回
@@ -151,6 +160,11 @@ input ContractHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractCollectionPaymentHisContractHisId: [ContractCollectionPaymentHisSaveIn]
+  contractCollectionPaymentPlanHisContractHisId: [ContractCollectionPaymentPlanHisSaveIn]
+  contractFileHisContractHisId: [ContractFileHisSaveIn]
+  contractMeetingHisContractHisId: [ContractMeetingHisSaveIn]
+  contractSignHisContractHisId: [ContractSignHisSaveIn]
   contractIdObj: ContractSaveIn
   projectIdObj: ProjectSaveIn
   budgetIdObj: BudgetSaveIn

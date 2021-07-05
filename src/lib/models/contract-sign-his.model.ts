@@ -1,6 +1,13 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractHisModel } from './contract-his.model';
 import { ContractSignModel } from './contract-sign.model';
 import { ContractModel } from './contract.model';
 import { EnterpriseModel } from './enterprise.model';
@@ -27,6 +34,12 @@ export class ContractSignHisModel extends BaseModel {
    */
   @Column({ comment: '业务编码权限用', type: DataType.STRING(500) })
   businessCode: string;
+  /**
+   * 合同历史id
+   */
+  @ForeignKey(() => ContractHisModel)
+  @Column({ comment: '合同历史id', type: DataType.STRING(50) })
+  contractHisId?: string;
   /**
    * 合同id
    */
@@ -56,6 +69,9 @@ export class ContractSignHisModel extends BaseModel {
   @Column({ comment: '备注', type: DataType.STRING(500) })
   remark: string;
 
+  @BelongsTo(() => ContractHisModel, 'contract_his_id')
+  contractHisIdObj: ContractHisModel;
+
   @BelongsTo(() => ContractSignModel, 'contract_sign_id')
   contractSignIdObj: ContractSignModel;
 
@@ -64,16 +80,19 @@ export class ContractSignHisModel extends BaseModel {
 
   @BelongsTo(() => EnterpriseModel, 'enterprise_id')
   enterpriseIdObj: EnterpriseModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class CONTRACT_SIGN_HIS {
-
   /**
    * 业务编码权限用
    */
   static readonly BUSINESS_CODE: string = 'businessCode';
+
+  /**
+   * 合同历史id
+   */
+  static readonly CONTRACT_HIS_ID: string = 'contractHisId';
 
   /**
    * 合同id
@@ -99,7 +118,6 @@ export class CONTRACT_SIGN_HIS {
    * 备注
    */
   static readonly REMARK: string = 'remark';
-
 }
 
 // @provide 用 工厂模式static model
@@ -110,4 +128,3 @@ providerWrapper([
     provider: factory,
   },
 ]);
-

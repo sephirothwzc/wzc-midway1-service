@@ -1,7 +1,11 @@
 import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
-import { IContractMeetingHisModel, ContractMeetingHisModel } from '../lib/models/contract-meeting-his.model';
+import {
+  IContractMeetingHisModel,
+  ContractMeetingHisModel,
+} from '../lib/models/contract-meeting-his.model';
+import { IContractHisService } from './contract-his.service';
 import { IContractMeetingService } from './contract-meeting.service';
 import { IContractService } from './contract.service';
 
@@ -12,10 +16,12 @@ export class ContractMeetingHisService extends ServiceGenericBase<ContractMeetin
   get Model(): any {
     return this.contractMeetingHisModel;
   }
-  
+
   @inject()
   contractMeetingHisModel: IContractMeetingHisModel;
 
+  @inject()
+  contractHisService: IContractHisService;
   @inject()
   contractMeetingService: IContractMeetingService;
   @inject()
@@ -24,13 +30,26 @@ export class ContractMeetingHisService extends ServiceGenericBase<ContractMeetin
    * 新增
    * @param values
    */
-  public async create(values: ContractMeetingHisModel, useOptions?: CreateOptions): Promise<ContractMeetingHisModel> {
+  public async create(
+    values: ContractMeetingHisModel,
+    useOptions?: CreateOptions
+  ): Promise<ContractMeetingHisModel> {
     const run = async (t: Transaction) => {
-      if (values.contractMeetingIdObj && !values.contractMeetingId) {
-        values.contractMeetingId = (
-          await this.contractMeetingService.create(values.contractMeetingIdObj, {
+      if (values.contractHisIdObj && !values.contractHisId) {
+        values.contractHisId = (
+          await this.contractHisService.create(values.contractHisIdObj, {
             transaction: t,
           })
+        ).get('id');
+      }
+      if (values.contractMeetingIdObj && !values.contractMeetingId) {
+        values.contractMeetingId = (
+          await this.contractMeetingService.create(
+            values.contractMeetingIdObj,
+            {
+              transaction: t,
+            }
+          )
         ).get('id');
       }
       if (values.contractIdObj && !values.contractId) {
@@ -46,5 +65,4 @@ export class ContractMeetingHisService extends ServiceGenericBase<ContractMeetin
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }

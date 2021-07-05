@@ -7,6 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractHisModel } from './contract-his.model';
 import { ContractMeetingModel } from './contract-meeting.model';
 import { ContractModel } from './contract.model';
 // #region enum
@@ -32,6 +33,12 @@ export class ContractMeetingHisModel extends BaseModel {
    */
   @Column({ comment: '业务编码权限用', type: DataType.STRING(500) })
   businessCode: string;
+  /**
+   * 合同历史id
+   */
+  @ForeignKey(() => ContractHisModel)
+  @Column({ comment: '合同历史id', type: DataType.STRING(50) })
+  contractHisId?: string;
   /**
    * 合同id
    */
@@ -83,6 +90,9 @@ export class ContractMeetingHisModel extends BaseModel {
   @Column({ comment: '备注', type: DataType.STRING(500) })
   remark: string;
 
+  @BelongsTo(() => ContractHisModel, 'contract_his_id')
+  contractHisIdObj: ContractHisModel;
+
   @BelongsTo(() => ContractMeetingModel, 'contract_meeting_id')
   contractMeetingIdObj: ContractMeetingModel;
 
@@ -96,6 +106,11 @@ export class CONTRACT_MEETING_HIS {
    * 业务编码权限用
    */
   static readonly BUSINESS_CODE: string = 'businessCode';
+
+  /**
+   * 合同历史id
+   */
+  static readonly CONTRACT_HIS_ID: string = 'contractHisId';
 
   /**
    * 合同id

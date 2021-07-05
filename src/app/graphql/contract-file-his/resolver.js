@@ -6,6 +6,10 @@ module.exports = {
   Query,
   Mutation,
   ContractFileHis: {
+    contractHisIdObj: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'contractHis');
+      return service.fetchById(_root.contractHisId);
+    },
     contractFileIdObj: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'contractFile');
       return service.fetchById(_root.contractFileId);

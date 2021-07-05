@@ -1,10 +1,83 @@
 import * as _ from 'lodash';
 import { provide } from 'midway';
 import { Transaction } from 'sequelize/types';
+import {
+  CONTRACT_COLLECTION_PAYMENT_HIS,
+  ContractCollectionPaymentHisModel,
+} from '../models/contract-collection-payment-his.model';
+import {
+  CONTRACT_COLLECTION_PAYMENT_PLAN_HIS,
+  ContractCollectionPaymentPlanHisModel,
+} from '../models/contract-collection-payment-plan-his.model';
+import {
+  CONTRACT_FILE_HIS,
+  ContractFileHisModel,
+} from '../models/contract-file-his.model';
+import {
+  CONTRACT_MEETING_HIS,
+  ContractMeetingHisModel,
+} from '../models/contract-meeting-his.model';
+import {
+  CONTRACT_SIGN_HIS,
+  ContractSignHisModel,
+} from '../models/contract-sign-his.model';
+import * as Bb from 'bluebird';
 import { CONTRACT_HIS, ContractHisModel } from '../models/contract-his.model';
 
 @provide('ContractHisHook')
 export class ContractHisHook {
+  async beforeDestroy(
+    model: ContractHisModel,
+    options: { transaction: Transaction; validate: Boolean; returning: Boolean }
+  ) {
+    const {
+      contractCollectionPaymentHisContractHisIdForeignIdx,
+      contractCollectionPaymentPlanHisContractHisIdForeignIdx,
+      contractFileHisContractHisIdForeignIdx,
+      contractMeetingHisContractHisIdForeignIdx,
+      contractSignHisContractHisIdForeignIdx,
+    } = await Bb.props({
+      contractCollectionPaymentHisContractHisIdForeignIdx:
+        ContractCollectionPaymentHisModel.findOne({
+          where: {
+            [CONTRACT_COLLECTION_PAYMENT_HIS.CONTRACT_HIS_ID]: model.get('id'),
+          },
+        }),
+      contractCollectionPaymentPlanHisContractHisIdForeignIdx:
+        ContractCollectionPaymentPlanHisModel.findOne({
+          where: {
+            [CONTRACT_COLLECTION_PAYMENT_PLAN_HIS.CONTRACT_HIS_ID]:
+              model.get('id'),
+          },
+        }),
+      contractFileHisContractHisIdForeignIdx: ContractFileHisModel.findOne({
+        where: {
+          [CONTRACT_FILE_HIS.CONTRACT_HIS_ID]: model.get('id'),
+        },
+      }),
+      contractMeetingHisContractHisIdForeignIdx:
+        ContractMeetingHisModel.findOne({
+          where: {
+            [CONTRACT_MEETING_HIS.CONTRACT_HIS_ID]: model.get('id'),
+          },
+        }),
+      contractSignHisContractHisIdForeignIdx: ContractSignHisModel.findOne({
+        where: {
+          [CONTRACT_SIGN_HIS.CONTRACT_HIS_ID]: model.get('id'),
+        },
+      }),
+    });
+    if (
+      contractCollectionPaymentHisContractHisIdForeignIdx ||
+      contractCollectionPaymentPlanHisContractHisIdForeignIdx ||
+      contractFileHisContractHisIdForeignIdx ||
+      contractMeetingHisContractHisIdForeignIdx ||
+      contractSignHisContractHisIdForeignIdx
+    ) {
+      throw new Error('已使用数据禁止删除');
+    }
+  }
+
   async beforeUpdate(
     model: ContractHisModel,
     options: { transaction: Transaction; validate: Boolean; returning: Boolean }

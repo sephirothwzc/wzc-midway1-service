@@ -5,6 +5,8 @@ type ContractFileHis {
   businessCode: String
   # 合同文件id
   contractFileId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -33,6 +35,7 @@ type ContractFileHis {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHis
   contractFileIdObj: ContractFile
   contractIdObj: Contract
 }
@@ -73,6 +76,8 @@ input ContractFileHisSaveIn {
   businessCode: String
   # 合同文件id
   contractFileId: String
+  # 合同历史id
+  contractHisId: String
   # 合同id
   contractId: String
   # 创建时间
@@ -101,6 +106,7 @@ input ContractFileHisSaveIn {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
+  contractHisIdObj: ContractHisSaveIn
   contractFileIdObj: ContractFileSaveIn
   contractIdObj: ContractSaveIn
 }

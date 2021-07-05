@@ -5,6 +5,7 @@ import {
   IContractFileHisModel,
   ContractFileHisModel,
 } from '../lib/models/contract-file-his.model';
+import { IContractHisService } from './contract-his.service';
 import { IContractFileService } from './contract-file.service';
 import { IContractService } from './contract.service';
 
@@ -20,6 +21,8 @@ export class ContractFileHisService extends ServiceGenericBase<ContractFileHisMo
   contractFileHisModel: IContractFileHisModel;
 
   @inject()
+  contractHisService: IContractHisService;
+  @inject()
   contractFileService: IContractFileService;
   @inject()
   contractService: IContractService;
@@ -32,6 +35,13 @@ export class ContractFileHisService extends ServiceGenericBase<ContractFileHisMo
     useOptions?: CreateOptions
   ): Promise<ContractFileHisModel> {
     const run = async (t: Transaction) => {
+      if (values.contractHisIdObj && !values.contractHisId) {
+        values.contractHisId = (
+          await this.contractHisService.create(values.contractHisIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
       if (values.contractFileIdObj && !values.contractFileId) {
         values.contractFileId = (
           await this.contractFileService.create(values.contractFileIdObj, {

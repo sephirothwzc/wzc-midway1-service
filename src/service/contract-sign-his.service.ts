@@ -1,7 +1,11 @@
 import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
-import { IContractSignHisModel, ContractSignHisModel } from '../lib/models/contract-sign-his.model';
+import {
+  IContractSignHisModel,
+  ContractSignHisModel,
+} from '../lib/models/contract-sign-his.model';
+import { IContractHisService } from './contract-his.service';
 import { IContractSignService } from './contract-sign.service';
 import { IContractService } from './contract.service';
 import { IEnterpriseService } from './enterprise.service';
@@ -13,10 +17,12 @@ export class ContractSignHisService extends ServiceGenericBase<ContractSignHisMo
   get Model(): any {
     return this.contractSignHisModel;
   }
-  
+
   @inject()
   contractSignHisModel: IContractSignHisModel;
 
+  @inject()
+  contractHisService: IContractHisService;
   @inject()
   contractSignService: IContractSignService;
   @inject()
@@ -27,8 +33,18 @@ export class ContractSignHisService extends ServiceGenericBase<ContractSignHisMo
    * 新增
    * @param values
    */
-  public async create(values: ContractSignHisModel, useOptions?: CreateOptions): Promise<ContractSignHisModel> {
+  public async create(
+    values: ContractSignHisModel,
+    useOptions?: CreateOptions
+  ): Promise<ContractSignHisModel> {
     const run = async (t: Transaction) => {
+      if (values.contractHisIdObj && !values.contractHisId) {
+        values.contractHisId = (
+          await this.contractHisService.create(values.contractHisIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
       if (values.contractSignIdObj && !values.contractSignId) {
         values.contractSignId = (
           await this.contractSignService.create(values.contractSignIdObj, {
@@ -56,5 +72,4 @@ export class ContractSignHisService extends ServiceGenericBase<ContractSignHisMo
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }
