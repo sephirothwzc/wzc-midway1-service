@@ -8,6 +8,8 @@ type ContractChange {
   # 变更类型
   changeType: String
   # 合同id
+  contractHisId: String
+  # 合同id
   contractId: String
   # 创建时间
   createdAt: DateTime
@@ -23,11 +25,11 @@ type ContractChange {
   updatedAt: DateTime
   # 修改人id
   updatedId: String
-  contractChangeFileContractChangeId(
-    param: QueryListParam
-  ): [ContractChangeFile]
+  contractHisIdObj: ContractHis
+  contractChangeFileContractChangeId(param: QueryListParam): [ContractChangeFile]
   contractIdObj: Contract
 }
+
 
 # 合同变更 分页查询返回
 type ContractChangeList {
@@ -68,6 +70,8 @@ input ContractChangeSaveIn {
   # 变更类型
   changeType: String
   # 合同id
+  contractHisId: String
+  # 合同id
   contractId: String
   # 创建时间
   createdAt: DateTime
@@ -84,5 +88,7 @@ input ContractChangeSaveIn {
   # 修改人id
   updatedId: String
   contractChangeFileContractChangeId: [ContractChangeFileSaveIn]
+  contractHisIdObj: ContractHisSaveIn
   contractIdObj: ContractSaveIn
 }
+

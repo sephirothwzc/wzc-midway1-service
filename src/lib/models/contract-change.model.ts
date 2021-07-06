@@ -1,6 +1,7 @@
 import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractHisModel } from './contract-his.model';
 import { ContractChangeFileModel } from './contract-change-file.model';
 import { ContractModel } from './contract.model';
 // #region enum
@@ -39,6 +40,12 @@ export class ContractChangeModel extends BaseModel {
   /**
    * 合同id
    */
+  @ForeignKey(() => ContractHisModel)
+  @Column({ comment: '合同id', type: DataType.STRING(50) })
+  contractHisId?: string;
+  /**
+   * 合同id
+   */
   @ForeignKey(() => ContractModel)
   @Column({ comment: '合同id', type: DataType.STRING(50) })
   contractId?: string;
@@ -47,6 +54,9 @@ export class ContractChangeModel extends BaseModel {
    */
   @Column({ comment: '备注', type: DataType.STRING(500) })
   remark: string;
+
+  @BelongsTo(() => ContractHisModel, 'contract_his_id')
+  contractHisIdObj: ContractHisModel;
 
   @HasMany(() => ContractChangeFileModel, 'contract_change_id')
   contractChangeFileContractChangeId: Array<ContractChangeFileModel>;
@@ -73,6 +83,11 @@ export class CONTRACT_CHANGE {
    * 变更类型
    */
   static readonly CHANGE_TYPE: string = 'changeType';
+
+  /**
+   * 合同id
+   */
+  static readonly CONTRACT_HIS_ID: string = 'contractHisId';
 
   /**
    * 合同id

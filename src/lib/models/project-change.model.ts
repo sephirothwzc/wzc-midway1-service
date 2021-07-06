@@ -1,8 +1,16 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ProjectChangeFileModel } from './project-change-file.model';
 import { ProjectModel } from './project.model';
+import { ProjectHisModel } from './project-his.model';
 // #region enum
 
 // #endregion
@@ -39,6 +47,12 @@ export class ProjectChangeModel extends BaseModel {
   /**
    * 项目id
    */
+  @ForeignKey(() => ProjectHisModel)
+  @Column({ comment: '项目id', type: DataType.STRING(50) })
+  projectHisId?: string;
+  /**
+   * 项目id
+   */
   @ForeignKey(() => ProjectModel)
   @Column({ comment: '项目id', type: DataType.STRING(50) })
   projectId?: string;
@@ -54,11 +68,12 @@ export class ProjectChangeModel extends BaseModel {
   @BelongsTo(() => ProjectModel, 'project_id')
   projectIdObj: ProjectModel;
 
+  @BelongsTo(() => ProjectHisModel, 'project_his_id')
+  projectHisIdObj: ProjectHisModel;
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class PROJECT_CHANGE {
-
   /**
    * 业务编码权限用
    */
@@ -77,13 +92,17 @@ export class PROJECT_CHANGE {
   /**
    * 项目id
    */
+  static readonly PROJECT_HIS_ID: string = 'projectHisId';
+
+  /**
+   * 项目id
+   */
   static readonly PROJECT_ID: string = 'projectId';
 
   /**
    * 备注
    */
   static readonly REMARK: string = 'remark';
-
 }
 
 // @provide 用 工厂模式static model
@@ -105,7 +124,10 @@ export const createOptions = () => {
     const include: any = [];
     param.projectChangeFileProjectChangeId &&
       param.projectChangeFileProjectChangeId.length > 0 &&
-      include.push({ model: ProjectChangeFileModel, as: 'projectChangeFileProjectChangeId' });
+      include.push({
+        model: ProjectChangeFileModel,
+        as: 'projectChangeFileProjectChangeId',
+      });
     return { include };
   };
 };
@@ -115,4 +137,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-

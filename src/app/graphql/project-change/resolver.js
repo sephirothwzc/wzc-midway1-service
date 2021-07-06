@@ -15,5 +15,9 @@ module.exports = {
       const service = await getService(ctx, 'project');
       return service.fetchById(_root.projectId);
     },
+    projectHisIdObj: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'projectHis');
+      return service.fetchById(_root.projectHisId);
+    },
   },
 };

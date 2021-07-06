@@ -3,6 +3,7 @@ import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
 import { IProjectChangeModel, ProjectChangeModel } from '../lib/models/project-change.model';
 import { IProjectService } from './project.service';
+import { IProjectHisService } from './project-his.service';
 
 export interface IProjectChangeService extends ProjectChangeService {}
 
@@ -17,6 +18,8 @@ export class ProjectChangeService extends ServiceGenericBase<ProjectChangeModel>
 
   @inject()
   projectService: IProjectService;
+  @inject()
+  projectHisService: IProjectHisService;
   /**
    * 新增
    * @param values
@@ -26,6 +29,13 @@ export class ProjectChangeService extends ServiceGenericBase<ProjectChangeModel>
       if (values.projectIdObj && !values.projectId) {
         values.projectId = (
           await this.projectService.create(values.projectIdObj, {
+            transaction: t,
+          })
+        ).get('id');
+      }
+      if (values.projectHisIdObj && !values.projectHisId) {
+        values.projectHisId = (
+          await this.projectHisService.create(values.projectHisIdObj, {
             transaction: t,
           })
         ).get('id');

@@ -321,11 +321,14 @@ const firstFinish = async (
  */
 const validateWorkFlow = async (ctx: Context) => {
   const ormString = ctx.headers['schema-orm'];
-  const finishType = ctx.headers['finish-type'];
   if (!ormString) {
     return;
   }
+  const finishType = ctx.headers['finish-type'];
   const orm = JSON.parse(ormString) as ISchemaOrm;
+  if (!orm.workFlowId) {
+    return;
+  }
   // 查找工作流
   const workFlowService: IWorkFlowService = await ctx.requestContext.getAsync(
     'workFlowService'

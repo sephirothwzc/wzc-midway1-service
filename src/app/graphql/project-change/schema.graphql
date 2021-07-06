@@ -16,6 +16,8 @@ type ProjectChange {
   # 删除人id
   deletedId: String
   # 项目id
+  projectHisId: String
+  # 项目id
   projectId: String
   # 备注
   remark: String
@@ -25,6 +27,7 @@ type ProjectChange {
   updatedId: String
   projectChangeFileProjectChangeId(param: QueryListParam): [ProjectChangeFile]
   projectIdObj: Project
+  projectHisIdObj: ProjectHis
 }
 
 # 项目变更 分页查询返回
@@ -74,6 +77,8 @@ input ProjectChangeSaveIn {
   # 删除人id
   deletedId: String
   # 项目id
+  projectHisId: String
+  # 项目id
   projectId: String
   # 备注
   remark: String
@@ -83,4 +88,5 @@ input ProjectChangeSaveIn {
   updatedId: String
   projectChangeFileProjectChangeId: [ProjectChangeFileSaveIn]
   projectIdObj: ProjectSaveIn
+  projectHisIdObj: ProjectHisSaveIn
 }
