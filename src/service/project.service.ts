@@ -6,7 +6,6 @@ import { IProjectGroupService } from './project-group.service';
 import { IDataDictionaryService } from './data-dictionary.service';
 import { IOrganizationService } from './organization.service';
 import { IAppUserService } from './app-user.service';
-import { IFormCustomSchemaService } from './form-custom-schema.service';
 
 export interface IProjectService extends ProjectService {}
 
@@ -27,8 +26,6 @@ export class ProjectService extends ServiceGenericBase<ProjectModel> {
   organizationService: IOrganizationService;
   @inject()
   appUserService: IAppUserService;
-  @inject()
-  formCustomSchemaService: IFormCustomSchemaService;
   /**
    * 新增
    * @param values

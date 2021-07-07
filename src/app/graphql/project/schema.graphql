@@ -75,9 +75,14 @@ type Project {
   updatedId: String
   # 版本
   version: Float
+  budgetAllocationProjectAid(param: QueryListParam): [BudgetAllocation]
+  budgetAllocationProjectBid(param: QueryListParam): [BudgetAllocation]
+  contractHisProjectId(param: QueryListParam): [ContractHis]
   contractProjectId(param: QueryListParam): [Contract]
   projectBudgetHisProjectId(param: QueryListParam): [ProjectBudgetHis]
   projectBudgetProjectId(param: QueryListParam): [ProjectBudget]
+  projectChangeFileProjectId(param: QueryListParam): [ProjectChangeFile]
+  projectChangeProjectId(param: QueryListParam): [ProjectChange]
   projectFileHisProjectId(param: QueryListParam): [ProjectFileHis]
   projectFileProjectId(param: QueryListParam): [ProjectFile]
   projectHisProjectId(param: QueryListParam): [ProjectHis]
@@ -89,7 +94,6 @@ type Project {
   buildNatureIdObj: DataDictionary
   addUserIdObj: AppUser
 }
-
 
 # 项目 分页查询返回
 type ProjectList {
@@ -197,9 +201,14 @@ input ProjectSaveIn {
   updatedId: String
   # 版本
   version: Float
+  budgetAllocationProjectAid: [BudgetAllocationSaveIn]
+  budgetAllocationProjectBid: [BudgetAllocationSaveIn]
+  contractHisProjectId: [ContractHisSaveIn]
   contractProjectId: [ContractSaveIn]
   projectBudgetHisProjectId: [ProjectBudgetHisSaveIn]
   projectBudgetProjectId: [ProjectBudgetSaveIn]
+  projectChangeFileProjectId: [ProjectChangeFileSaveIn]
+  projectChangeProjectId: [ProjectChangeSaveIn]
   projectFileHisProjectId: [ProjectFileHisSaveIn]
   projectFileProjectId: [ProjectFileSaveIn]
   projectHisProjectId: [ProjectHisSaveIn]

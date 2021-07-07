@@ -1,9 +1,20 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { BudgetAllocationModel } from './budget-allocation.model';
+import { ContractHisModel } from './contract-his.model';
 import { ContractModel } from './contract.model';
 import { ProjectBudgetHisModel } from './project-budget-his.model';
 import { ProjectBudgetModel } from './project-budget.model';
+import { ProjectChangeFileModel } from './project-change-file.model';
+import { ProjectChangeModel } from './project-change.model';
 import { ProjectFileHisModel } from './project-file-his.model';
 import { ProjectFileModel } from './project-file.model';
 import { ProjectHisModel } from './project-his.model';
@@ -17,9 +28,7 @@ export enum EProjectProjectCode {
    *
    */
   unique = 'unique',
-
 }
-
 
 // #endregion
 
@@ -200,6 +209,15 @@ export class ProjectModel extends BaseModel {
   @Column({ comment: '版本', type: DataType.INTEGER })
   version?: number;
 
+  @HasMany(() => BudgetAllocationModel, 'project_aid')
+  budgetAllocationProjectAid: Array<BudgetAllocationModel>;
+
+  @HasMany(() => BudgetAllocationModel, 'project_bid')
+  budgetAllocationProjectBid: Array<BudgetAllocationModel>;
+
+  @HasMany(() => ContractHisModel, 'project_id')
+  contractHisProjectId: Array<ContractHisModel>;
+
   @HasMany(() => ContractModel, 'project_id')
   contractProjectId: Array<ContractModel>;
 
@@ -208,6 +226,12 @@ export class ProjectModel extends BaseModel {
 
   @HasMany(() => ProjectBudgetModel, 'project_id')
   projectBudgetProjectId: Array<ProjectBudgetModel>;
+
+  @HasMany(() => ProjectChangeFileModel, 'project_id')
+  projectChangeFileProjectId: Array<ProjectChangeFileModel>;
+
+  @HasMany(() => ProjectChangeModel, 'project_id')
+  projectChangeProjectId: Array<ProjectChangeModel>;
 
   @HasMany(() => ProjectFileHisModel, 'project_id')
   projectFileHisProjectId: Array<ProjectFileHisModel>;
@@ -238,12 +262,10 @@ export class ProjectModel extends BaseModel {
 
   @BelongsTo(() => AppUserModel, 'add_user_id')
   addUserIdObj: AppUserModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class PROJECT {
-
   /**
    * 项目录入人
    */
@@ -312,7 +334,8 @@ export class PROJECT {
   /**
    * 市级以上投资工程内容描述
    */
-  static readonly MUNICIPAL_LEVEL_CONTENT_DESCRIBE: string = 'municipalLevelContentDescribe';
+  static readonly MUNICIPAL_LEVEL_CONTENT_DESCRIBE: string =
+    'municipalLevelContentDescribe';
 
   /**
    * 项目名称
@@ -372,7 +395,8 @@ export class PROJECT {
   /**
    * 责任科室
    */
-  static readonly RESPONSIBLE_ORGANIZATION_ID: string = 'responsibleOrganizationId';
+  static readonly RESPONSIBLE_ORGANIZATION_ID: string =
+    'responsibleOrganizationId';
 
   /**
    * 来源文号
@@ -398,7 +422,6 @@ export class PROJECT {
    * 版本
    */
   static readonly VERSION: string = 'version';
-
 }
 
 // @provide 用 工厂模式static model
@@ -414,22 +437,64 @@ export const createOptions = () => {
   return (
     param: ProjectModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.contractProjectId && !param.projectBudgetHisProjectId && !param.projectBudgetProjectId && !param.projectFileHisProjectId && !param.projectFileProjectId && !param.projectHisProjectId) {
+    if (
+      !param.budgetAllocationProjectAid &&
+      !param.budgetAllocationProjectBid &&
+      !param.contractHisProjectId &&
+      !param.contractProjectId &&
+      !param.projectBudgetHisProjectId &&
+      !param.projectBudgetProjectId &&
+      !param.projectChangeFileProjectId &&
+      !param.projectChangeProjectId &&
+      !param.projectFileHisProjectId &&
+      !param.projectFileProjectId &&
+      !param.projectHisProjectId
+    ) {
       return {};
     }
     const include: any = [];
+    param.budgetAllocationProjectAid &&
+      param.budgetAllocationProjectAid.length > 0 &&
+      include.push({
+        model: BudgetAllocationModel,
+        as: 'budgetAllocationProjectAid',
+      });
+    param.budgetAllocationProjectBid &&
+      param.budgetAllocationProjectBid.length > 0 &&
+      include.push({
+        model: BudgetAllocationModel,
+        as: 'budgetAllocationProjectBid',
+      });
+    param.contractHisProjectId &&
+      param.contractHisProjectId.length > 0 &&
+      include.push({ model: ContractHisModel, as: 'contractHisProjectId' });
     param.contractProjectId &&
       param.contractProjectId.length > 0 &&
       include.push({ model: ContractModel, as: 'contractProjectId' });
     param.projectBudgetHisProjectId &&
       param.projectBudgetHisProjectId.length > 0 &&
-      include.push({ model: ProjectBudgetHisModel, as: 'projectBudgetHisProjectId' });
+      include.push({
+        model: ProjectBudgetHisModel,
+        as: 'projectBudgetHisProjectId',
+      });
     param.projectBudgetProjectId &&
       param.projectBudgetProjectId.length > 0 &&
       include.push({ model: ProjectBudgetModel, as: 'projectBudgetProjectId' });
+    param.projectChangeFileProjectId &&
+      param.projectChangeFileProjectId.length > 0 &&
+      include.push({
+        model: ProjectChangeFileModel,
+        as: 'projectChangeFileProjectId',
+      });
+    param.projectChangeProjectId &&
+      param.projectChangeProjectId.length > 0 &&
+      include.push({ model: ProjectChangeModel, as: 'projectChangeProjectId' });
     param.projectFileHisProjectId &&
       param.projectFileHisProjectId.length > 0 &&
-      include.push({ model: ProjectFileHisModel, as: 'projectFileHisProjectId' });
+      include.push({
+        model: ProjectFileHisModel,
+        as: 'projectFileHisProjectId',
+      });
     param.projectFileProjectId &&
       param.projectFileProjectId.length > 0 &&
       include.push({ model: ProjectFileModel, as: 'projectFileProjectId' });
@@ -445,4 +510,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-
