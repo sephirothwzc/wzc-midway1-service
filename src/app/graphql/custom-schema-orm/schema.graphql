@@ -1,0 +1,47 @@
+type CustomSchemaOrm {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 自定义表单id
+  formCustomId: String
+  # 自定义表单布局id
+  formCustomSchemaId: String
+  # 具体类型id
+  ormId: String
+  # 类型project、budget、contract
+  ormType: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  formCustomIdObj: FormCustom
+  formCustomSchemaIdObj: FormCustomSchema
+  # 工作流 图形数据
+  workFlowGraph(cellid: String): String
+}
+
+type CustomSchemaOrmList {
+  count: Int!
+  list: [CustomSchemaOrm]
+}
+
+extend type Query {
+  # playground schema by ormtable id 总行数
+  customSchemaOrmCount(param: QueryListParam): Int
+  # playground schema by ormtable id 分页查询
+  customSchemaOrmList(param: QueryListParam): CustomSchemaOrmList
+  # playground schema by ormtable id  id 获取
+  customSchemaOrm(id: ID!): SchemaOrm
+  # playground schema by ormtable id 有条件返回
+  customSchemaOrmAll(param: QueryListParam): [CustomSchemaOrm]
+}

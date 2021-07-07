@@ -40,8 +40,6 @@ module.exports = (serviceName) => {
    * @returns
    */
   const findUnionTypeString = (obj) => {
-    console.log('findUnionTypeString');
-    console.log(obj);
     const unionType = _.get(obj, '_modelOptions.name.plural', '');
     return unionType.replace('Models', '');
   };
