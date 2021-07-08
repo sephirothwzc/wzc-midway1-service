@@ -26,7 +26,7 @@ type CustomSchemaOrm {
   updatedId: String
   formCustomIdObj: FormCustom
   formCustomSchemaIdObj: FormCustomSchema
-  # 工作流 图形数据
+  # 工作流 图形数据 为空则初使节点
   workFlowGraph(cellid: String): String
 }
 
