@@ -59,8 +59,9 @@ export class FileService extends ServiceBase {
           id,
           ossName: `/upload/${day}/${newName}`,
           ...p,
-          filename: newName,
+          filename: p.filename,
           filepath: uploadDirFile,
+          remark: newName,
         };
       });
       return this.bulkCreate(filesModelList);
