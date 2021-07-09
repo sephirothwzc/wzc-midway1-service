@@ -22,7 +22,7 @@ import {
   ContractSignHisModel,
 } from '../models/contract-sign-his.model';
 import * as Bb from 'bluebird';
-import { CONTRACT_HIS, ContractHisModel } from '../models/contract-his.model';
+import { ContractHisModel } from '../models/contract-his.model';
 
 @provide('ContractHisHook')
 export class ContractHisHook {
