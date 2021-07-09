@@ -270,4 +270,21 @@ export class WorkFlowOrmService extends ServiceGenericBase<WorkFlowOrmModel> {
      */
     await this.save(wfo);
   }
+
+  /**
+   * 工作节点加载auth 表单布局
+   * @param values
+   */
+  async workFlowGraph(values: WorkFlowOrmModel) {
+    // 根据 form_custom_id 获取工作流 graphql
+    const wf = await this.workFlowService.findByPk<WorkFlowModel>(
+      values.get('workFlowId')
+    );
+    const { cells } = wf.get('graph') as any;
+    const dataNode = cells.find((p: any) => p.id === values.get('nodeId'));
+    return {
+      graphString: get(dataNode, 'data.formAuthSchema'),
+      cellNodeId: get(dataNode, 'id'),
+    };
+  }
 }

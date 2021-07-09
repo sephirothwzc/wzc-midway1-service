@@ -9,6 +9,8 @@ type WorkFlowOrm {
   createdAt: DateTime
   # 创建人id
   createdId: String
+  # 工作流表单nodeid
+  cellNodeId: String
   # 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
   dataStatus: String
   # 删除时间
@@ -46,6 +48,7 @@ type WorkFlowOrm {
   createWorkIdObj: AppUser
   workFlowOrmUserWorkFlowOrmId(param: QueryListParam): [WorkFlowOrmUser]
   ormIdModel: OrmIdModel
+  workFlowGraph: WorkFlowGraph
 }
 
 union OrmIdModel = Project | Contract | Budget
@@ -90,6 +93,8 @@ input WorkFlowOrmSaveIn {
   createdAt: DateTime
   # 创建人id
   createdId: String
+  # 工作流表单nodeid
+  cellNodeId: String
   # 节点状态save 保存、finish 提交、wait 等待、handle 处理、end 结束、reject 驳回、abnormal 异常、confirm 确认
   dataStatus: String
   # 删除时间

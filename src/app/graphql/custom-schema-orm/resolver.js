@@ -15,7 +15,7 @@ module.exports = {
     },
     workFlowGraph: async (_root, _args, ctx, _info) => {
       const service = await getService(ctx, 'customSchemaOrm');
-      return service.workFlowGraph(_root, _args.cellid);
+      return service.workFlowGraph(_root);
     },
   },
 };

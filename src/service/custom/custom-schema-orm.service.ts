@@ -22,11 +22,10 @@ export class CustomSchemaOrmService extends ServiceGenericBase<SchemaOrmModel> {
   workFlowModel: IWorkFlowModel;
 
   /**
-   * 根据schemaorm 加载code、cellid => graph
+   * 根据schemaorm 加载code、cellid => graph 首节点
    * @param model code 从对象取
-   * @param cellid 节点id 为空则取起始节点
    */
-  async workFlowGraph(model: SchemaOrmModel, cellid: String) {
+  async workFlowGraph(model: SchemaOrmModel) {
     // 根据 form_custom_id 获取工作流 graphql
     const wf = await this.workFlowModel.findOne({
       where: {
@@ -36,9 +35,11 @@ export class CustomSchemaOrmService extends ServiceGenericBase<SchemaOrmModel> {
     });
     const { cells } = wf.get('graph') as any;
     const dataNode = cells.find(
-      (p: any) =>
-        (cellid && p.id === cellid) || get(p, 'data.type') === 'startNode'
+      (p: any) => get(p, 'data.type') === 'startNode'
     );
-    return get(dataNode, 'data.formAuthSchema');
+    return {
+      graphString: get(dataNode, 'data.formAuthSchema'),
+      cellNodeId: get(dataNode, 'id'),
+    };
   }
 }

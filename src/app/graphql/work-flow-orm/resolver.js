@@ -31,6 +31,18 @@ module.exports = {
       const service = await getService(ctx, _root.ormType);
       return service.fetchById(_root.ormId);
     },
+    /**
+     * 工作流节点布局 为空则默认
+     * @param {*} _root
+     * @param {*} _args
+     * @param {*} ctx
+     * @param {*} _info
+     * @returns
+     */
+    workFlowGraph: async (_root, _args, ctx, _info) => {
+      const service = await getService(ctx, 'workFlowOrm');
+      return service.workFlowGraph(_root);
+    },
   },
   OrmIdModel: {
     __resolveType: findUnionTypeString,

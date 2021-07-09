@@ -36,6 +36,11 @@ export class WorkFlowOrmModel extends BaseModel {
   @Column({ comment: '业务编码权限用', type: DataType.STRING(500) })
   businessCode: string;
   /**
+   * 工作流表单nodeid
+   */
+  @Column({ comment: '工作流表单nodeid', type: DataType.STRING(50) })
+  cellNodeId?: string;
+  /**
    * 创建人id
    */
   @ForeignKey(() => AppUserModel)
@@ -134,6 +139,11 @@ export class WORK_FLOW_ORM {
    * 业务编码权限用
    */
   static readonly BUSINESS_CODE: string = 'businessCode';
+
+  /**
+   * 工作流表单nodeid
+   */
+  static readonly CELL_NODE_ID: string = 'cellNodeId';
 
   /**
    * 创建人id

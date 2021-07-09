@@ -6,6 +6,10 @@ export const workFlowOrmMutationCreate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('业务编码权限用'),
+  cellNodeId: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('工作流表单nodeid'),
   createWorkId: Joi.string().allow('').allow(null).description('创建人id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
@@ -55,6 +59,10 @@ export const workFlowOrmMutationUpdate = Joi.object().keys({
     .allow('')
     .allow(null)
     .description('业务编码权限用'),
+  cellNodeId: Joi.string()
+    .allow('')
+    .allow(null)
+    .description('工作流表单nodeid'),
   createWorkId: Joi.string().allow('').allow(null).description('创建人id'),
   createdAt: Joi.date().allow(null).description('创建时间'),
   createdId: Joi.string().allow('').allow(null).description('创建人id'),
