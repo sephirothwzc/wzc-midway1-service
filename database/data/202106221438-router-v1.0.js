@@ -1,117 +1,117 @@
 module.exports = [
   {
-    link: 'app-user/list',
+    link: '/app-user/list',
     key: 'AppUserList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/app-user/list'), options),
   },
   {
-    link: 'app-user/',
+    link: '/app-user/',
     key: 'AppUserAdd',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/app-user/item'), options),
   },
   {
-    link: 'app-user/:id',
+    link: '/app-user/:id',
     key: 'AppUserEdit',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/app-user/item'), options),
   },
   {
-    link: 'role/list',
+    link: '/role/list',
     key: 'RoleList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role/list'), options),
   },
   {
-    link: 'role/',
+    link: '/role/',
     key: 'RoleAdd',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role/item'), options),
   },
   {
-    link: 'role/:id',
+    link: '/role/:id',
     key: 'RoleEdit',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role/item'), options),
   },
   {
-    link: 'role-group/list',
+    link: '/role-group/list',
     key: 'RoleGroupList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role-group/list'), options),
   },
   {
-    link: 'role-group/',
+    link: '/role-group/',
     key: 'RoleGroupAdd',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role-group/item'), options),
   },
   {
-    link: 'role-group/:id',
+    link: '/role-group/:id',
     key: 'RoleGroupEdit',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/role-group/item'), options),
   },
   {
-    link: 'router/list',
+    link: '/router/list',
     key: 'RouterList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/router/list'), options),
   },
   {
-    link: 'router/',
+    link: '/router/',
     key: 'RouterAdd',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/router/item'), options),
   },
   {
-    link: 'router/:id',
+    link: '/router/:id',
     key: 'RouterEdit',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/router/item'), options),
   },
   {
-    link: 'permission-configuration/router',
+    link: '/permission-configuration/router',
     key: 'RouterConfiguration',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/permission-configuration/router'),
-      options
-    ),
+    //   () => import('../views/permission-configuration/router'),
+    //   options
+    // ),
   },
   {
-    link: 'permission-configuration/role',
+    link: '/permission-configuration/role',
     key: 'RoleConfiguration',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/permission-configuration/role'),
-      options
-    ),
+    //   () => import('../views/permission-configuration/role'),
+    //   options
+    // ),
   },
   {
-    link: 'work-flow/list',
+    link: '/work-flow/list',
     key: 'WorkFlowList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/work-flow/list'), options),
   },
   {
-    link: 'work-flow/',
+    link: '/work-flow/',
     key: 'WorkFlowAdd',
     iconType: 'home',
     exact: true,
@@ -119,99 +119,99 @@ module.exports = [
   },
   // 修改动态表单（草稿、保存、提交）
   {
-    link: 'work-flow-my/dynamic-form/:workflowormuserid/:dataid',
+    link: '/work-flow-my/dynamic-form/:workflowormuserid/:dataid',
     key: 'DynamicForm',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form-edit'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form-edit'),
+    //   options
+    // ),
   },
   // 新建动态表单（草稿、保存、提交）
   {
-    link: 'work-flow-my/dynamic-form/:formCustomId',
+    link: '/work-flow-my/dynamic-form/:formCustomId',
     key: 'DynamicForm',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form'),
+    //   options
+    // ),
   },
   // 我的草稿（未提交的）
   {
-    link: 'work-flow-my/dynamic-form-draft',
+    link: '/work-flow-my/dynamic-form-draft',
     key: 'DynamicFormList',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form-draft'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form-draft'),
+    //   options
+    // ),
   },
   // 我的申请（我发起的）
   {
-    link: 'work-flow-my/dynamic-form-apply',
+    link: '/work-flow-my/dynamic-form-apply',
     key: 'DynamicFormApply',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form-apply'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form-apply'),
+    //   options
+    // ),
   },
   // 我的审批（待我审批）
   {
-    link: 'work-flow-my/dynamic-form-waiting',
+    link: '/work-flow-my/dynamic-form-waiting',
     key: 'DynamicFormWaiting',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form-waiting'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form-waiting'),
+    //   options
+    // ),
   },
   {
-    link: 'work-flow-my/dynamic-form-draft/:formCustomId',
+    link: '/work-flow-my/dynamic-form-draft/:formCustomId',
     key: 'DynamicFormList',
     iconType: 'home',
     exact: true,
     // component: loadable(
-      () => import('../views/work-flow/dynamic-render/dynamic-form-draft'),
-      options
-    ),
+    //   () => import('../views/work-flow/dynamic-render/dynamic-form-draft'),
+    //   options
+    // ),
   },
   {
-    link: 'work-flow/:id',
+    link: '/work-flow/:id',
     key: 'WorkFlowEdit',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/work-flow/item'), options),
   },
   {
-    link: 'form-custom/list',
+    link: '/form-custom/list',
     key: 'FormCustomList',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/form-custom/list'), options),
   },
   {
-    link: 'form-custom/',
+    link: '/form-custom/',
     key: 'FormCustomAdd',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/form-custom/item'), options),
   },
   {
-    link: 'form-custom/:id/design',
+    link: '/form-custom/:id/design',
     key: 'FormCustomDesign',
     iconType: 'home',
     exact: true,
     // component: loadable(() => import('../views/form-custom/design'), options),
   },
   {
-    link: 'form-custom/:id',
+    link: '/form-custom/:id',
     key: 'FormCustomEdit',
     iconType: 'home',
     exact: true,
@@ -219,7 +219,7 @@ module.exports = [
   },
   {
     // 预算调拨
-    link: 'budget/allocation',
+    link: '/budget/allocation',
     key: 'budgetAllocation',
     iconType: 'home',
     text: 'budgetAllocation',
@@ -228,7 +228,7 @@ module.exports = [
   },
   {
     // 新建预算
-    link: 'budget/list/add',
+    link: '/budget/list/add',
     key: 'budgetAdd',
     iconType: 'home',
     text: 'budgetAdd',
@@ -237,7 +237,7 @@ module.exports = [
   },
   {
     // 编辑预算
-    link: 'budget/list/edit/:id',
+    link: '/budget/list/edit/:id',
     key: 'budgetAdd',
     iconType: 'home',
     text: 'budgetAdd',
@@ -246,7 +246,7 @@ module.exports = [
   },
   {
     // 查看预算信息
-    link: 'budget/list/info/:id',
+    link: '/budget/list/info/:id',
     key: 'budgetInfo',
     iconType: 'home',
     text: 'budgetInfo',
@@ -255,7 +255,7 @@ module.exports = [
   },
   {
     // 预算列表
-    link: 'budget/list',
+    link: '/budget/list',
     key: 'budgetList',
     iconType: 'home',
     text: 'budgetList',
@@ -264,7 +264,7 @@ module.exports = [
   },
   {
     // 新增项目
-    link: 'project/list/add',
+    link: '/project/list/add',
     key: 'projectAdd',
     iconType: 'home',
     text: 'projectAdd',
@@ -273,7 +273,7 @@ module.exports = [
   },
   {
     // 编辑项目
-    link: 'project/list/edit/:id',
+    link: '/project/list/edit/:id',
     key: 'projectEdit',
     iconType: 'home',
     text: 'projectEdit',
@@ -282,7 +282,7 @@ module.exports = [
   },
   {
     // 查看项目
-    link: 'project/list/info/:id',
+    link: '/project/list/info/:id',
     key: 'projectInfo',
     iconType: 'home',
     text: 'projectInfo',
@@ -291,7 +291,7 @@ module.exports = [
   },
   {
     // 项目列表
-    link: 'project/list',
+    link: '/project/list',
     key: 'projectList',
     iconType: 'home',
     text: 'projectList',
@@ -300,43 +300,43 @@ module.exports = [
   },
   {
     // 新增项目组
-    link: 'project-group/list/add',
+    link: '/project-group/list/add',
     key: 'projectAdd',
     iconType: 'home',
     text: 'projectAdd',
     exact: false,
     // component: loadable(
-      () => import('../views/project-group/item-edit'),
-      options
-    ),
+    //   () => import('../views/project-group/item-edit'),
+    //   options
+    // ),
   },
   {
     // 编辑项目组
-    link: 'project-group/list/edit/:id',
+    link: '/project-group/list/edit/:id',
     key: 'projectEdit',
     iconType: 'home',
     text: 'projectEdit',
     exact: false,
     // component: loadable(
-      () => import('../views/project-group/item-edit'),
-      options
-    ),
+    //   () => import('../views/project-group/item-edit'),
+    //   options
+    // ),
   },
   {
     // 查看项目组
-    link: 'project-group/list/info/:id',
+    link: '/project-group/list/info/:id',
     key: 'projectInfo',
     iconType: 'home',
     text: 'projectInfo',
     exact: false,
     // component: loadable(
-      () => import('../views/project-group/item-info'),
-      options
-    ),
+    //   () => import('../views/project-group/item-info'),
+    //   options
+    // ),
   },
   {
     // 项目组列表
-    link: 'project-group/list',
+    link: '/project-group/list',
     key: 'projectList',
     iconType: 'home',
     text: 'projectList',
