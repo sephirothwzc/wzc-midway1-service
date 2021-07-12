@@ -1,7 +1,10 @@
 import { provide, inject } from 'midway';
 import { CreateOptions, Transaction } from 'sequelize/types';
 import { ServiceGenericBase } from '../lib/base/service-generic.base';
-import { IContractChangeModel, ContractChangeModel } from '../lib/models/contract-change.model';
+import {
+  IContractChangeModel,
+  ContractChangeModel,
+} from '../lib/models/contract-change.model';
 import { IContractHisService } from './contract-his.service';
 import { IContractService } from './contract.service';
 
@@ -12,7 +15,7 @@ export class ContractChangeService extends ServiceGenericBase<ContractChangeMode
   get Model(): any {
     return this.contractChangeModel;
   }
-  
+
   @inject()
   contractChangeModel: IContractChangeModel;
 
@@ -24,7 +27,10 @@ export class ContractChangeService extends ServiceGenericBase<ContractChangeMode
    * 新增
    * @param values
    */
-  public async create(values: ContractChangeModel, useOptions?: CreateOptions): Promise<ContractChangeModel> {
+  public async create(
+    values: ContractChangeModel,
+    useOptions?: CreateOptions
+  ): Promise<ContractChangeModel> {
     const run = async (t: Transaction) => {
       if (values.contractHisIdObj && !values.contractHisId) {
         values.contractHisId = (
@@ -46,5 +52,4 @@ export class ContractChangeService extends ServiceGenericBase<ContractChangeMode
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }

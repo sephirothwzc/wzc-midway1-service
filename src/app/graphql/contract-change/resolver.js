@@ -1,12 +1,13 @@
 const resolverUtil = require('../utils/resolver.util');
-const { Query, Mutation,  getService } = resolverUtil('contractChange');
+const { Query, Mutation, getService } = resolverUtil('contractChange');
 const _ = require('lodash');
 
 module.exports = {
-  Query,Mutation,  
+  Query,
+  Mutation,
   ContractChange: {
     contractHisIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx,'contractHis');
+      const service = await getService(ctx, 'contractHis');
       return service.fetchById(_root.contractHisId);
     },
     contractChangeFileContractChangeId: async (_root, _args, ctx, _info) => {
@@ -15,7 +16,7 @@ module.exports = {
       return service.findAll(_args.param);
     },
     contractIdObj: async (_root, _args, ctx, _info) => {
-      const service = await getService(ctx,'contract');
+      const service = await getService(ctx, 'contract');
       return service.fetchById(_root.contractId);
     },
   },

@@ -26,10 +26,11 @@ type ContractChange {
   # 修改人id
   updatedId: String
   contractHisIdObj: ContractHis
-  contractChangeFileContractChangeId(param: QueryListParam): [ContractChangeFile]
+  contractChangeFileContractChangeId(
+    param: QueryListParam
+  ): [ContractChangeFile]
   contractIdObj: Contract
 }
-
 
 # 合同变更 分页查询返回
 type ContractChangeList {
@@ -91,4 +92,3 @@ input ContractChangeSaveIn {
   contractHisIdObj: ContractHisSaveIn
   contractIdObj: ContractSaveIn
 }
-

@@ -15,7 +15,7 @@ export class ContractService extends ServiceGenericBase<ContractModel> {
   get Model(): any {
     return this.contractModel;
   }
-  
+
   @inject()
   contractModel: IContractModel;
 
@@ -33,7 +33,10 @@ export class ContractService extends ServiceGenericBase<ContractModel> {
    * 新增
    * @param values
    */
-  public async create(values: ContractModel, useOptions?: CreateOptions): Promise<ContractModel> {
+  public async create(
+    values: ContractModel,
+    useOptions?: CreateOptions
+  ): Promise<ContractModel> {
     const run = async (t: Transaction) => {
       if (values.projectIdObj && !values.projectId) {
         values.projectId = (
@@ -90,5 +93,4 @@ export class ContractService extends ServiceGenericBase<ContractModel> {
     };
     return await this.useTransaction(run, useOptions);
   }
-  
 }

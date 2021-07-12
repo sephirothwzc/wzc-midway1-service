@@ -1,15 +1,30 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
+import { ContractChangeFileModel } from './contract-change-file.model';
+import { ContractChangeModel } from './contract-change.model';
+import { ContractCollectionPaymentHisModel } from './contract-collection-payment-his.model';
 import { ContractCollectionPaymentModel } from './contract-collection-payment.model';
+import { ContractCollectionPaymentPlanHisModel } from './contract-collection-payment-plan-his.model';
 import { ContractCollectionPaymentPlanModel } from './contract-collection-payment-plan.model';
+import { ContractFileHisModel } from './contract-file-his.model';
 import { ContractFileModel } from './contract-file.model';
+import { ContractHisModel } from './contract-his.model';
 import { ProjectModel } from './project.model';
 import { BudgetModel } from './budget.model';
 import { DataDictionaryModel } from './data-dictionary.model';
 import { AppUserModel } from './app-user.model';
 import { OrganizationModel } from './organization.model';
+import { ContractMeetingHisModel } from './contract-meeting-his.model';
 import { ContractMeetingModel } from './contract-meeting.model';
+import { ContractSignHisModel } from './contract-sign-his.model';
 import { ContractSignModel } from './contract-sign.model';
 // #region enum
 export enum EContractContractCode {
@@ -17,7 +32,6 @@ export enum EContractContractCode {
    *
    */
   unique = 'unique',
-
 }
 
 export enum EContractContractName {
@@ -25,9 +39,7 @@ export enum EContractContractName {
    *
    */
   unique = 'unique',
-
 }
-
 
 // #endregion
 
@@ -153,14 +165,32 @@ export class ContractModel extends BaseModel {
   @Column({ comment: '合同状态', type: DataType.STRING(50) })
   status?: string;
 
+  @HasMany(() => ContractChangeFileModel, 'contract_id')
+  contractChangeFileContractId: Array<ContractChangeFileModel>;
+
+  @HasMany(() => ContractChangeModel, 'contract_id')
+  contractChangeContractId: Array<ContractChangeModel>;
+
+  @HasMany(() => ContractCollectionPaymentHisModel, 'contract_id')
+  contractCollectionPaymentHisContractId: Array<ContractCollectionPaymentHisModel>;
+
   @HasMany(() => ContractCollectionPaymentModel, 'contract_id')
   contractCollectionPaymentContractId: Array<ContractCollectionPaymentModel>;
+
+  @HasMany(() => ContractCollectionPaymentPlanHisModel, 'contract_id')
+  contractCollectionPaymentPlanHisContractId: Array<ContractCollectionPaymentPlanHisModel>;
 
   @HasMany(() => ContractCollectionPaymentPlanModel, 'contract_id')
   contractCollectionPaymentPlanContractId: Array<ContractCollectionPaymentPlanModel>;
 
+  @HasMany(() => ContractFileHisModel, 'contract_id')
+  contractFileHisContractId: Array<ContractFileHisModel>;
+
   @HasMany(() => ContractFileModel, 'contract_id')
   contractFileContractId: Array<ContractFileModel>;
+
+  @HasMany(() => ContractHisModel, 'contract_id')
+  contractHisContractId: Array<ContractHisModel>;
 
   @BelongsTo(() => ProjectModel, 'project_id')
   projectIdObj: ProjectModel;
@@ -183,17 +213,21 @@ export class ContractModel extends BaseModel {
   @BelongsTo(() => OrganizationModel, 'organization_id')
   organizationIdObj: OrganizationModel;
 
+  @HasMany(() => ContractMeetingHisModel, 'contract_id')
+  contractMeetingHisContractId: Array<ContractMeetingHisModel>;
+
   @HasMany(() => ContractMeetingModel, 'contract_id')
   contractMeetingContractId: Array<ContractMeetingModel>;
 
+  @HasMany(() => ContractSignHisModel, 'contract_id')
+  contractSignHisContractId: Array<ContractSignHisModel>;
+
   @HasMany(() => ContractSignModel, 'contract_id')
   contractSignContractId: Array<ContractSignModel>;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class CONTRACT {
-
   /**
    * 录入人
    */
@@ -293,7 +327,6 @@ export class CONTRACT {
    * 合同状态
    */
   static readonly STATUS: string = 'status';
-
 }
 
 // @provide 用 工厂模式static model
@@ -309,22 +342,90 @@ export const createOptions = () => {
   return (
     param: ContractModel
   ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.contractCollectionPaymentContractId && !param.contractCollectionPaymentPlanContractId && !param.contractFileContractId && !param.contractMeetingContractId && !param.contractSignContractId) {
+    if (
+      !param.contractChangeFileContractId &&
+      !param.contractChangeContractId &&
+      !param.contractCollectionPaymentHisContractId &&
+      !param.contractCollectionPaymentContractId &&
+      !param.contractCollectionPaymentPlanHisContractId &&
+      !param.contractCollectionPaymentPlanContractId &&
+      !param.contractFileHisContractId &&
+      !param.contractFileContractId &&
+      !param.contractHisContractId &&
+      !param.contractMeetingHisContractId &&
+      !param.contractMeetingContractId &&
+      !param.contractSignHisContractId &&
+      !param.contractSignContractId
+    ) {
       return {};
     }
     const include: any = [];
+    param.contractChangeFileContractId &&
+      param.contractChangeFileContractId.length > 0 &&
+      include.push({
+        model: ContractChangeFileModel,
+        as: 'contractChangeFileContractId',
+      });
+    param.contractChangeContractId &&
+      param.contractChangeContractId.length > 0 &&
+      include.push({
+        model: ContractChangeModel,
+        as: 'contractChangeContractId',
+      });
+    param.contractCollectionPaymentHisContractId &&
+      param.contractCollectionPaymentHisContractId.length > 0 &&
+      include.push({
+        model: ContractCollectionPaymentHisModel,
+        as: 'contractCollectionPaymentHisContractId',
+      });
     param.contractCollectionPaymentContractId &&
       param.contractCollectionPaymentContractId.length > 0 &&
-      include.push({ model: ContractCollectionPaymentModel, as: 'contractCollectionPaymentContractId' });
+      include.push({
+        model: ContractCollectionPaymentModel,
+        as: 'contractCollectionPaymentContractId',
+      });
+    param.contractCollectionPaymentPlanHisContractId &&
+      param.contractCollectionPaymentPlanHisContractId.length > 0 &&
+      include.push({
+        model: ContractCollectionPaymentPlanHisModel,
+        as: 'contractCollectionPaymentPlanHisContractId',
+      });
     param.contractCollectionPaymentPlanContractId &&
       param.contractCollectionPaymentPlanContractId.length > 0 &&
-      include.push({ model: ContractCollectionPaymentPlanModel, as: 'contractCollectionPaymentPlanContractId' });
+      include.push({
+        model: ContractCollectionPaymentPlanModel,
+        as: 'contractCollectionPaymentPlanContractId',
+      });
+    param.contractFileHisContractId &&
+      param.contractFileHisContractId.length > 0 &&
+      include.push({
+        model: ContractFileHisModel,
+        as: 'contractFileHisContractId',
+      });
     param.contractFileContractId &&
       param.contractFileContractId.length > 0 &&
       include.push({ model: ContractFileModel, as: 'contractFileContractId' });
+    param.contractHisContractId &&
+      param.contractHisContractId.length > 0 &&
+      include.push({ model: ContractHisModel, as: 'contractHisContractId' });
+    param.contractMeetingHisContractId &&
+      param.contractMeetingHisContractId.length > 0 &&
+      include.push({
+        model: ContractMeetingHisModel,
+        as: 'contractMeetingHisContractId',
+      });
     param.contractMeetingContractId &&
       param.contractMeetingContractId.length > 0 &&
-      include.push({ model: ContractMeetingModel, as: 'contractMeetingContractId' });
+      include.push({
+        model: ContractMeetingModel,
+        as: 'contractMeetingContractId',
+      });
+    param.contractSignHisContractId &&
+      param.contractSignHisContractId.length > 0 &&
+      include.push({
+        model: ContractSignHisModel,
+        as: 'contractSignHisContractId',
+      });
     param.contractSignContractId &&
       param.contractSignContractId.length > 0 &&
       include.push({ model: ContractSignModel, as: 'contractSignContractId' });
@@ -337,4 +438,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-

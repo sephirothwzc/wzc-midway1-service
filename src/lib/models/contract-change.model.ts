@@ -1,4 +1,11 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
 import { ContractHisModel } from './contract-his.model';
@@ -63,12 +70,10 @@ export class ContractChangeModel extends BaseModel {
 
   @BelongsTo(() => ContractModel, 'contract_id')
   contractIdObj: ContractModel;
-
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class CONTRACT_CHANGE {
-
   /**
    * 业务编码权限用
    */
@@ -98,7 +103,6 @@ export class CONTRACT_CHANGE {
    * 备注
    */
   static readonly REMARK: string = 'remark';
-
 }
 
 // @provide 用 工厂模式static model
@@ -120,7 +124,10 @@ export const createOptions = () => {
     const include: any = [];
     param.contractChangeFileContractChangeId &&
       param.contractChangeFileContractChangeId.length > 0 &&
-      include.push({ model: ContractChangeFileModel, as: 'contractChangeFileContractChangeId' });
+      include.push({
+        model: ContractChangeFileModel,
+        as: 'contractChangeFileContractChangeId',
+      });
     return { include };
   };
 };
@@ -130,4 +137,3 @@ providerWrapper([
     provider: createOptions,
   },
 ]);
-
