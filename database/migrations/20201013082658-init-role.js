@@ -24,6 +24,11 @@ module.exports = {
       'role',
       {
         ...parentColumn,
+        app_id: {
+          type: STRING(50),
+          references: references('app_client'),
+          comment: 'app_client',
+        },
         role_name: {
           type: STRING(50),
           allowNull,

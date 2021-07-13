@@ -15,12 +15,15 @@ module.exports = {
       'app_user',
       {
         ...parentColumn,
+        app_id: {
+          type: STRING(50),
+          references: references('app_client'),
+          comment: 'app_client',
+        },
         user_gender: {
-          type: ENUM,
-          values: ['m', 'w'],
-          defaultValue: 'm',
+          type: STRING(10),
           allowNull,
-          comment: '用户性别[男 m 男，女 w 女]',
+          comment: '用户性别 男 m 男，女 w 女',
         },
         user_name: {
           type: STRING(15),
@@ -47,18 +50,16 @@ module.exports = {
           comment: '注册时间',
         },
         app_user_status: {
-          type: STRING,
+          type: STRING(1),
           defaultValue: 'Y',
           allowNull,
           comment: '用户状态N停用Y启用',
         },
         app_user_type: {
-          type: ENUM,
+          type: STRING(10),
           defaultValue: 'ordinary',
-          values: ['ordinary', 'recovery', 'system'],
           allowNull,
-          comment:
-            '用户类型[ordinary 普通用户,recovery 回收人员,system 系统用户]',
+          comment: '用户类型[ordinary 普通用户,system 系统用户]',
         },
         default_avatar: {
           type: STRING(500),

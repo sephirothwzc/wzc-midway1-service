@@ -24,9 +24,10 @@ module.exports = {
       'business_schema',
       {
         ...parentColumn,
-        app_name: {
+        app_id: {
           type: STRING(50),
-          comment: 'appName',
+          references: references('app_client'),
+          comment: 'app_client',
         },
         role_id: {
           type: STRING(50),

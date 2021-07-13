@@ -24,6 +24,11 @@ module.exports = {
       'data_dictionary',
       {
         ...parentColumn,
+        app_id: {
+          type: STRING(50),
+          references: references('app_client'),
+          comment: 'app_client',
+        },
         key: {
           type: STRING(50),
           allowNull: false,

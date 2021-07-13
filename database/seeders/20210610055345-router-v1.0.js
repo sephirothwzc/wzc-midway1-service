@@ -18,7 +18,7 @@ module.exports = {
       dataJson.map((p) => {
         return {
           id: nextId(),
-          app_name: 'midway-financial-system',
+          app_name: 'wzc-midway1-member',
           router_name: p.link,
           router_code: p.link,
           display_code: p.key,

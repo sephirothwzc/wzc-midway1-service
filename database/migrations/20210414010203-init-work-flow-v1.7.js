@@ -24,9 +24,10 @@ module.exports = {
       'work_flow',
       {
         ...parentColumn,
-        app_name: {
+        app_id: {
           type: STRING(50),
-          comment: 'appName',
+          references: references('app_client'),
+          comment: 'app_client',
         },
         name: {
           type: STRING(50),

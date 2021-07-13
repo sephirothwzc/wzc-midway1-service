@@ -24,9 +24,10 @@ module.exports = {
       'business_rule',
       {
         ...parentColumn,
-        app_name: {
+        app_id: {
           type: STRING(50),
-          comment: 'appName',
+          references: references('app_client'),
+          comment: 'app_client',
         },
         rule_code: {
           type: STRING(50),

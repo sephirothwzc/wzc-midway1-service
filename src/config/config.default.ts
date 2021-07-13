@@ -140,7 +140,7 @@ export default (appInfo: EggAppInfo) => {
   config.cluster = {
     listen: {
       port: 8501,
-      hostname: '0.0.0.0',
+      hostname: '127.0.0.1',
     },
   };
 
@@ -197,7 +197,6 @@ export default (appInfo: EggAppInfo) => {
       ctx.body = err.message;
     },
     json(err: Error, ctx: Context) {
-      console.log(err);
       ctx.body = {
         message: _.get(err, 'message'),
         stack: _.get(err, 'stack'),
