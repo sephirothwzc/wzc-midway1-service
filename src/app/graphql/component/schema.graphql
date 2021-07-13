@@ -1,0 +1,121 @@
+# 组件
+type Component {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 组件名称[unique]
+  componentCode: String
+  # 组件唯一约束key[unique]
+  componentKey: String
+  # 组件名称[unique]
+  componentName: String
+  # 控件属性
+  controlProperty: JSONObject
+  # 控件类型
+  controlType: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 显示编码
+  displayCode: String
+  # 显示文本
+  displayTxt: String
+  # 组件路径
+  filePath: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  componentControlerComponentId(param: QueryListParam): [ComponentControler]
+  appIdObj: AppClient
+  parentIdObj: Component
+  routerComponentId(param: QueryListParam): [Router]
+}
+
+
+# 组件 分页查询返回
+type ComponentList {
+  count: Int!
+  list: [Component]
+}
+
+extend type Query {
+  # 组件 总行数
+  componentCount(param: QueryListParam): Int
+  # 组件 分页查询
+  componentList(param: QueryListParam): ComponentList
+  # 组件  id 获取
+  component(id: ID!): Component
+  # 组件 有条件返回
+  componentAll(param: QueryListParam): [Component]
+}
+
+extend type Mutation {
+  # 组件 新增
+  componentCreate(param: ComponentSaveIn!): Component
+  # 组件 新增 or 修改
+  component(param: ComponentSaveIn!, must: Boolean = false): String
+  # 组件 批量 新增 or 修改
+  componentBulk(param: [ComponentSaveIn]!): [JSONObject]
+  # 组件 删除
+  componentDestroy(where: JSONObject!, limit: Int): String
+  # 组件 根据id删除
+  componentDestroyById(id: String): String
+}
+
+input ComponentSaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 组件名称[unique]
+  componentCode: String
+  # 组件唯一约束key[unique]
+  componentKey: String
+  # 组件名称[unique]
+  componentName: String
+  # 控件属性
+  controlProperty: JSONObject
+  # 控件类型
+  controlType: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 显示编码
+  displayCode: String
+  # 显示文本
+  displayTxt: String
+  # 组件路径
+  filePath: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  componentControlerComponentId: [ComponentControlerSaveIn]
+  componentParentId: [ComponentSaveIn]
+  routerComponentId: [RouterSaveIn]
+  appIdObj: AppClientSaveIn
+  parentIdObj: ComponentSaveIn
+}
+

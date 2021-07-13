@@ -1,0 +1,106 @@
+# 角色
+type Role {
+  id: ID
+  # app_client
+  appId: String
+  # appName
+  appName: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色编码
+  roleCode: String
+  # 角色名称
+  roleName: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 权重
+  weight: Float
+  businessSchemaRoleId(param: QueryListParam): [BusinessSchema]
+  componentControlerRoleRoleId(param: QueryListParam): [ComponentControlerRole]
+  roleGroupItemRoleId(param: QueryListParam): [RoleGroupItem]
+  appIdObj: AppClient
+  routerRoleRoleId(param: QueryListParam): [RouterRole]
+  schemaModelRoleRoleId(param: QueryListParam): [SchemaModelRole]
+  webapiRoleRoleId(param: QueryListParam): [WebapiRole]
+}
+
+
+# 角色 分页查询返回
+type RoleList {
+  count: Int!
+  list: [Role]
+}
+
+extend type Query {
+  # 角色 总行数
+  roleCount(param: QueryListParam): Int
+  # 角色 分页查询
+  roleList(param: QueryListParam): RoleList
+  # 角色  id 获取
+  role(id: ID!): Role
+  # 角色 有条件返回
+  roleAll(param: QueryListParam): [Role]
+}
+
+extend type Mutation {
+  # 角色 新增
+  roleCreate(param: RoleSaveIn!): Role
+  # 角色 新增 or 修改
+  role(param: RoleSaveIn!, must: Boolean = false): String
+  # 角色 批量 新增 or 修改
+  roleBulk(param: [RoleSaveIn]!): [JSONObject]
+  # 角色 删除
+  roleDestroy(where: JSONObject!, limit: Int): String
+  # 角色 根据id删除
+  roleDestroyById(id: String): String
+}
+
+input RoleSaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # appName
+  appName: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色编码
+  roleCode: String
+  # 角色名称
+  roleName: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 权重
+  weight: Float
+  businessSchemaRoleId: [BusinessSchemaSaveIn]
+  componentControlerRoleRoleId: [ComponentControlerRoleSaveIn]
+  roleGroupItemRoleId: [RoleGroupItemSaveIn]
+  routerRoleRoleId: [RouterRoleSaveIn]
+  schemaModelRoleRoleId: [SchemaModelRoleSaveIn]
+  webapiRoleRoleId: [WebapiRoleSaveIn]
+  appIdObj: AppClientSaveIn
+}
+

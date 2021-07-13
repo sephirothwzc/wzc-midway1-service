@@ -25,6 +25,7 @@ export class AuthToken {
       id: string;
       userName: string;
       exp?: number | string;
+      [key: string]: any;
     },
     options?: { expiresIn?: any }
   ) {

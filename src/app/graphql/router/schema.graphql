@@ -1,0 +1,107 @@
+# 前端路由
+type Router {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 组件id
+  componentId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 显示编码
+  displayCode: String
+  # 显示文本
+  displayTxt: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # 路由编码
+  routerCode: String
+  # 路由名称
+  routerName: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  appIdObj: AppClient
+  parentIdObj: Router
+  componentIdObj: Component
+  routerRoleRouterId(param: QueryListParam): [RouterRole]
+}
+
+# 前端路由 分页查询返回
+type RouterList {
+  count: Int!
+  list: [Router]
+}
+
+extend type Query {
+  # 前端路由 总行数
+  routerCount(param: QueryListParam): Int
+  # 前端路由 分页查询
+  routerList(param: QueryListParam): RouterList
+  # 前端路由  id 获取
+  router(id: ID!): Router
+  # 前端路由 有条件返回
+  routerAll(param: QueryListParam): [Router]
+}
+
+extend type Mutation {
+  # 前端路由 新增
+  routerCreate(param: RouterSaveIn!): Router
+  # 前端路由 新增 or 修改
+  router(param: RouterSaveIn!, must: Boolean = false): String
+  # 前端路由 批量 新增 or 修改
+  routerBulk(param: [RouterSaveIn]!): [JSONObject]
+  # 前端路由 删除
+  routerDestroy(where: JSONObject!, limit: Int): String
+  # 前端路由 根据id删除
+  routerDestroyById(id: String): String
+}
+
+input RouterSaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 组件id
+  componentId: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 显示编码
+  displayCode: String
+  # 显示文本
+  displayTxt: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # 路由编码
+  routerCode: String
+  # 路由名称
+  routerName: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  routerParentId: [RouterSaveIn]
+  routerRoleRouterId: [RouterRoleSaveIn]
+  appIdObj: AppClientSaveIn
+  parentIdObj: RouterSaveIn
+  componentIdObj: ComponentSaveIn
+}

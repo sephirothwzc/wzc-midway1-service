@@ -1,0 +1,109 @@
+# 数据字典
+type DataDictionary {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 说明文本
+  description: String
+  # 显示编码
+  displayCode: String
+  # 显示值
+  displayTxt: String
+  # 英文数字组成禁止标点符号
+  key: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # Y启用N停用
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 字典值
+  value: String
+  appIdObj: AppClient
+  parentIdObj: DataDictionary
+}
+
+
+# 数据字典 分页查询返回
+type DataDictionaryList {
+  count: Int!
+  list: [DataDictionary]
+}
+
+extend type Query {
+  # 数据字典 总行数
+  dataDictionaryCount(param: QueryListParam): Int
+  # 数据字典 分页查询
+  dataDictionaryList(param: QueryListParam): DataDictionaryList
+  # 数据字典  id 获取
+  dataDictionary(id: ID!): DataDictionary
+  # 数据字典 有条件返回
+  dataDictionaryAll(param: QueryListParam): [DataDictionary]
+}
+
+extend type Mutation {
+  # 数据字典 新增
+  dataDictionaryCreate(param: DataDictionarySaveIn!): DataDictionary
+  # 数据字典 新增 or 修改
+  dataDictionary(param: DataDictionarySaveIn!, must: Boolean = false): String
+  # 数据字典 批量 新增 or 修改
+  dataDictionaryBulk(param: [DataDictionarySaveIn]!): [JSONObject]
+  # 数据字典 删除
+  dataDictionaryDestroy(where: JSONObject!, limit: Int): String
+  # 数据字典 根据id删除
+  dataDictionaryDestroyById(id: String): String
+}
+
+input DataDictionarySaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 说明文本
+  description: String
+  # 显示编码
+  displayCode: String
+  # 显示值
+  displayTxt: String
+  # 英文数字组成禁止标点符号
+  key: String
+  # 父级地址id
+  parentId: String
+  # 备注
+  remark: String
+  # Y启用N停用
+  status: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 字典值
+  value: String
+  dataDictionaryParentId: [DataDictionarySaveIn]
+  appIdObj: AppClientSaveIn
+  parentIdObj: DataDictionarySaveIn
+}
+

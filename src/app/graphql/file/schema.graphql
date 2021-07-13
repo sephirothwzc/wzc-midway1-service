@@ -1,0 +1,98 @@
+# 文件上传记录表
+type File {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 编码
+  encoding: String
+  # 字断名
+  fieldname: String
+  # 文件名
+  filename: String
+  # tmp 文件路径
+  filepath: String
+  # 文件名称
+  mime: String
+  # oss上传完整路径
+  ossFilepath: String
+  # oss上传文件id名字
+  ossName: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+}
+
+# 文件上传记录表 分页查询返回
+type FileList {
+  count: Int!
+  list: [File]
+}
+
+extend type Query {
+  # 文件上传记录表 总行数
+  fileCount(param: QueryListParam): Int
+  # 文件上传记录表 分页查询
+  fileList(param: QueryListParam): FileList
+  # 文件上传记录表  id 获取
+  file(id: ID!): File
+  # 文件上传记录表 有条件返回
+  fileAll(param: QueryListParam): [File]
+}
+
+extend type Mutation {
+  # 文件上传记录表 新增
+  fileCreate(param: FileSaveIn!): File
+  # 文件上传记录表 新增 or 修改
+  file(param: FileSaveIn!, must: Boolean = false): String
+  # 文件上传记录表 批量 新增 or 修改
+  fileBulk(param: [FileSaveIn]!): [JSONObject]
+  # 文件上传记录表 删除
+  fileDestroy(where: JSONObject!, limit: Int): String
+  # 文件上传记录表 根据id删除
+  fileDestroyById(id: String): String
+}
+
+input FileSaveIn {
+  id: ID
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 编码
+  encoding: String
+  # 字断名
+  fieldname: String
+  # 文件名
+  filename: String
+  # tmp 文件路径
+  filepath: String
+  # 文件名称
+  mime: String
+  # oss上传完整路径
+  ossFilepath: String
+  # oss上传文件id名字
+  ossName: String
+  # 备注
+  remark: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+}

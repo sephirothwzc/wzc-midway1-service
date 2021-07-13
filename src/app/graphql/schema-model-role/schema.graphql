@@ -1,0 +1,102 @@
+# model角色关系表
+type SchemaModelRole {
+  id: ID
+  # app_client
+  appId: String
+  # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
+  authState: String
+  # 业务编码权限用
+  businessCode: String
+  # 业务权限规则编码
+  businessValue: JSONObject
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 权限[onlyOne onlyOne 只看自己，all all 可见可操作，businessCode businessCode 权限编码]
+  dataState: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色
+  roleId: String
+  # 对象id
+  schemaModelId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  appIdObj: AppClient
+  roleIdObj: Role
+  schemaModelIdObj: SchemaModel
+}
+
+
+# model角色关系表 分页查询返回
+type SchemaModelRoleList {
+  count: Int!
+  list: [SchemaModelRole]
+}
+
+extend type Query {
+  # model角色关系表 总行数
+  schemaModelRoleCount(param: QueryListParam): Int
+  # model角色关系表 分页查询
+  schemaModelRoleList(param: QueryListParam): SchemaModelRoleList
+  # model角色关系表  id 获取
+  schemaModelRole(id: ID!): SchemaModelRole
+  # model角色关系表 有条件返回
+  schemaModelRoleAll(param: QueryListParam): [SchemaModelRole]
+}
+
+extend type Mutation {
+  # model角色关系表 新增
+  schemaModelRoleCreate(param: SchemaModelRoleSaveIn!): SchemaModelRole
+  # model角色关系表 新增 or 修改
+  schemaModelRole(param: SchemaModelRoleSaveIn!, must: Boolean = false): String
+  # model角色关系表 批量 新增 or 修改
+  schemaModelRoleBulk(param: [SchemaModelRoleSaveIn]!): [JSONObject]
+  # model角色关系表 删除
+  schemaModelRoleDestroy(where: JSONObject!, limit: Int): String
+  # model角色关系表 根据id删除
+  schemaModelRoleDestroyById(id: String): String
+}
+
+input SchemaModelRoleSaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # 权限[view view 只读可见，operation operation 可见可操作，none none 没有权限]
+  authState: String
+  # 业务编码权限用
+  businessCode: String
+  # 业务权限规则编码
+  businessValue: JSONObject
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 权限[onlyOne onlyOne 只看自己，all all 可见可操作，businessCode businessCode 权限编码]
+  dataState: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 角色
+  roleId: String
+  # 对象id
+  schemaModelId: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  appIdObj: AppClientSaveIn
+  roleIdObj: RoleSaveIn
+  schemaModelIdObj: SchemaModelSaveIn
+}
+

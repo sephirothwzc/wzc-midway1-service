@@ -3,7 +3,7 @@ import { Context } from 'midway';
 import { IAuth } from '../lib/interfaces/auth.interface';
 import { AppUserModel } from '../lib/models/app-user.model';
 import { AuthToken } from '../lib/utils/auth-token';
-import { IAppUserService } from '../service/app-user.service';
+import { IAppUserService } from '../service/custom/app-user.service';
 
 export const development = {
   watchDirs: [
@@ -125,7 +125,7 @@ export const sequelize = {
   // database: 'auth_center_dev',
   // username: 'root_develop',
   // password: 'eegDed-gbdacu3-ntuplw',
-  database: 'financial_system_dev',
+  database: 'member_dev',
   username: 'root_develop',
   password: 'eegDed-gbdacu3-ntuplw',
   timezone: '+08:00',

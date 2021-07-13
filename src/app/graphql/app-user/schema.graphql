@@ -1,0 +1,174 @@
+# 终端用户
+type AppUser {
+  id: ID
+  # 凭证
+  accessToken: String
+  # app_client
+  appId: String
+  # 用户状态N停用Y启用
+  appUserStatus: String
+  # 用户类型[ordinary 普通用户,system 系统用户]
+  appUserType: String
+  # wx头像
+  avatarUrl: String
+  # 业务编码权限用
+  businessCode: String
+  # wxmini-用户所属企业的corpid
+  corpid: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 系统默认头像
+  defaultAvatar: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 身份证头像
+  idHead: String
+  # 身份证国徽
+  idNational: String
+  # 登陆code（最后一次）
+  jsCode: String
+  # 用户最后心跳时间
+  lastHeartbeatTime: DateTime
+  # 最后登陆时间
+  lastLoginTime: DateTime
+  # 用户昵称
+  nickName: String
+  # wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
+  openid: String
+  # 密码（小程序不需要）
+  password: String
+  # 注册手机号
+  phone: String
+  # 用户真实姓名
+  realName: String
+  # 注册app
+  registerApp: String
+  # 注册时间
+  registerTime: DateTime
+  # 备注
+  remark: String
+  # 用户最后颁发token
+  token: String
+  # wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
+  unionid: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 用户性别 男 m 男，女 w 女
+  userGender: String
+  # 用户名登陆用
+  userName: String
+  appIdObj: AppClient
+  appUserRoleAppUserId(param: QueryListParam): [AppUserRole]
+  workFlowOrmCreateWorkId(param: QueryListParam): [WorkFlowOrm]
+  workFlowOrmUserFormUserId(param: QueryListParam): [WorkFlowOrmUser]
+  workFlowOrmUserHandleUserId(param: QueryListParam): [WorkFlowOrmUser]
+}
+
+
+# 终端用户 分页查询返回
+type AppUserList {
+  count: Int!
+  list: [AppUser]
+}
+
+extend type Query {
+  # 终端用户 总行数
+  appUserCount(param: QueryListParam): Int
+  # 终端用户 分页查询
+  appUserList(param: QueryListParam): AppUserList
+  # 终端用户  id 获取
+  appUser(id: ID!): AppUser
+  # 终端用户 有条件返回
+  appUserAll(param: QueryListParam): [AppUser]
+}
+
+extend type Mutation {
+  # 终端用户 新增
+  appUserCreate(param: AppUserSaveIn!): AppUser
+  # 终端用户 新增 or 修改
+  appUser(param: AppUserSaveIn!, must: Boolean = false): String
+  # 终端用户 批量 新增 or 修改
+  appUserBulk(param: [AppUserSaveIn]!): [JSONObject]
+  # 终端用户 删除
+  appUserDestroy(where: JSONObject!, limit: Int): String
+  # 终端用户 根据id删除
+  appUserDestroyById(id: String): String
+}
+
+input AppUserSaveIn {
+  id: ID
+  # 凭证
+  accessToken: String
+  # app_client
+  appId: String
+  # 用户状态N停用Y启用
+  appUserStatus: String
+  # 用户类型[ordinary 普通用户,system 系统用户]
+  appUserType: String
+  # wx头像
+  avatarUrl: String
+  # 业务编码权限用
+  businessCode: String
+  # wxmini-用户所属企业的corpid
+  corpid: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 系统默认头像
+  defaultAvatar: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 身份证头像
+  idHead: String
+  # 身份证国徽
+  idNational: String
+  # 登陆code（最后一次）
+  jsCode: String
+  # 用户最后心跳时间
+  lastHeartbeatTime: DateTime
+  # 最后登陆时间
+  lastLoginTime: DateTime
+  # 用户昵称
+  nickName: String
+  # wxmini-企业微信的jscode2session返回的是userid，而微信返回的是openid
+  openid: String
+  # 密码（小程序不需要）
+  password: String
+  # 注册手机号
+  phone: String
+  # 用户真实姓名
+  realName: String
+  # 注册app
+  registerApp: String
+  # 注册时间
+  registerTime: DateTime
+  # 备注
+  remark: String
+  # 用户最后颁发token
+  token: String
+  # wxmini-用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
+  unionid: String
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  # 用户性别 男 m 男，女 w 女
+  userGender: String
+  # 用户名登陆用
+  userName: String
+  appUserRoleAppUserId: [AppUserRoleSaveIn]
+  workFlowOrmCreateWorkId: [WorkFlowOrmSaveIn]
+  workFlowOrmUserFormUserId: [WorkFlowOrmUserSaveIn]
+  workFlowOrmUserHandleUserId: [WorkFlowOrmUserSaveIn]
+  appIdObj: AppClientSaveIn
+}
+

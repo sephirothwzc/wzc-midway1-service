@@ -1,5 +1,5 @@
 import { Context, inject, controller, post, provide } from 'midway';
-import { IFileService } from '../../service/file.service';
+import { IFileService } from '../../service/custom/file.service';
 
 @provide()
 @controller('/api/file')

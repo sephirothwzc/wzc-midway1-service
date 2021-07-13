@@ -1,0 +1,92 @@
+# 业务编码规则
+type BusinessRule {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 规则编码[unique]
+  ruleCode: String
+  # 规则名称[unique]
+  ruleName: String
+  # 规则
+  ruleValue: JSONObject
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  appIdObj: AppClient
+  businessSchemaBusinessRuleId(param: QueryListParam): [BusinessSchema]
+}
+
+
+# 业务编码规则 分页查询返回
+type BusinessRuleList {
+  count: Int!
+  list: [BusinessRule]
+}
+
+extend type Query {
+  # 业务编码规则 总行数
+  businessRuleCount(param: QueryListParam): Int
+  # 业务编码规则 分页查询
+  businessRuleList(param: QueryListParam): BusinessRuleList
+  # 业务编码规则  id 获取
+  businessRule(id: ID!): BusinessRule
+  # 业务编码规则 有条件返回
+  businessRuleAll(param: QueryListParam): [BusinessRule]
+}
+
+extend type Mutation {
+  # 业务编码规则 新增
+  businessRuleCreate(param: BusinessRuleSaveIn!): BusinessRule
+  # 业务编码规则 新增 or 修改
+  businessRule(param: BusinessRuleSaveIn!, must: Boolean = false): String
+  # 业务编码规则 批量 新增 or 修改
+  businessRuleBulk(param: [BusinessRuleSaveIn]!): [JSONObject]
+  # 业务编码规则 删除
+  businessRuleDestroy(where: JSONObject!, limit: Int): String
+  # 业务编码规则 根据id删除
+  businessRuleDestroyById(id: String): String
+}
+
+input BusinessRuleSaveIn {
+  id: ID
+  # app_client
+  appId: String
+  # 业务编码权限用
+  businessCode: String
+  # 创建时间
+  createdAt: DateTime
+  # 创建人id
+  createdId: String
+  # 删除时间
+  deletedAt: DateTime
+  # 删除人id
+  deletedId: String
+  # 备注
+  remark: String
+  # 规则编码[unique]
+  ruleCode: String
+  # 规则名称[unique]
+  ruleName: String
+  # 规则
+  ruleValue: JSONObject
+  # 修改时间
+  updatedAt: DateTime
+  # 修改人id
+  updatedId: String
+  businessSchemaBusinessRuleId: [BusinessSchemaSaveIn]
+  appIdObj: AppClientSaveIn
+}
+
