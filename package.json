@@ -61,7 +61,7 @@
     "node": ">=10.16.0"
   },
   "scripts": {
-    "commit": "git add . && git-cz && git push",
+    "commit": "git add . && git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "start": "egg-scripts start --daemon --title=wzc-midway1-member --framework=midway --ts",
     "stop": "egg-scripts stop --title=wzc-midway1-member",

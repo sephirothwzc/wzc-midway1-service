@@ -1,10 +1,7 @@
-import { Table, Column, DataType, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript';
+import { Table, Column, DataType} from 'sequelize-typescript';
 import { BaseModel } from '../base/model.base';
 import { providerWrapper } from 'midway';
-import { AppClientModel } from './app-client.model';
-import { AppUserRoleModel } from './app-user-role.model';
-import { WorkFlowOrmModel } from './work-flow-orm.model';
-import { WorkFlowOrmUserModel } from './work-flow-orm-user.model';
+
 // #region enum
 export enum EAppUserAppUserType {
   /**
@@ -40,12 +37,12 @@ export class AppUserModel extends BaseModel {
    */
   @Column({ comment: '凭证', type: DataType.STRING(100) })
   accessToken: string;
-  /**
-   * app_client
-   */
-  @ForeignKey(() => AppClientModel)
-  @Column({ comment: 'app_client', type: DataType.STRING(50) })
-  appId?: string;
+  // /**
+  //  * app_client
+  //  */
+  // @ForeignKey(() => AppClientModel)
+  // @Column({ comment: 'app_client', type: DataType.STRING(50) })
+  // appId?: string;
   /**
    * 用户状态N停用Y启用
    */
@@ -161,21 +158,6 @@ export class AppUserModel extends BaseModel {
    */
   @Column({ comment: '用户名登陆用', type: DataType.STRING(15) })
   userName: string;
-
-  @BelongsTo(() => AppClientModel, 'app_id')
-  appIdObj: AppClientModel;
-
-  @HasMany(() => AppUserRoleModel, 'app_user_id')
-  appUserRoleAppUserId: Array<AppUserRoleModel>;
-
-  @HasMany(() => WorkFlowOrmModel, 'create_work_id')
-  workFlowOrmCreateWorkId: Array<WorkFlowOrmModel>;
-
-  @HasMany(() => WorkFlowOrmUserModel, 'form_user_id')
-  workFlowOrmUserFormUserId: Array<WorkFlowOrmUserModel>;
-
-  @HasMany(() => WorkFlowOrmUserModel, 'handle_user_id')
-  workFlowOrmUserHandleUserId: Array<WorkFlowOrmUserModel>;
 
 }
 
@@ -315,36 +297,6 @@ providerWrapper([
   {
     id: 'appUserModel',
     provider: factory,
-  },
-]);
-
-export const createOptions = () => {
-  return (
-    param: AppUserModel
-  ): { include?: [any]; transaction?: any; validate?: boolean } => {
-    if (!param.appUserRoleAppUserId && !param.workFlowOrmCreateWorkId && !param.workFlowOrmUserFormUserId && !param.workFlowOrmUserHandleUserId) {
-      return {};
-    }
-    const include: any = [];
-    param.appUserRoleAppUserId &&
-      param.appUserRoleAppUserId.length > 0 &&
-      include.push({ model: AppUserRoleModel, as: 'appUserRoleAppUserId' });
-    param.workFlowOrmCreateWorkId &&
-      param.workFlowOrmCreateWorkId.length > 0 &&
-      include.push({ model: WorkFlowOrmModel, as: 'workFlowOrmCreateWorkId' });
-    param.workFlowOrmUserFormUserId &&
-      param.workFlowOrmUserFormUserId.length > 0 &&
-      include.push({ model: WorkFlowOrmUserModel, as: 'workFlowOrmUserFormUserId' });
-    param.workFlowOrmUserHandleUserId &&
-      param.workFlowOrmUserHandleUserId.length > 0 &&
-      include.push({ model: WorkFlowOrmUserModel, as: 'workFlowOrmUserHandleUserId' });
-    return { include };
-  };
-};
-providerWrapper([
-  {
-    id: 'appUserModel.createOptions',
-    provider: createOptions,
   },
 ]);
 

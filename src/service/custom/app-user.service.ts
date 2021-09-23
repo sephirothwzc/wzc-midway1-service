@@ -10,20 +10,7 @@ import { IAuthToken } from '../../lib/utils/auth-token';
 import { ICode2sessionOut } from '../../lib/interfaces/auth.interface';
 import { IHttpClient } from '../../lib/utils/curl';
 import { Op } from 'sequelize';
-import {
-  APP_USER_ROLE,
-  IAppUserRoleModel,
-} from '../../lib/models/app-user-role.model';
-import * as Bb from 'bluebird';
-import { IRoleModel } from '../../lib/models/role.model';
-import { IRoleGroupModel } from '../../lib/models/role-group.model';
-import { RoleGroupItemModel } from '../../lib/models/role-group-item.model';
-import {
-  IRouterRoleModel,
-  RouterRoleModel,
-  ROUTER_ROLE,
-} from '../../lib/models/router-role.model';
-import { RouterModel } from '../../lib/models/router.model';
+
 
 export interface IAppUserService extends AppUserService {}
 
@@ -46,18 +33,6 @@ export class AppUserService extends ServiceBase {
   appUserModel: IAppUserModel;
 
   @inject()
-  appUserRoleModel: IAppUserRoleModel;
-
-  @inject()
-  roleModel: IRoleModel;
-
-  @inject()
-  roleGroupModel: IRoleGroupModel;
-
-  @inject()
-  routerRoleModel: IRouterRoleModel;
-
-  @inject()
   private authToken: IAuthToken;
 
   @config()
@@ -65,70 +40,6 @@ export class AppUserService extends ServiceBase {
 
   @inject()
   private httpClient: IHttpClient;
-
-  /**
-   * 权限角色
-   * @param appUser
-   * @returns
-   */
-  private async authPower(appUser: AppUserModel): Promise<any> {
-    const appUserRoleList = await this.appUserRoleModel.findAll({
-      where: {
-        [APP_USER_ROLE.APP_USER_ID]: appUser.id,
-      },
-    });
-    const { roleList, roleGroupList } = await Bb.props({
-      roleList: this.roleModel.findAll({
-        where: {
-          id: appUserRoleList
-            .filter((p) => p.get('roleType') === 'role')
-            .map((p) => p.get('typeId')),
-        },
-      }),
-      roleGroupList: this.roleGroupModel.findAll({
-        where: {
-          id: appUserRoleList
-            .filter((p) => p.get('roleType') === 'roleGroup')
-            .map((p) => p.get('typeId')),
-        },
-        include: [
-          {
-            model: RoleGroupItemModel,
-            as: 'roleGroupItemRoleGroupId',
-          },
-        ],
-      }),
-    });
-    const roleAll = new Set();
-    roleList.forEach((p) => {
-      roleAll.add(p.get('id'));
-    });
-    roleGroupList.forEach((p) => {
-      p.roleGroupItemRoleGroupId.forEach((x) => {
-        roleAll.add(x.get('roleId'));
-      });
-    });
-    const routerList = await this.routerRoleModel.findAll<RouterRoleModel>({
-      where: {
-        [ROUTER_ROLE.ROLE_ID]: Array.from(roleAll) as Array<string>,
-      },
-      include: [
-        {
-          model: RouterModel,
-          as: 'routerIdObj',
-        },
-      ],
-    });
-    const routerAll = new Set();
-    routerList.forEach((p) => {
-      routerAll.add(p?.routerIdObj?.routerName);
-    });
-    return {
-      roleIdList: Array.from(roleAll),
-      roleGroupIdList: roleGroupList.map((p) => p.get('id')),
-      routerList: Array.from(routerAll),
-    };
-  }
 
   /**
    * 用户名密码登陆
@@ -170,13 +81,13 @@ export class AppUserService extends ServiceBase {
     const options = {};
     param?.expiresIn && this._.set(options, 'expiresIn', param?.expiresIn);
     // #region authPower
-    const authPower = await this.authPower(user);
+    // const authPower = await this.authPower(user);
     // #endregion
     const token = await this.authToken.sign(
       {
         id: user.id,
         userName: user.userName,
-        authPower,
+        // authPower,
         // type: user.appUserType,
       },
       options
@@ -186,7 +97,7 @@ export class AppUserService extends ServiceBase {
         id: user.id,
         token,
         userName: user.userName,
-        authPower,
+        // authPower,
       };
     }
     return this.throw(
